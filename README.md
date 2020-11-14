@@ -3,4 +3,4 @@
 
 ## Portals
 ### Input issues
- * [Autocomplte](autocomplete.md)
+ * [Autocomplte](portals/autocomplete.md)
