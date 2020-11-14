@@ -6,8 +6,8 @@ If you’ve ever wanted to display materials in a portal (think making your own 
 ```javascript
 //returns a promise
 function getMaterial(guid) {
-    const host = `${document.location.protocol}//${document.location.hostname}`
-    return fetch(`${host}/manage/lookup/material?id=${guid}&cmd=display`)
+    const host = '${document.location.protocol}//${document.location.hostname}'
+    return fetch('${host}/manage/lookup/material?id=${guid}&cmd=display')
     .then(response => {
         if (response.ok) {
             return response
@@ -15,7 +15,7 @@ function getMaterial(guid) {
     })
     .then(function(json) {
         const stream = FW.decodeFormValues(new URL(json.url).search.split('?')[1])
-        return `${host}/apply/viewer?cmd=tile&id=${stream.id}&pg=0&z=72`
+        return '${host}/apply/viewer?cmd=tile&id=${stream.id}&pg=0&z=72'
   })
 }
 ```
