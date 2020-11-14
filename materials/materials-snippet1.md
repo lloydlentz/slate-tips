@@ -1,5 +1,5 @@
 ## Snippet from Slack
-### Author:  Byrce Kunkel  2020-11-12
+### Author:  Byrce Kunkel  [2020-11-12](https://slate-users.slack.com/archives/CJHEUQW5V/p1605193931121400)
 
 If you’ve ever wanted to display materials in a portal (think making your own custom reader process) this script will get it for you.
 
