@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title></title>
+    <style type="text/css">.tile{ 
+    float: left;
+    width: 100px;
+    height: 200px;
+    overflow: hidden;
+    border: solid 1px lightgray;
+    font-size: 12px;
+}  .tileimg{ width:75px; }
+    </style>
+  </head>
+  <body>
+    {% for item in materials %}
+    <div class="tile">
+      <a href="/manage/lookup/material?id={{item.guid}}&amp;cmd=display"><img class="tileimg" src="/manage/database/acquire?cmd=tile&amp;id={{item.stream}}&amp;pg=0&amp;z=14" /></a><br />
+      {{item.type}}<br />
+      {{item.memo}}
+    </div>
+    {% endfor %}
+  </body>
+</html>
