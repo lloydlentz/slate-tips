@@ -1,0 +1,40 @@
+     <div class="header">
+      Person Details
+    </div>
+    
+    
+    <div class="content" style="height: 400px;">
+      
+    </div>
+    
+    
+    <div class="action" id="peercontact">
+      <textarea name="peercontact_note" id="peercontact_note" cols="60" rows=5></textarea>
+      <button onclick="save()" style="padding: 10px; margin: 20px;" type="button">Save</button>
+      <button onclick="FW.Dialog.Unload();" style="padding: 10px; margin: 20px" type="button">Cancel</button>
+    </div>
+    
+    <script type="text/javascript">
+        function save(){
+          $.ajax({
+            url: '?cmd=db_add_contact',
+            method: 'POST',
+            data: {
+              record: "{{guid}}" ,
+              note: $("#peercontact_note").val(),
+              cmd: "db_add_contact"
+            },
+            success: function() {
+              $("peercontact").html("<h2>Thanks</h2>");
+              //FW.Dialog.Unload();
+              //top.location.reload(true);
+              
+            },
+            error: function(){
+              alert('ERROR Saving');
+            }
+          })
+  
+        }
+     </script>
+ 
