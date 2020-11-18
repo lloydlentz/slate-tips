@@ -5,6 +5,7 @@
 
  * Input issues - [Autocomplte](portals/autocomplete.md)
  * Pop Ups - [Pop Up Template](portals/pop-up-template.html)
+ * Table CSS - [Portal Table and Table Row Classes](https://technolutions.zendesk.com/hc/en-us/articles/360043316291-Portal-Table-and-Table-Row-Classes)
  
 ## Misc UX
  * [Popup Link](https://raw.githubusercontent.com/lloydlentz/slate-tips/main/misc/pop-up-link.html)
