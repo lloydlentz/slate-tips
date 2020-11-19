@@ -1,5 +1,8 @@
 # slate-tips
 
+## Forms
+ * [Date Picker](forms/date-picker.md)
+ * [Redirect After Submit](forms/redirect.md)
 
 ## Portals
 
