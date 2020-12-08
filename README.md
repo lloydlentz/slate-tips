@@ -3,6 +3,7 @@
 ## Forms
  * [Date Picker](forms/date-picker.md)
  * [Redirect After Submit](forms/redirect.md)
+ * [Hide the "Not SoAndSo, click here"](forms/hide-notpersonoption.md)
 
 ## Portals
 
