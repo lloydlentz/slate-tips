@@ -9,4 +9,5 @@ A little about that sample.
  * In order to have arguments you need to HTML Escape the ?s and &s 
    * ? =  %3F
    * & =  %26
+   * # =  %23
  * To send a referer to the second (referred) form, that is the %26referrer=  arg at the end.
