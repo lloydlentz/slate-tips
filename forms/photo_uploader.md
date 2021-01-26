@@ -48,5 +48,6 @@ Give it a whirl.  this will store the result in your form.
 If you would like to seperately store a Thubmail version, you could add a field 
  * [Export Key] = **photo_data_url_thm**
  * [Label] = **Thumbnail Size**
+ * Briefcase:  09fe8c90-e925-d5ce-c99a-6bfb156d9fd2@mad
  
   [Use this JS instead](photo_uploader_thumbnail.js)
