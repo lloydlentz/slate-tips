@@ -41,3 +41,12 @@ fileInput.bind("change", function(){
 
 Give it a whirl.  this will store the result in your form.
 ![](https://github.com/lloydlentz/slate-tips/blob/main/img/imglaod.gif)
+
+
+### Optional
+
+If you would like to seperately store a Thubmail version, you could add a field 
+ * [Export Key] = **photo_data_url_thm**
+ * [Label] = **Thumbnail Size**
+ 
+  [Use this JS instead](photo_uploader_thumbnail.js)
