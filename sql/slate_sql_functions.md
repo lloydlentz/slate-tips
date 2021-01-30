@@ -8,8 +8,8 @@ We use a String Agg
 
 
 ### Fiscal year
-VAR1 = Date Field
-VAR2 = MM-DD start date of Fiscal Year
+ * VAR1 = Date Field
+ * VAR2 = MM-DD start date of Fiscal Year
 ```
     dbo.getFiscalYear(GETDATE(),'06-01')
 ```
