@@ -14,6 +14,7 @@
  
 ## SQL
  * [Basic SQL Sorthands and Slate Built In Functions](sql/slate_sql_functions.md)
+ * [How to Query a node in XML](sql/xml.md) Especially handy with Technolutions internal style-guide driven way of storing things in p/k/v format.
  
 ## Misc UX
  * [Popup Link](https://raw.githubusercontent.com/lloydlentz/slate-tips/main/misc/pop-up-link.html)
