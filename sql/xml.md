@@ -13,10 +13,10 @@ select top 10
  order by m.delivered desc
  ```
  
- If you wanted to do this in a Configurable Join export you would do a SQL export (Say from Message Mailing base)
+ If you wanted to do this in a Configurable Join export you would do a SQL export (Say from Message base)
  ```
  Name: "Email"
- SQL: (mm__JID_.xml.value('(p[k = "user-email"]/v)[1]','varchar(max)'))
+ SQL: (msg__JID_.xml.value('(p[k = "user-email"]/v)[1]','varchar(max)'))
  ```
  
  
