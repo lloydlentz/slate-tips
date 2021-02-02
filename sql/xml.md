@@ -1,6 +1,6 @@
 # XML
 
-Working with XML is not always intuitive to me. [SQL Doc](https://docs.microsoft.com/en-us/sql/t-sql/xml/value-method-xml-data-type)
+Working with XML is not always intuitive. [SQL Doc](https://docs.microsoft.com/en-us/sql/t-sql/xml/value-method-xml-data-type)
 
 Quick way to query an XML element
 
