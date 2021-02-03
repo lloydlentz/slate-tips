@@ -7,7 +7,7 @@ We use a String Agg
 ```
 
 ### Get a Form Response ID
-This function takes two args.  (FormResponseId GUID, FormFieldExportKey String)
+This function takes two args.  (FormResponseId *GUID*, FormFieldExportKey *String*)
 ```
 (select top 1 [value] from getFormResponseTopTable(fr.id,'sys:field:prospect_current_stage')) [stage]
 ```
