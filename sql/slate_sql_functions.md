@@ -1,8 +1,9 @@
 # Slate has some built in funcitons that are super handy to use.
 
 ### Fiscal year
- * VAR1 = Date Field
- * VAR2 = MM-DD start date of Fiscal Year
+dbo.getFiscalYear(theDate *Date*, FiscalYearStartDay *String*)
+
+**note:** FiscalYearStartDay is MM-DD format
 ```
     dbo.getFiscalYear(GETDATE(),'06-01')
 ```
@@ -14,7 +15,7 @@ We use a String Agg
 ```
 
 ### Get a Form Response ID
-This function takes two args.  (FormResponseId *GUID*, FormFieldExportKey *String*)
+getFormResponseTopTable(FormResponseId *GUID*, FormFieldExportKey *String*)
 ```
 (select top 1 [value] from getFormResponseTopTable(fr.id,'sys:field:prospect_current_stage')) [stage]
 ```
