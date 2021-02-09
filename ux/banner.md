@@ -12,7 +12,7 @@ The Slate Banner is "too big"
 
 
 ### Solution
-On your main page report Drop this into the source code of the page
+On your main page report/widget Drop this into the source code of the page
 
 ```HTML
 <script>
