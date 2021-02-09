@@ -16,7 +16,8 @@
  * [Basic SQL Sorthands and Slate Built In Functions](sql/slate_sql_functions.md)
  * [How to Query a node in XML](sql/xml.md) Especially handy with Technolutions internal style-guide driven way of storing things in p/k/v format.
  
-## Misc UX
+## Misc UX (User Experience)
+ * [Minimize Slate Default Banner](ux/banner.md)
  * [Popup Link](https://raw.githubusercontent.com/lloydlentz/slate-tips/main/misc/pop-up-link.html)
  * [Custom Redirect after Form](forms/redirect.md)
  * Rick Click on text and search slate **From anywhere on the web** [Chrome Extension](https://chrome.google.com/webstore/detail/right-click-to-search-sla/gknefgbhjgfjflkdpemekfkiplahiffh)
