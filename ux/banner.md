@@ -12,7 +12,7 @@ The Slate Banner is "too big"
 
 
 ### Solution
-On your main page report/widget Drop this into the source code of the page
+On your main page [report](https://technolutions.zendesk.com/hc/en-us/community/posts/207512068-Report-on-homepage)/[widget](https://technolutions.zendesk.com/hc/en-us/articles/360033418751-Report-Widgets) Drop this into the source code of the page
 
 ```HTML
 <script>
