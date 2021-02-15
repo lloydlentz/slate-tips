@@ -18,6 +18,7 @@
  
 ## Misc UX (User Experience)
  * [Minimize Slate Default Banner](ux/banner.md)
+ * [Manage Tasks/Project a little better](helpful/task-manage.md)
  * [Popup Link](https://raw.githubusercontent.com/lloydlentz/slate-tips/main/misc/pop-up-link.html)
  * [Custom Redirect after Form](forms/redirect.md)
  * Rick Click on text and search slate **From anywhere on the web** [Chrome Extension](https://chrome.google.com/webstore/detail/right-click-to-search-sla/gknefgbhjgfjflkdpemekfkiplahiffh)
