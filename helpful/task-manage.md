@@ -8,7 +8,7 @@
 
 **<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/youtube.png" height=20 /> Walkthrough Video:**  https://youtu.be/5rdT3ekmDZs
 
-**Slate Briefcase:** `4beec998-5c62-64c8-854c-2db766cc3e4e@mad`
+**Slate Briefcase:** `4beec998-5c62-64c8-854c-2db766cc3e4e@mad`  This will work with no customization, uses Slate Standard Tables and Fields
 
 <img src="https://github.com/lloydlentz/slate-tips/raw/main/img/task-manage.gif" height=200 />
 
