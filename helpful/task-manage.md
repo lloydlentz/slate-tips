@@ -6,7 +6,7 @@
  - show all tasks that are not done, by project, and person
  - allow a user to filter down to user assigned, or project, or both.
 
-**<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/youtube.png" height=20 /> Walkthrough Video:**  https://youtu.be/WegN0OqarDA
+**<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/youtube.png" height=20 /> Walkthrough Video:**  https://youtu.be/5rdT3ekmDZs
 
 **Slate Briefcase:** `4beec998-5c62-64c8-854c-2db766cc3e4e@mad`
 
