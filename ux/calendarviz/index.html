@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title></title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["calendar"]});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var chart1 = new google.visualization.Calendar(document.getElementById('calendar_logins'));
+            var options1 = {
+                title: "Mac Direct Logins by Day",
+                height: 350,
+            };
+            
+            //REPLACE THE URL with your own query (( IN Edit view --> Web Service --> JSON.  Then click the JSON link to get the full URL ))
+
+            $.ajax({
+                    dataType: "json",
+                    url: 'https://engage.macalester.edu/manage/query/run?id=d6586582-28de-4708-aa38-4c56e780b117&h=a9cbb0a8-bce0-f514-6d68-26f2bf4dde5d&cmd=service&output=json',
+                    success: function( data ) {
+                        var dataTable = new google.visualization.DataTable();
+                        dataTable.addColumn({ type: 'date', id: 'Date' });
+                        dataTable.addColumn({ type: 'number', id: 'Logins' });
+                    
+                        var rows = [];
+                        
+                        //Convert the JSON response data to arrays so that the DataTable object understands it, and matches the data types above
+                        data.row.forEach(function(r){
+                            var rr = [new Date(r.dt), parseInt(r.cnt)];
+                            rows.push(rr)
+                        });
+                    
+                        // console.log(rows);
+                        dataTable.addRows(rows);
+                        // console.log(data.row);
+                        chart1.draw(dataTable, options1);
+                    }
+                });
+        }</script>
+  </head>
+  <body>
+    <div id="calendar_logins" style="width: 1000px; height: 350px;">
+      --data--
+    </div>
+  </body>
+</html>
