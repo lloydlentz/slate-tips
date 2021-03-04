@@ -15,6 +15,7 @@
 ## SQL
  * [Basic SQL Sorthands and Slate Built In Functions](sql/slate_sql_functions.md)
  * [How to Query a node in XML](sql/xml.md) Especially handy with Technolutions internal style-guide driven way of storing things in p/k/v format.
+ * [Remove HTML from a value field](sql/remove_html.md)  for example the Project Task table
  
 ## Misc UX (User Experience)
  * [Minimize Slate Default Banner](ux/banner.md)
