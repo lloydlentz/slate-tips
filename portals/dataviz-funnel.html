@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script type="text/javascript">
+window.onload = function () {
+
+    var queryWebServiceURL = "https://engage.macalester.edu/manage/query/run?id=7d09b3aa-1d89-494d-b31f-63e0ee684fce&h=7844496b-82bc-b50a-1d13-c0530c36659c&cmd=service&output=json";
+    // Query edited: https://engage.macalester.edu/manage/query/build?id=7d09b3aa-1d89-494d-b31f-63e0ee684fce
+    // Simple *Custom SQL* query
+    //
+    // select count(distinct (case when lp.export = 'AL' then p.id end)) al
+    //      , count(distinct (case when lp.export = 'PA' then p.id end)) pa
+    //      , count(distinct (case when lp.export = 'MS' then p.id end)) ms
+    //      , count(distinct (case when lp.export = 'MF' then p.id end)) mf
+    //   from [gift] g
+    //     left join [person] p on p.id = g.record
+    //     left join [field] rt on rt.record = p.id and rt.field = 'record_type'
+    //     left join [lookup.prompt] lp on lp.id = rt.prompt
+    //  where dbo.getFiscalYear(g.[date], '06-01')  = dbo.getFiscalYear(getdate(), '06-01') 
+
+
+    $.ajax({
+        dataType: "json",
+        url: queryWebServiceURL,
+        data: {},
+        success:  function( data ) {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                theme: "light2",
+                title:{
+                    text: "Individual Donors for the Current Year"
+                },
+                data: [{
+                    type: "funnel",
+                    indexLabel: "{label} [{y}] individuals",
+                    neckHeight: 0,
+                    toolTipContent: "{label} - {y} individuals",
+                    dataPoints: [
+                        { y: parseInt(data.row[0].al), label: "Alumni" },
+                        { y: parseInt(data.row[0].pa), label: "Parents" },
+                        { y: parseInt(data.row[0].ms), label: "Faculty" },
+                        { y: parseInt(data.row[0].mf), label: "Staff" }
+                    ]
+                }]
+            });
+            chart.render();
+        }
+    });
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;">Chart Loading...</div>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
