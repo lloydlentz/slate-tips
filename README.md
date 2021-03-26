@@ -12,6 +12,10 @@
  * Pop Ups - [Pop Up Template](portals/pop-up-template.html)
  * Table CSS - [Portal Table and Table Row Classes](https://technolutions.zendesk.com/hc/en-us/articles/360043316291-Portal-Table-and-Table-Row-Classes)
  * Form Embed - [More readable way to embed forms](portals/jquery-form-embed.md)
+
+## Built in Framework Funcitons & Helpers
+
+ * [Get QueryString Params](helpers/querysting.md)
  
 ## SQL
  * [Basic SQL Sorthands and Slate Built In Functions](sql/slate_sql_functions.md)
