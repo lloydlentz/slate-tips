@@ -12,7 +12,7 @@ Is what Slate uses for thier built in.
 
 ## HOWEVER
 
-That does not always parse params as expected.   After some [discussion wht my elders](https://stackoverflow.com/questions/7731778/get-query-string-parameters-url-values-with-jquery-javascript-querystring)
+That does not always parse params as expected.   After some [discussion with my elders](https://stackoverflow.com/questions/7731778/get-query-string-parameters-url-values-with-jquery-javascript-querystring)
  I'd reccomend adding a jQuery bootstrap
  
 ```JAVASCRIPT
