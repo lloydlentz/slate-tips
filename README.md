@@ -16,6 +16,7 @@
 ## Built in Framework Funcitons & Helpers
 
  * [Get QueryString Params](helpers/querysting.md)
+ * [Built In SQL Funcitons](helpers/sqlfunctions.md)
  
 ## SQL
  * [Basic SQL Sorthands and Slate Built In Functions](sql/slate_sql_functions.md)
