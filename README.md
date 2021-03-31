@@ -5,6 +5,7 @@
  * [Redirect After Submit](forms/redirect.md)
  * [Hide the "Not SoAndSo, click here"](forms/hide-notpersonoption.md)
  * [display Image URL for uploaded file](materials/displaypreview.md)
+ * [When is a CDATA section necessary within a script tag?](https://stackoverflow.com/questions/66837/when-is-a-cdata-section-necessary-within-a-script-tag)
 
 ## Portals
 
