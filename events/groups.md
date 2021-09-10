@@ -14,5 +14,12 @@ Add a custom SQL :
         else (select [name] from [person] grpp join [form.response] grpr on grpp.id = grpr.record and grpr.id = fr__JID_.[group])  
     end  )
 ```
-3 files 
+
+<img src="eventgroup1.jpg"> 
+
+<img src="eventgroup2.jpg"> 
+
+<img src="eventgroup3.jpg"> 
+
+
 
