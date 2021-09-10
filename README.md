@@ -7,6 +7,9 @@
  * [display Image URL for uploaded file](materials/displaypreview.md)
  * [When is a CDATA section necessary within a script tag?](https://stackoverflow.com/questions/66837/when-is-a-cdata-section-necessary-within-a-script-tag)
 
+## Events
+ * [Group Registrations](events/groups.md)
+
 ## Portals
 
  * Input issues - [Autocomplte](portals/autocomplete.md)
