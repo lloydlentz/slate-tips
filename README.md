@@ -34,6 +34,7 @@ This sections needs some work, but here are some code snippets that should get y
  * [Get Geo Location from IP Address](sql/geolocate_ip.md)  *[from Slack](https://slate-users.slack.com/archives/CFUUKHULW/p1629296632070700?thread_ts=1629296139.070600&cid=CFUUKHULW)* credit to Jamie Davis @ University of Michigan
  
 ## Misc UX (User Experience)
+ * [Display a Table of info in Liquid](liquid-loop-table.md)
  * [Minimize Slate Default Banner](ux/banner.md)
  * [Manage Tasks/Project a little better](helpful/task-manage.md)
  * [Popup Link](https://raw.githubusercontent.com/lloydlentz/slate-tips/main/misc/pop-up-link.html)
