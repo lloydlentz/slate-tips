@@ -2,6 +2,8 @@
 
 The Querystring Paramas are those thing in the URL of your browser like ?param=val
 
+**NOTE** This method will not work in a popup window.  the JS in a popup window will evaluate the querystring that is in the host window.  If you are looking to capture passed parameters that way you have to do it via Liquid Markup and Configurable Joins query Parameters
+
 ```JAVASCRIPT
 var qs = FW.decodeFormValues(location.search.substring(1));
 delete qs.cmd;
