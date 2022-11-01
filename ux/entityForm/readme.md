@@ -7,5 +7,5 @@
 OR
  4b) link directly to the scriplet
 ```
- <script type="text/javascript" src="https://macadv.github.io/entityForm.js"/>
+ <script type="text/javascript" src="https://lloydlentz.github.io/slate-tips/ux/entityForm/entityForm.js"/>
 ```
