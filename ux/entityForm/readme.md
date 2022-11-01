@@ -8,11 +8,10 @@
 
 
 ## [Full Script ](entityForm.js)
+add [this script text](https://lloydlentz.github.io/slate-tips/ux/entityForm/entityForm.js)
 
 ## Link
 add this 
- to the Script of the form from the [script](eneityForm.js) 
- 7) (OR, instead of (4)) link directly to the scriplet... add this to your [Edit Form]>>[Edit Scripts / Styles]
 ```
  $.getScript("https://lloydlentz.github.io/slate-tips/ux/entityForm/entityForm.js")
 ```
