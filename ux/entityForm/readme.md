@@ -15,3 +15,32 @@ add this
 ```
  $.getScript("https://lloydlentz.github.io/slate-tips/ux/entityForm/entityForm.js")
 ```
+
+
+## To Delete
+
+### Add a query to your UX Portal
+#### Parameters
+```
+<param id="record" type="UNIQUEIDENTIFIER" />
+<param id="entguid" type="UNIQUEIDENTIFIER" />
+```
+#### Custom SQL 
+```SQL
+DELETE [field] 
+ where [record] = @entguid
+   and [record] in (select [id] from [entity] where [record] = @record)
+	 
+DELETE from [entity] 
+ where [id] = @entguid 
+   and [record] = @record
+```
+
+### Add a Method
+ - **Name:** 	CRUD - delete Entity
+ - **Type:**	POST
+ - **Action:**	db_delete_entity
+ - **Linked Query:** - *CRUD - delete Entity* (That you just made above )
+ 
+### On Your Form
+ - Add a hidden field with export Key of **person**.   This will pick up the person GUID from the querystring, and make it available to the JS that was just added.
