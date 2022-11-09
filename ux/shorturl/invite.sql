@@ -1,5 +1,5 @@
 --declare @invite VARCHAR(max) = '/shorturltest/0001'
---declare @event varchar(max)
+declare @event varchar(max)
 declare @refid varchar(max)
 declare @person UNIQUEIDENTIFIER
 
