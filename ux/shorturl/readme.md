@@ -19,8 +19,21 @@ I think this is kinda fun, and it was super easy.   Let me show you how you can 
 
 ### STEP 1 - Choose a domain
 
-There are roughly 13 berjillion hosting providers, I am a (Google Guy)[https://gdg.community.dev/gdg-twin-cities/], so let me walk you through this dead simple way.
+There are roughly 13 berjillion hosting providers, I am a [Google Guy](https://gdg.community.dev/gdg-twin-cities/), so let me walk you through this dead simple way.
 
 1. Go to https://domains.google.com
-2. Search for something clever and available.   I chose **mclstr.page**.   Get it?   Macalester without vowels.   I know, very (TWTR)[https://www.wired.com/2012/06/alt-text-stupid-new-tlds/] of me.  
-3. When you register your domain go to Website >> Forward Domain
+2. Search for something clever and available.   I chose **mclstr.page**.   Get it?   Macalester without vowels.   I know, very [TWTR](https://www.wired.com/2012/06/alt-text-stupid-new-tlds/) of me.  Also, at the time of print, .page domains are like $8/yr
+3. When you register your domain go to Website >> Set Up Forwarding
+4. In the **Forward To** put `https://YOUR-SLATE-DOMAIN/portal/invite?cmd=invite&invite=`
+5. Expand the "Advanced Options"
+6. **Redirect Type** = 302
+7. **Path Forwarding** = Forward Path  !! THIS IS IMPORTANT !!
+8. **SSL On**
+9. Click [Forward]
+
+Because of the way the Internet [Tubing](https://knowyourmeme.com/memes/series-of-tubes) works you may have to wait a couple few hours for this to start working.   In the meantime, let's get your Slate portal setup and ready to accept your new awesome shortlinks.
+
+### Step 2 - Redir Portal
+
+1. Make a new portal with they key "invite"... or whatever you want, but if you change it, change the protal name in STEP 1.4 above.
+2. Make a new query, custom SQL, of course, add a paraemter `<param id="invite" />` and drop in this [SQL](invite.sql) 
