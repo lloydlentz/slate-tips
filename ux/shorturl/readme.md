@@ -17,7 +17,7 @@ I think this is kinda fun, and it was super easy.   Let me show you how you can 
 
 ### Standard Caveat
 
-<img src="doicare.png"> 
+<img src="doicare.png?"> 
 
 ### STEP 1 - Choose a domain
 
