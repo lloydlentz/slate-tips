@@ -9,7 +9,7 @@ https://engage.macalester.edu/register/?id=7c94151a-71b0-40e0-baa8-d804fa28c516&
 into this 
 https://bit.ly/3G1YaKw.   
 
-or even this https://mclstr.page/shorturltest/0001
+or even this https://mclstr.page/shorturltest/000106
 
 Right?   Same result, one is way easier to read.  (And frankly looks more professional in your texting campaigns to your donors or constituents)
 
