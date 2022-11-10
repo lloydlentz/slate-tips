@@ -35,5 +35,39 @@ Because of the way the Internet [Tubing](https://knowyourmeme.com/memes/series-o
 
 ### Step 2 - Redir Portal
 
-1. Make a new portal with they key "invite"... or whatever you want, but if you change it, change the protal name in STEP 1.4 above.
-2. Make a new query, custom SQL, of course, add a paraemter `<param id="invite" />` and drop in this [SQL](invite.sql) 
+1. Make a new portal with they key "invite"... or whatever you want, but if you change it, change the protal name in STEP 1.4 above. Security = Anonymous
+2. Make a new query, Name = Invite,  custom SQL, of course, add a paraemter `<param id="invite" />` and drop in this [SQL](invite.sql) 
+3. Make a new View, Name = Default.   Put some place holder in there like "hi".
+4. Make a new Method, Name = Default.  No action, Default Branding, View = Default
+5. Make a new method, Name = Invite, Output Type = Redirect, Action = invite, View = Default.   
+6. In the Invite Method, link queries to your Invite Query
+
+### Step 3 - Create your reg form, with custom URL
+Make a new form.  Edit Form >> Edit Properties >> Check "Allow Secure Login Link or whatever it says"
+
+Remember, we are trying to shorten things up, so come up with some Custom URL that you like. 
+
+<img src="formurl.png" />
+
+
+### Test it out
+
+By now you should see be able to go to your domain and see what is happening.
+
+Try going to your YOUR-SITE-URL/portal/invite?cmd=invite&invite=/{{YOUR-SHORT-FORM-PATH}}/{{SOME REF ID}}
+
+### Step 4 - Test your merge
+
+New Query, Config Joins of course, always use Config Joins, Person base
+Add a subquery Export.  
+1. Type = Concat
+2. Add Literal = `https://YOUR-NEW-URL.whatevs/`
+3. Add Literal = `YOUR-SHORT-FORM-PATH`
+4. Add Literal = `/`
+5. Add field = [Person Ref Id]
+
+Run that sucker and try some out!
+
+<img src="skinner-salt-bae.png" />
+
+
