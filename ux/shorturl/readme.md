@@ -33,6 +33,8 @@ There are roughly 13 berjillion hosting providers, I am a [Google Guy](https://g
 8. **SSL On**
 9. Click [Forward]
 
+<img src="googdomain.png" style="width:75px" />
+
 Because of the way the Internet [Tubing](https://knowyourmeme.com/memes/series-of-tubes) works you may have to wait a couple few hours for this to start working.   In the meantime, let's get your Slate portal setup and ready to accept your new awesome shortlinks.
 
 ### Step 2 - Redir Portal
@@ -68,8 +70,28 @@ Add a subquery Export.
 4. Add Literal = `/`
 5. Add field = [Person Ref Id]
 
+<img src="shorturlquery.png" style="width: 200px" />
+
 Run that sucker and try some out!
 
 <img src="skinner-salt-bae.png" />
 
 
+### Step 5 - A little less guesable
+<img src="security.png" style="width: 100px" />
+
+So.... having sequential refIDs like we do, is not super ideal, if a bad actor wanted to try and spoof the URL, they could impersonate another alumn and, I dunno, register for Happy Hour as a Trustee?   I don't know.   Still, it's always good to think of security.   If it actually needs to be secure, skip a shortURL.   But, we could do incrementally better.
+
+In Software Engineering Egghead Land™ (industry term, trust me), you need to "Salt" your encoded item.   Not quite like Skinner the Salt Bae above, but for the level of depth here, lets say sure.  Basically it means, "add something random".  How about a part of a person's GUID.
+
+Swap out your SQL in the portal for [THIS SQL](invite2.sql)
+
+And update your merge Query to add to the subquery export
+
+  * Add subquery export, type = formula, export field = [Person Guid] (you MUST change the Export Value Type to String), formula value = `substring(@Person-GUID,len(@Person-GUID)-1,2)`
+
+<img src="guid2.png" />
+
+
+
+As always, mileage may vary.  Comments welcome.  Click that subcribe, and tip your waitstaff.  
