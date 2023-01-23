@@ -67,39 +67,41 @@ if(!(!entguid || !personguid)){
 /**
  * Assumes you use 
  */
-fields.forEach(function (field) {
-    $.ajax({
-        url: "/portal/ux",
-        method: "GET",
-        data: {
-            cmd: 'get_f',
-            record: entguid,
-            field: field, 
-        } ,
-        beforeSend: function(){
-            $('[data-export="sys:entity:field:'+field+'"] label').first().append("<img id='img--"+field+"' />");
-            $('#img--'+field).attr("src","https://lloydlentz.github.io/slate-tips/ux/entityForm/loading-blue-bounce-20h.gif");
-        }, 
-        success: function (result) {
-            // $('#img-'+response+'-'+field).attr("src","");
-            // console.log('udpated '+response+'-'+field)
-            console.log(field+': '+result)
+if(!(!entguid || !personguid)){  // Check to make sure there are person and ent fields before filling in data 
+    fields.forEach(function (field) {
+        $.ajax({
+            url: "/portal/ux",
+            method: "GET",
+            data: {
+                cmd: 'get_f',
+                record: entguid,
+                field: field, 
+            } ,
+            beforeSend: function(){
+                $('[data-export="sys:entity:field:'+field+'"] label').first().append("<img id='img--"+field+"' />");
+                $('#img--'+field).attr("src","https://lloydlentz.github.io/slate-tips/ux/entityForm/loading-blue-bounce-20h.gif");
+            }, 
+            success: function (result) {
+                // $('#img-'+response+'-'+field).attr("src","");
+                // console.log('udpated '+response+'-'+field)
+                console.log(field+': '+result)
 
-            //If the Slate Form has a calculated value, then that will be evaluated alreadyt
-            if(
-                !$('[data-export="sys:entity:field:'+field+'"] input').val() 
-                || !$('[data-export="sys:entity:field:'+field+'"] input').val() 
-                || !$('[data-export="sys:entity:field:'+field+'"] input').val()
-            ){
-                $('[data-export="sys:entity:field:'+field+'"] input').val(result)
-                $('[data-export="sys:entity:field:'+field+'"] textarea').val(result)
-                $('[data-export="sys:entity:field:'+field+'"] select').val(result) //.prop('selected', true);    
+                //If the Slate Form has a calculated value, then that will be evaluated alreadyt
+                if(
+                    !$('[data-export="sys:entity:field:'+field+'"] input').val() 
+                    || !$('[data-export="sys:entity:field:'+field+'"] input').val() 
+                    || !$('[data-export="sys:entity:field:'+field+'"] input').val()
+                ){
+                    $('[data-export="sys:entity:field:'+field+'"] input').val(result)
+                    $('[data-export="sys:entity:field:'+field+'"] textarea').val(result)
+                    $('[data-export="sys:entity:field:'+field+'"] select').val(result) //.prop('selected', true);    
+                }
+                $('#img--'+field).attr("src","");
+            }, 
+            error: function () {
+                console.log("error");
             }
-            $('#img--'+field).attr("src","");
-        }, 
-        error: function () {
-            console.log("error");
-        }
-    });
-    
-})
+        });
+        
+    })
+}
