@@ -2,7 +2,7 @@
 
 ## [General Slate Productivity Helpers](productivity/readme.md)
 
- - [Chrome Search Engine Shortcut to search the Knowledgebase](productivity/search_engine_key.md)
+ - [Chrome Search Engine Shortcut to search the Knowledgebase or your own Instance](productivity/search_engine_key.md)
  - Rick Click on text and search slate **From anywhere on the web** [Chrome Extension](https://chrome.google.com/webstore/detail/right-click-to-search-sla/gknefgbhjgfjflkdpemekfkiplahiffh)
 
 
