@@ -13,7 +13,7 @@ The default way to embed a form, is snazzy.
      <script>
         var formguid = 'b6455cc8-58da-49d7-92c2-41f1f229b50d';
         $.ajax({
-            url: 'https://engage.macalester.edu/register/',
+            url: '/register/',
             dataType: "script",
             data: {
                 id: formguid,
