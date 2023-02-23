@@ -1,5 +1,10 @@
 # slate-tips
 
+## [General Slate Productivity Helpers](productivity/readme.md)
+
+ - [Chrome Search Engine Shortcut to search the Knowledgebase](search_engine_key.md)
+
+
 ## Forms
  * [Date Picker](forms/date-picker.md)
  * [Redirect After Submit](forms/redirect.md)
