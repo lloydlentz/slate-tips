@@ -2,7 +2,7 @@
 
 Pro Tip credit goes to Paul Turchan @ Technolutions
 
-> I thought I would share some helpful tools we use on our end to rapidly find articles or posts in Slate Feedback. You can configure custom search engines in Google Chrome by accessing this page: chrome://settings/searchEngines. Here are some parameters to enter:
+> I thought I would share some helpful tools we use on our end to rapidly find articles or posts in Slate Feedback. You can configure custom search engines in Google Chrome by accessing this page: **chrome://settings/searchEngines**. Here are some parameters to enter:
 
 In the *Site Search* section, click "Add"
 
