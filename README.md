@@ -1,5 +1,11 @@
 # slate-tips
 
+## [General Slate Productivity Helpers](productivity/readme.md)
+
+ - [Chrome Search Engine Shortcut to search the Knowledgebase or your own Instance](productivity/search_engine_key.md)
+ - Rick Click on text and search slate **From anywhere on the web** [Chrome Extension](https://chrome.google.com/webstore/detail/right-click-to-search-sla/gknefgbhjgfjflkdpemekfkiplahiffh)
+
+
 ## Forms
  * [Date Picker](forms/date-picker.md)
  * [Redirect After Submit](forms/redirect.md)
@@ -42,8 +48,7 @@ This sections needs some work, but here are some code snippets that should get y
  * [Popup Link](https://raw.githubusercontent.com/lloydlentz/slate-tips/main/misc/pop-up-link.html)
  * [Custom Redirect after Form](forms/redirect.md)
  * [Really Basic Funnel Chart](portals/dataviz-funnel.md)
- * Rick Click on text and search slate **From anywhere on the web** [Chrome Extension](https://chrome.google.com/webstore/detail/right-click-to-search-sla/gknefgbhjgfjflkdpemekfkiplahiffh)
- ![Image of Chrome Ex](img/chromeex1.png)
+ 
  
 ## Misc Whatever
  * [Here is a list of "valid" Slate Wordle words](misc/ValidSlateWords.txt).
