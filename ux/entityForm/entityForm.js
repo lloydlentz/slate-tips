@@ -32,7 +32,7 @@ var personguid = $('[data-export="person"] input').val()
 $('[data-export="sys:entity:id:'+entity+'"] input').val(entguid)
 console.log('entguid; ', entguid)
 
-if(!(!entguid || !personguid)){
+if((entguid && personguid)){
     $('div.action').append('<button id="entDeleteButton">Delete</button><img id="imgDelete" />')
 
     $('#entDeleteButton').click(function () {
@@ -61,6 +61,8 @@ if(!(!entguid || !personguid)){
         }    
 
     })
+} else {
+    console.log("missing ENTGUID or PERSON input fields")
 }
 
 
