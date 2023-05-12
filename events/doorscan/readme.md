@@ -11,7 +11,7 @@ Allow guests to be scanned in, as many times as there are guest #s
 ![image](https://github.com/lloydlentz/slate-tips/assets/223836/2788d1e9-8c6a-4bff-8926-9e2d5f71e48c)
 
 ### Doorscanner
-![image](https://github.com/lloydlentz/slate-tips/assets/223836/cc7f0a50-add3-44f4-9b1b-b2b908fd3bd2)
+![image](https://github.com/lloydlentz/slate-tips/assets/223836/3efde3a3-4156-4c28-933c-ae4c57c280ee)
 
 ### Components
  - Ticket 
