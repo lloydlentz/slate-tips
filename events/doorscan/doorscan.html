@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title></title>
+    <style type="text/css">.center{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12vw;
+            font-weight: bold;
+            text-align: center;
+          flex-direction: column;
+        }
+        .red{
+            background-color: red;
+            color: white;
+        }
+        .green{
+            background-color: greenyellow;
+            color: black;
+        }
+      .plusone{
+            background: white;
+            border-radius: 36px;
+            padding: 10px 30px;
+            color: darkslategrey;
+            cursor: pointer;
+             font-size: 9vw;
+        height: 9vw;
+      }
+    </style>
+  </head>
+  <body>
+    {% if scancount > guests %}
+    <div class="center red">
+      Ticket has been scanned {{scancount}} times for {{guests}} guests.<br />
+      <button class="plusone" onclick="location.reload()" type="button">+1</button>
+    </div>
+    {% else %}
+
+    <div class="center green">
+      Ticket has been scanned {{scancount}} times for {{guests}} guests.<br />
+      <button class="plusone" onclick="location.reload()" type="button">+1</button>
+    </div>
+    {% endif %}
+  </body>
+</html>
