@@ -18,5 +18,5 @@ Allow guests to be scanned in, as many times as there are guest #s
    -  [View](ticket.html)
    -  [Query](ticket_query.md)
  - DoorScanner
-   - [View](doorscanner.html)
-   - [Query](doorscanner.sql)
+   - [View](doorscan.html)
+   - [Query](doorscan.sql)
