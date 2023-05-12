@@ -1,0 +1,60 @@
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="//engage-macalester-edu.cdn.technolutions.net/favicon.ico" rel="shortcut icon" />
+    <link href="//fw.cdn.technolutions.net/framework/base.css?v=20210225" rel="stylesheet" />
+    <link href="//engage-macalester-edu.cdn.technolutions.net/shared/base.css" rel="stylesheet" />
+    <link href="//engage-macalester-edu.cdn.technolutions.net/register/mobile.css?v=20210225-636644095683100251" rel="stylesheet" /><script src="//fw.cdn.technolutions.net/framework/base.js?v=20210225"></script><script>    FW.Config['Citizenship.Default.Country'] = 'US'; 
+    FW.Config['Citizenship.PR'] = 'Permanent Resident'; 
+    FW.Config['CDN'] = '//engage-macalester-edu.cdn.technolutions.net'; </script><script src="//engage-macalester-edu.cdn.technolutions.net/register/mobile.js?v=20210225-636310745729537673"></script><script async="async" src="/ping"></script><meta name="viewport" content="width=device-width, minimum-scale=1.0, user-scalable=no" />
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <noscript><div style="background: #ffffcc; border-bottom: 2px solid #cccc99; padding: 5px 10px; margin-bottom: 0; text-align: center;">This website uses scripting to enhance your browsing experience. <a href="https://support.google.com/answer/23852">Enable JavaScript</a> in your browser and then reload this website.</div></noscript>
+    <div id="netblock" style="background: #ffffcc; border-bottom: 2px solid #cccc99; display: none; padding: 5px 10px; margin-bottom: 0; text-align: center;">
+      This website uses resources that are being blocked by your network. Contact your network administrator for more information.
+    </div>
+    <script>if (window['FW'] == null) document.getElementById('netblock').style['display'] = 'block';</script>
+
+    <div class="pass_container">
+      <div class="pass_title" style="white-space: normal !important;">
+        {{title}}
+      </div>
+
+      <div class="pass_badge">
+        <strong>{{first}} {{last}}</strong><br />
+        <br />
+        {% if guests.size > 0 %}This Pass Valid For: {{guests}} Attendee(s) {% endif %}
+      </div>
+
+      <div class="pass_barcode">
+        <img src="https://chart.googleapis.com/chart?cht=qr&amp;chs=400x400&amp;chl=https%3A%2F%2Fengage.macalester.edu%2Fportal%2Fevents%3Fcmd%3Ddoorscan%26k%3D{{guid}}" style="height: 150px; width: 150px; image-rendering: pixelated;" /><!--        <img src="/register/mobile?id={{guid}}&amp;cmd=barcode" style="height: 150px; width: 150px; image-rendering: pixelated;" />  -->
+      </div>
+      {% if tableseatgrad.size > 1 %}
+
+      <div class="pass_details">
+        <strong>Grad Seat Location</strong><br />
+        {{tableseatgrad}}
+      </div>
+      {% endif %}{% if tableseat.size > 1 %}
+
+      <div class="pass_details">
+        <strong>Guest Location{% if tableseat2.size > 1 %}s{% endif %}</strong><br />
+        {{tableseat}}
+      </div>
+      {% endif %}{% if tableseat2.size > 1 %}
+
+      <div class="pass_details">
+        <br />
+        {{tableseat2}}
+      </div>
+      {% endif %}
+
+      <div class="pass_details">
+        {{start}}<br />
+        {{location}}<br />
+        <a href="https://www.google.com/maps?q={{geo}}" target="_blank">{{location}}</a>
+      </div>
+    </div>
+  </body>
+</html>
