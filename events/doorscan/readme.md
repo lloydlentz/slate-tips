@@ -14,7 +14,7 @@ Allow guests to be scanned in, as many times as there are guest #s
 ![image](https://github.com/lloydlentz/slate-tips/assets/223836/3efde3a3-4156-4c28-933c-ae4c57c280ee)
 
 ### Components
- - Ticket 
+ - Ticket .. merged in email to `{{slate base}}/portal/public/?cmd=customticket&reg={{FormResponseGUID}}`
    -  [View](ticket.html)
    -  [Query](ticket_query.md)
  - DoorScanner
