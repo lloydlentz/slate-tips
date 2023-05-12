@@ -28,27 +28,8 @@
       </div>
 
       <div class="pass_barcode">
-        <img src="https://chart.googleapis.com/chart?cht=qr&amp;chs=400x400&amp;chl=https%3A%2F%2Fengage.macalester.edu%2Fportal%2Fevents%3Fcmd%3Ddoorscan%26k%3D{{guid}}" style="height: 150px; width: 150px; image-rendering: pixelated;" /><!--        <img src="/register/mobile?id={{guid}}&amp;cmd=barcode" style="height: 150px; width: 150px; image-rendering: pixelated;" />  -->
+        <img src="https://chart.googleapis.com/chart?cht=qr&amp;chs=400x400&amp;chl=https%3A%2F%2Fengage.macalester.edu%2Fportal%2Fevents%3Fcmd%3Ddoorscan%26k%3D{{guid}}" style="height: 150px; width: 150px; image-rendering: pixelated;" />
       </div>
-      {% if tableseatgrad.size > 1 %}
-
-      <div class="pass_details">
-        <strong>Grad Seat Location</strong><br />
-        {{tableseatgrad}}
-      </div>
-      {% endif %}{% if tableseat.size > 1 %}
-
-      <div class="pass_details">
-        <strong>Guest Location{% if tableseat2.size > 1 %}s{% endif %}</strong><br />
-        {{tableseat}}
-      </div>
-      {% endif %}{% if tableseat2.size > 1 %}
-
-      <div class="pass_details">
-        <br />
-        {{tableseat2}}
-      </div>
-      {% endif %}
 
       <div class="pass_details">
         {{start}}<br />
