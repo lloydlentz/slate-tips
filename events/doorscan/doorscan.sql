@@ -7,7 +7,9 @@ declare @fieldid UNIQUEIDENTIFIER
 
 select @eventid = [form] from [form.response] fr where fr.id = @k
 
-select @fieldid = ff.id from [form.field] ff where ff.form = @eventid and ff.export = 'scancount'
+select @fieldid = ff.id from [form.field] ff 
+ where ff.form = (select isnull(f.[parent],f.id) from [form] f where f.id = @eventid)
+   and ff.export = 'scancount'
 
 select @scancount = coalesce((select [value] from dbo.getFormResponseTopTable(@k, 'scancount')), '0') 
   from [form.response] fr where fr.id = @k
