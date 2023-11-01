@@ -1,5 +1,5 @@
 ## Portals
 
-* [AutoComplete](portals/autocomplete.md)
-* [Jquery Form Embed](portals/jquery-form-embed.md)
-* [Popup Template](portals/popup.md)
+* [AutoComplete](autocomplete.md)
+* [Jquery Form Embed](jquery-form-embed.md)
+* [Popup Template](popup.md)
