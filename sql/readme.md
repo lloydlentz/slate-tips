@@ -5,4 +5,5 @@
  * [Get Geo Location from IP Address](geolocate_ip.md)  *[from Slack](https://slate-users.slack.com/archives/CFUUKHULW/p1629296632070700?thread_ts=1629296139.070600&cid=CFUUKHULW)* credit to Jamie Davis @ University of Michigan
  * [Add an new entity with values](add_entity.md)
  * [Powershell Script that will generate multiple output files](GenerateYearlyGivingSummary.ps1)
+ * [Search names split by space.  Matching both parts of words](split_space.md)
  
