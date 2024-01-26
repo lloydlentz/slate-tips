@@ -43,4 +43,4 @@ will return a table
 ```
 
 
-This will return all results if there is no `@search_name` but then filter the results to where each part of the `@search_name` split by all spaces.
+This will return all results if there is no `@search_name` but then filter the results to where each part of the `@search_name` split by all spaces finds a match.
