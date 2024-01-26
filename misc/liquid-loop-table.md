@@ -1,3 +1,9 @@
+### NOTE
+
+This is no longer necessary, as Slate queries and Liquid Markup now support Dictionary Exports.    Use that.   It is much more supportable.
+
+
+
 ```html
 {% assign items = {{errorarray}} | split: "|||" %}
     <table>
