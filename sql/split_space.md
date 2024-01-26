@@ -28,7 +28,7 @@ will return a table
 2) Create a SubQuery Filter.
 3) Aggregate: Formula
 4) Add An Export of the field you want to search `@name`
-5) Add the following into the formul
+5) Add the following into the formula
 
 
 ```SQL
