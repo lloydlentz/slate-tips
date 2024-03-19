@@ -23,6 +23,7 @@
  * Pop Ups - [Pop Up Template](portals/pop-up-template.html)
  * Table CSS - [Portal Table and Table Row Classes](https://technolutions.zendesk.com/hc/en-us/articles/360043316291-Portal-Table-and-Table-Row-Classes)
  * Form Embed - [More readable way to embed forms](portals/jquery-form-embed.md)
+ * [Change the embeded Form submit button text, and add a cancel button](portals/popup_formbuttons.md)
 
 ## Materials
 
