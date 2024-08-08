@@ -87,7 +87,7 @@ function resizedataURL(datas, wantedWidth, wantedHeight){
             // We resize the image with the canvas method drawImage();
             ctx.drawImage(this, 0, 0, wantedWidth, wantedHeight);
 
-            var dataURI = canvas.toDataURL();
+            var dataURI = canvas.toDataURL();   // JMC says to look into callback(canvas.toDataURL('image/jpeg', 0.85));
 
             // This is the return of the Promise
             resolve(dataURI);
