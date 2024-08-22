@@ -1,4 +1,4 @@
-```JavaScript
+```
 // Create a new "Cancel" button
 var cancelButton = $('<button>')
     .text('Cancel')
