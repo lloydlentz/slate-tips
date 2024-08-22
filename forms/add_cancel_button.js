@@ -1,4 +1,3 @@
-```
 // Create a new "Cancel" button
 var cancelButton = $('<button>')
     .text('Cancel')
@@ -18,4 +17,3 @@ $("button.default.form_button_submit").after(cancelButton);
 cancelButton.on('click', function(e) {
     e.preventDefault();
     window.history.back();
-```
