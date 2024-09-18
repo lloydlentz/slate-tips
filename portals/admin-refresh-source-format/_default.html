@@ -36,11 +36,23 @@
         .control-panel {
             margin-bottom: 20px;
         }
+        /* Progress bar styling */
+        .progress-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 20px;
+            background-color: coral;
+        }
     </style>
   </head>
   <body>
     <h2>All Active Source Formats</h2>
-    <p>This page lists all your Active Source Formats. It is going out and refreshing the Prompt Mappings, and then checking if there are any that are unmapped. If there are in need of refreshing, it will highlight it in yellow and move it to the top of the table. You can adjust the number it will refresh at any given time in the input box.  Too many and your experience in Slate may be slowed down a bit. </p>
+    <p>This page lists all your Active Source Formats. It is going out and refreshing the Prompt Mappings, and then checking if there are any that are unmapped. If there are in need of refreshing, it will highlight it in yellow and move it to the top of the table. You can adjust the number it will refresh at any given time in input box.  Too many and it may slwo down your slate experience </p>
 
     <!-- Control Panel for Processing -->
     <div class="control-panel">
@@ -58,11 +70,17 @@
             <span># in Process: <span id="inProcessCount">0</span></span> |
             <span># Processed: <span id="processedCount">0</span></span>
         </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
     </div>
 
     <table id="formatsTable">
         <thead>
             <tr>
+                <th>Ignore</th>
                 <th>Name</th>
                 <th>Created</th>
                 <th>Updated</th>
@@ -80,9 +98,18 @@
             var maxConcurrentRequests = 5;  // Limit concurrent requests to 5 initially
             var processingEnabled = false;  // Flag to allow/stop processing
             var processedCount = 0;  // Track how many rows have been processed
+            var totalRows = 0;  // Total number of rows
 
             // Function to process a single row
             function processRow(row) {
+                if (row.find('.ignore-checkbox').is(':checked')) {
+                    // Skip this row if "Ignore" is checked
+                    processedCount++;  // Count it as processed
+                    updateProgressBar();
+                    updateCounters();
+                    return;
+                }
+
                 var id = row.data('id');
                 row.find('.status').text('Loading...');
                 activeRequests++;  // Increment active requests
@@ -98,7 +125,7 @@
                     },
                     success: function(response) {
                         // Update the status cell with 'Complete'
-                        row.find('.status').text('Complete... checking remap count');
+                        row.find('.status').text('Refresh Complete...<br />checking counts');
 
                         // Now make another call to ?cmd=json_remap_count&guid={{id}}
                         $.ajax({
@@ -132,6 +159,7 @@
                             complete: function() {
                                 activeRequests--;  // Decrement active requests
                                 processedCount++;  // Increment processed count
+                                updateProgressBar();
                                 updateCounters();  // Update the counters
 
                                 // If there are more rows in the queue, process the next one
@@ -145,7 +173,8 @@
                         row.find('.status').text('Error');
                         activeRequests--;  // Decrement active requests
                         processedCount++;  // Increment processed count
-                        updateCounters();  // Update the counters
+                        updateProgressBar();
+                        updateCounters();
                         if (queue.length > 0 && processingEnabled) {
                             startQueueProcessing();
                         }
@@ -188,6 +217,12 @@
                 $('#processedCount').text(processedCount);  // Rows processed
             }
 
+            // Update the progress bar
+            function updateProgressBar() {
+                var progress = (processedCount / totalRows) * 100;
+                $('#progressBar').css('width', progress + '%');
+            }
+
             // Call the initial endpoint to get the formats
             $.ajax({
                 url: '?cmd=formats',
@@ -195,11 +230,13 @@
                 success: function(data) {
                     var rows = data.row;
                     var tableBody = $('#formatsTable tbody');
+                    totalRows = rows.length;
 
                     // Loop over the rows and create table rows
                     rows.forEach(function(row) {
                         var newRow = `
                             <tr data-id="${row.id}">
+                                <td><input type="checkbox" class="ignore-checkbox" /></td>
                                 <td><a href="/manage/import/build?id=${row.id}&snapshot=&stage=values" target="_blank">${row.name}</a></td>
                                 <td>${new Date(row.created).toLocaleString()}</td>
                                 <td>${new Date(row.updated).toLocaleString()}</td>
@@ -212,6 +249,7 @@
                     });
 
                     updateCounters();  // Update the counters initially
+                    updateProgressBar();  // Initialize the progress bar
                 },
                 error: function() {
                     alert('Failed to load data from the formats endpoint.');
@@ -219,5 +257,6 @@
             });
         });
     </script>
+    <img src="https://dev.lloydl.com/pxl.php?w=admin-source-format-remap-v2" />
   </body>
 </html>
