@@ -2,7 +2,6 @@
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Formats Table</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style type="text/css">table {
             width: 100%;
             border-collapse: collapse;
@@ -20,8 +19,17 @@
         .remap-needed {
             background-color: yellow;
         }
-         .remap-good {
+         .remap-okay {
             background-color: lightgreen;
+        }
+        .update-info {
+            padding: 5px 0;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .stop-button {
+            margin-bottom: 20px;
         }
     
     </style>
@@ -30,8 +38,12 @@
     <h2>
       All Active Source Formats
     </h2>
-    This page lists all your Active Source Formats.&nbsp; &nbsp;It is going out and refreshing the Prompt Mappings, and then checking if there are any that are unmapped.&nbsp; &nbsp;If there are in need of refreshing, it will highlight it in yellow, and move it to the top of the table.&nbsp; You can adjust the number it will refresh at any given time in the JS of the page.&nbsp;<br />
-    &nbsp;
+    <p>
+        This page lists all your Active Source Formats. It is going out and refreshing the Prompt Mappings, and then checking if there are any that are unmapped. If there are in need of refreshing, it will highlight it in yellow, and move it to the top of the table. You can adjust the number it will refresh at any given time in the JS of the page.
+    </p>
+    <div><!-- Stop Processing Button -->
+        <button class="stop-button" id="stopProcessing">Stop Processing</button>
+    </div>
     <table id="formatsTable">
       <thead>
         <tr>
@@ -48,6 +60,7 @@
     var queue = [];  // Queue to store rows
     var activeRequests = 0;  // Track active requests
     var maxConcurrentRequests = 15;  // Limit concurrent requests to a number you'd like.  As you are getting comfortable, say start with 5?
+    var processingEnabled = true;  // Flag to allow/stop processing
 
     // Function to process a single row
     function processRow(row) {
@@ -76,41 +89,29 @@
                     success: function(remapResponse) {
                         // If remap count is 1, update status and highlight
                         var remapRows = remapResponse.row;
-
+                        
                         if (remapRows.length === 0) {
                             // If there are no rows, show 'OK'
                             row.find('.status').text('OK');
-                            row.addClass('remap-good');
+                            row.addClass('remap-okay');  // Highlight the row
                         } else {
-                            
-                            // If there are remap rows, show 'Remap Needed' and the table
-                            var statusContent = `<strong>Remap Needed</strong>`;
+                            // If there are remap rows, show 'Remap Needed' and the divs
+                            var statusContent = `<span class="bold">Remap Needed. <br />Source Input Fields:</span><br />`;
 
-                            // Build the table for map_src and count
-                            var statusTable = `
-                                <table class="nested-table sortable">
-                                    <thead>
-                                        <tr><th>Input Source Field</th><th>Count</th></tr>
-                                    </thead>
-                                    <tbody>
-                            `;
-
+                            // Create divs for each map_src and count
+                            var remapDivs = '';
                             remapRows.forEach(function(remapRow) {
-                                statusTable += `
-                                    <tr>
-                                        <td>${remapRow.map_src}</td>
-                                        <td>${remapRow.count}</td>
-                                    </tr>
+                                remapDivs += `
+                                    <div class="update-info">
+                                        <div class="update-info-name">${remapRow.map_src}</div>
+                                        <div class="update-info-count">Count: ${remapRow.count}</div>
+                                    </div>
                                 `;
                             });
 
-                            statusTable += `</tbody></table>`;
-
-                            // Insert the status message and table into the status cell
-                            row.find('.status').html(statusContent + statusTable);
+                            // Insert the status message and divs into the status cell
+                            row.find('.status').html(statusContent + remapDivs);
                             row.addClass('remap-needed');  // Highlight the row
-
-                            
                             // Move the row to the top of the table
                             row.prependTo('#formatsTable tbody');
                         } 
@@ -121,10 +122,11 @@
                     complete: function() {
                         activeRequests--;  // Decrement active requests
                         // If there are more rows in the queue, process the next one
-                        if (queue.length > 0) {
-                            var nextRow = queue.shift();  // Remove the next row from the queue
-                            processRow(nextRow);  // Process the next row
+                        if (queue.length > 0 && processingEnabled) {
+                            var nextRow = queue.shift();
+                            processRow(nextRow);
                         }
+
                     }
                 });
             },
@@ -138,6 +140,24 @@
             }
         });
     }
+
+    // Function to start processing the rows in the queue
+    function startQueueProcessing() {
+        for (var i = 0; i < maxConcurrentRequests && queue.length > 0; i++) {
+            if (!processingEnabled) {
+                return;  // Stop if processing has been disabled
+            }
+            var nextRow = queue.shift();  // Get the next row from the queue
+            processRow(nextRow);  // Start processing it
+        }
+    }
+
+    // Stop processing when the button is clicked
+    $('#stopProcessing').click(function() {
+        processingEnabled = false;  // Disable processing
+        alert('Processing has been stopped.');
+    });
+
 
     // Call the initial endpoint to get the formats
     $.ajax({
@@ -164,11 +184,8 @@
                 queue.push($newRow);
             });
 
-            // Start processing the first 5 items from the queue
-            for (var i = 0; i < maxConcurrentRequests && queue.length > 0; i++) {
-                var nextRow = queue.shift();  // Get the next row from the queue
-                processRow(nextRow);  // Start processing it
-            }
+             // Start processing the first 5 items from the queue
+             startQueueProcessing();
         },
         error: function() {
             alert('Failed to load data from the formats endpoint.');
