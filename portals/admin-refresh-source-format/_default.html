@@ -1,8 +1,10 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Formats Table</title>
-    <style type="text/css">table {
+    <style type="text/css">
+        table {
             width: 100%;
             border-collapse: collapse;
         }
@@ -19,7 +21,7 @@
         .remap-needed {
             background-color: yellow;
         }
-         .remap-okay {
+        .remap-okay {
             background-color: lightgreen;
         }
         .update-info {
@@ -31,166 +33,191 @@
         .stop-button {
             margin-bottom: 20px;
         }
-    
+        .control-panel {
+            margin-bottom: 20px;
+        }
     </style>
   </head>
   <body>
-    <h2>
-      All Active Source Formats
-    </h2>
-    <p>
-        This page lists all your Active Source Formats. It is going out and refreshing the Prompt Mappings, and then checking if there are any that are unmapped. If there are in need of refreshing, it will highlight it in yellow, and move it to the top of the table. You can adjust the number it will refresh at any given time in the JS of the page.
-    </p>
-    <div><!-- Stop Processing Button -->
-        <button class="stop-button" id="stopProcessing">Stop Processing</button>
+    <h2>All Active Source Formats</h2>
+    <p>This page lists all your Active Source Formats. It is going out and refreshing the Prompt Mappings, and then checking if there are any that are unmapped. If there are in need of refreshing, it will highlight it in yellow and move it to the top of the table. You can adjust the number it will refresh at any given time in the JS of the page. </p>
+
+    <!-- Control Panel for Processing -->
+    <div class="control-panel">
+        <!-- Number of concurrent requests input -->
+        <label for="concurrentInput">Number of Concurrent Requests:</label>
+        <input type="number" id="concurrentInput" value="5" min="1" />
+
+        <!-- Go and Stop buttons -->
+        <button id="startProcessing">Go</button>
+        <button id="stopProcessing">Stop Processing</button>
+
+        <!-- Processing Counters -->
+        <div>
+            <span># to Process: <span id="toProcessCount">0</span></span> |
+            <span># in Process: <span id="inProcessCount">0</span></span> |
+            <span># Processed: <span id="processedCount">0</span></span>
+        </div>
     </div>
+
     <table id="formatsTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Created</th>
-          <th>Updated</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
     </table>
-    <script>$(document).ready(function() {
-    var queue = [];  // Queue to store rows
-    var activeRequests = 0;  // Track active requests
-    var maxConcurrentRequests = 15;  // Limit concurrent requests to a number you'd like.  As you are getting comfortable, say start with 5?
-    var processingEnabled = true;  // Flag to allow/stop processing
 
-    // Function to process a single row
-    function processRow(row) {
-        var id = row.data('id');
-    
-        // Update status to 'Loading' when starting to process
-        row.find('.status').text('Loading...');
-        
-        activeRequests++;  // Increment active requests
+    <script>
+        $(document).ready(function() {
+            var queue = [];  // Queue to store rows
+            var activeRequests = 0;  // Track active requests
+            var maxConcurrentRequests = 5;  // Limit concurrent requests to 5 initially
+            var processingEnabled = false;  // Flag to allow/stop processing
+            var processedCount = 0;  // Track how many rows have been processed
 
-        // Make the POST call to /manage/import/build?id={{id}}
-        $.ajax({
-            url: `/manage/import/build?id=${id}`,
-            method: 'POST',
-            data: {
-                cmd: 'refresh_values'
-            },
-            success: function(response) {
-                // Update the status cell with 'Complete'
-                row.find('.status').text('Complete');
+            // Function to process a single row
+            function processRow(row) {
+                var id = row.data('id');
+                row.find('.status').text('Loading...');
+                activeRequests++;  // Increment active requests
 
-                // Now make another call to ?cmd=remap_count&id={{id}}
+                updateCounters();  // Update the counters
+
+                // Make the POST call to /manage/import/build?id={{id}}
                 $.ajax({
-                    url: `?cmd=json_remap_count&guid=${id}`,
-                    method: 'GET',
-                    success: function(remapResponse) {
-                        // If remap count is 1, update status and highlight
-                        var remapRows = remapResponse.row;
-                        
-                        if (remapRows.length === 0) {
-                            // If there are no rows, show 'OK'
-                            row.find('.status').text('OK');
-                            row.addClass('remap-okay');  // Highlight the row
-                        } else {
-                            // If there are remap rows, show 'Remap Needed' and the divs
-                            var statusContent = `<span class="bold">Remap Needed. <br />Source Input Fields:</span><br />`;
+                    url: `/manage/import/build?id=${id}`,
+                    method: 'POST',
+                    data: {
+                        cmd: 'refresh_values'
+                    },
+                    success: function(response) {
+                        // Update the status cell with 'Complete'
+                        row.find('.status').text('Complete');
 
-                            // Create divs for each map_src and count
-                            var remapDivs = '';
-                            remapRows.forEach(function(remapRow) {
-                                remapDivs += `
-                                    <div class="update-info">
-                                        <div class="update-info-name">${remapRow.map_src}</div>
-                                        <div class="update-info-count">Count: ${remapRow.count}</div>
-                                    </div>
-                                `;
-                            });
+                        // Now make another call to ?cmd=json_remap_count&guid={{id}}
+                        $.ajax({
+                            url: `?cmd=json_remap_count&guid=${id}`,
+                            method: 'GET',
+                            success: function(remapResponse) {
+                                var remapRows = remapResponse.row;
 
-                            // Insert the status message and divs into the status cell
-                            row.find('.status').html(statusContent + remapDivs);
-                            row.addClass('remap-needed');  // Highlight the row
-                            // Move the row to the top of the table
-                            row.prependTo('#formatsTable tbody');
-                        } 
+                                if (remapRows.length === 0) {
+                                    row.find('.status').text('OK');
+                                    row.addClass('remap-okay');  // Highlight the row in green
+                                } else {
+                                    var statusContent = `<span class="bold">Remap Needed. <br />Source Input Fields:</span><br />`;
+                                    var remapDivs = '';
+                                    remapRows.forEach(function(remapRow) {
+                                        remapDivs += `
+                                            <div class="update-info">
+                                                <div class="update-info-name">${remapRow.map_src}</div>
+                                                <div class="update-info-count">Count: ${remapRow.count}</div>
+                                            </div>
+                                        `;
+                                    });
+                                    row.find('.status').html(statusContent + remapDivs);
+                                    row.addClass('remap-needed');  // Highlight the row in yellow
+                                    row.prependTo('#formatsTable tbody');  // Move to top
+                                }
+                            },
+                            error: function() {
+                                row.find('.status').text('Error checking remap');
+                            },
+                            complete: function() {
+                                activeRequests--;  // Decrement active requests
+                                processedCount++;  // Increment processed count
+                                updateCounters();  // Update the counters
+
+                                // If there are more rows in the queue, process the next one
+                                if (queue.length > 0 && processingEnabled) {
+                                    startQueueProcessing();  // Adjust to the new limit if needed
+                                }
+                            }
+                        });
                     },
                     error: function() {
-                        row.find('.status').text('Error checking remap');
-                    },
-                    complete: function() {
+                        row.find('.status').text('Error');
                         activeRequests--;  // Decrement active requests
-                        // If there are more rows in the queue, process the next one
+                        processedCount++;  // Increment processed count
+                        updateCounters();  // Update the counters
                         if (queue.length > 0 && processingEnabled) {
-                            var nextRow = queue.shift();
-                            processRow(nextRow);
+                            startQueueProcessing();
                         }
-
                     }
                 });
-            },
-            error: function() {
-                row.find('.status').text('Error');
-                activeRequests--;  // Decrement active requests
-                if (queue.length > 0) {
-                    var nextRow = queue.shift();  // Remove the next row from the queue
-                    processRow(nextRow);  // Process the next row
+            }
+
+            // Function to start processing the rows in the queue
+            function startQueueProcessing() {
+                while (activeRequests < maxConcurrentRequests && queue.length > 0) {
+                    var nextRow = queue.shift();  // Get the next row from the queue
+                    processRow(nextRow);  // Start processing it
                 }
             }
-        });
-    }
 
-    // Function to start processing the rows in the queue
-    function startQueueProcessing() {
-        for (var i = 0; i < maxConcurrentRequests && queue.length > 0; i++) {
-            if (!processingEnabled) {
-                return;  // Stop if processing has been disabled
-            }
-            var nextRow = queue.shift();  // Get the next row from the queue
-            processRow(nextRow);  // Start processing it
-        }
-    }
-
-    // Stop processing when the button is clicked
-    $('#stopProcessing').click(function() {
-        processingEnabled = false;  // Disable processing
-        alert('Processing has been stopped.');
-    });
-
-
-    // Call the initial endpoint to get the formats
-    $.ajax({
-        url: '?cmd=formats',
-        method: 'GET',
-        success: function(data) {
-            var rows = data.row;
-            var tableBody = $('#formatsTable tbody');
-            
-            // Loop over the rows and create table rows
-            rows.forEach(function(row) {
-                var newRow = `
-                    <tr data-id="${row.id}">
-                       <td><a href="/manage/import/build?id=${row.id}&snapshot=&stage=values" target="_blank">${row.name}</a></td>
-                        <td>${new Date(row.created).toLocaleString()}</td>
-                        <td>${new Date(row.updated).toLocaleString()}</td>
-                        <td class="status loading">Waiting...</td>
-                    </tr>
-                `;
-                var $newRow = $(newRow);
-                tableBody.append($newRow);
-
-                // Add row to the queue
-                queue.push($newRow);
+            // Start processing when the "Go" button is clicked
+            $('#startProcessing').click(function() {
+                processingEnabled = true;
+                maxConcurrentRequests = parseInt($('#concurrentInput').val());
+                $(this).text('Update');  // Change the button text to "Update"
+                startQueueProcessing();
             });
 
-             // Start processing the first 5 items from the queue
-             startQueueProcessing();
-        },
-        error: function() {
-            alert('Failed to load data from the formats endpoint.');
-        }
-    });
-});</script><img src="https://dev.lloydl.com/pxl.php?w=admin-source-format-remap" />
+            // Adjust the number of concurrent requests while running
+            $('#concurrentInput').on('input', function() {
+                maxConcurrentRequests = parseInt($(this).val());
+                startQueueProcessing();  // Adjust if more rows can be processed or hold back
+            });
+
+            // Stop processing when the "Stop Processing" button is clicked
+            $('#stopProcessing').click(function() {
+                processingEnabled = false;  // Disable processing
+                alert('Processing has been stopped.');
+            });
+
+            // Update the counters at the top
+            function updateCounters() {
+                $('#toProcessCount').text(queue.length);  // Rows left to process
+                $('#inProcessCount').text(activeRequests);  // Rows currently being processed
+                $('#processedCount').text(processedCount);  // Rows processed
+            }
+
+            // Call the initial endpoint to get the formats
+            $.ajax({
+                url: '?cmd=formats',
+                method: 'GET',
+                success: function(data) {
+                    var rows = data.row;
+                    var tableBody = $('#formatsTable tbody');
+
+                    // Loop over the rows and create table rows
+                    rows.forEach(function(row) {
+                        var newRow = `
+                            <tr data-id="${row.id}">
+                                <td><a href="/manage/import/build?id=${row.id}&snapshot=&stage=values" target="_blank">${row.name}</a></td>
+                                <td>${new Date(row.created).toLocaleString()}</td>
+                                <td>${new Date(row.updated).toLocaleString()}</td>
+                                <td class="status loading">Waiting...</td>
+                            </tr>
+                        `;
+                        var $newRow = $(newRow);
+                        tableBody.append($newRow);
+                        queue.push($newRow);  // Add row to the queue
+                    });
+
+                    updateCounters();  // Update the counters initially
+                },
+                error: function() {
+                    alert('Failed to load data from the formats endpoint.');
+                }
+            });
+        });
+    </script>
   </body>
 </html>
