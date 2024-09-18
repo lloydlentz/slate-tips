@@ -48,6 +48,17 @@
             height: 20px;
             background-color: coral;
         }
+                /* Button styling */
+        .review-btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: lightblue;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .review-btn:hover {
+            background-color: #add8e6;
+        }
     </style>
   </head>
   <body>
@@ -80,7 +91,7 @@
     <table id="formatsTable">
         <thead>
             <tr>
-                <th>Ignore</th>
+                <th><input type="checkbox" onclick="$('.ignore-checkbox').prop('checked', $(this).prop('checked'));"> Ignore </th>
                 <th>Name</th>
                 <th>Created</th>
                 <th>Updated</th>
@@ -151,6 +162,15 @@
                                     row.find('.status').html(statusContent + remapDivs);
                                     row.addClass('remap-needed');  // Highlight the row in yellow
                                     row.prependTo('#formatsTable tbody');  // Move to top
+                                    // Add the "Reviewed" button
+                                    var reviewButton = $('<button class="review-btn">Reviewed</button>');
+                                    reviewButton.click(function() {
+                                        row.removeClass('remap-needed').addClass('remap-okay');
+                                        row.find('.status').html('OK');
+                                    });
+                                    row.find('.status').append(reviewButton);
+
+                                    
                                 }
                             },
                             error: function() {
