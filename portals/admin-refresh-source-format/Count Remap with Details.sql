@@ -21,6 +21,6 @@ SELECT
     COUNT(*) AS [count]
 FROM ExtractedVals
 where [id] = @guid
-  and [map_src] in (select [key] from [source.key] where [source] = @guid)
+  and [map_src] in (select [key] from [source.key] where [source] in (select id from [source] where format =  @guid))
 GROUP BY [id], [name], map_src
 ORDER BY map_src
