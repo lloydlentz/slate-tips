@@ -136,7 +136,7 @@
                     },
                     success: function(response) {
                         // Update the status cell with 'Complete'
-                        row.find('.status').text('Refresh Complete...<br />checking counts');
+                        row.find('.status').html('Refresh Complete...<br />checking counts');
 
                         // Now make another call to ?cmd=json_remap_count&guid={{id}}
                         $.ajax({
