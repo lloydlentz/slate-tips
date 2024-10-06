@@ -51,7 +51,7 @@ The default way to embed a form, is snazzy.
     
      var formguid = '18b3081b-33ef-4fe1-87c2-45b53a7f54c1';
        
-       //GET THE LOCAL QUERYSTRING PARAMS
+       //GET THE LOCAL QUERYSTRING PARAMS  !!!  THESE HAVE TO BE VISIBLE IN YOUR URL BAR.   Not passed as an AJAX call  !!!
        const params = {};
        const queryString = window.location.search;
        if (queryString) {
