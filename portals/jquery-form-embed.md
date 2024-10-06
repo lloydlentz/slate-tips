@@ -35,6 +35,61 @@ The default way to embed a form, is snazzy.
     </script>
 ```
 
+## If you want to be able to pass in the QS Params as well 
+
+ ```html
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div id="form_18b3081b-33ef-4fe1-87c2-45b53a7f54c1">
+      Loading...
+    </div>
+    <script> $(document).ready(function() {
+      
+    
+     var formguid = '18b3081b-33ef-4fe1-87c2-45b53a7f54c1';
+       
+       //GET THE LOCAL QUERYSTRING PARAMS
+       const params = {};
+       const queryString = window.location.search;
+       if (queryString) {
+         const searchParams = new URLSearchParams(queryString.substring(1));
+         for (const [key, value] of searchParams.entries()) {
+           params[key] = value;
+         }
+        
+       }
+
+       // DELETE THE ID of the form or page currently loading
+       delete params.id;
+       //Add in the key form items
+       params["id"] = formguid;
+       params["output"] = 'embed';
+       params["div"] = 'form_' + formguid;
+       //  ADD MORE HERE 
+       params['sys:job:title'] =  '{{title}}'; 
+       params['sys:job:from'] =  '{{startdt}}'; 
+       params['sys:job:field:field_of_work'] =  '{{fow}}';
+       // ... etc
+    
+       //  Load the form Items as needed        
+       $.ajax({
+           url: '/register/',
+           dataType: "script",
+           data: params,
+           // success: success
+       });
+ 
+    
+    });
+   </script>
+  </body>
+</html>
+```
+
+
 ## Level Up
 If you want to level that up Dont add the default GUID DIV.
 
