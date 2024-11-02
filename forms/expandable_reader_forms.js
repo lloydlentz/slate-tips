@@ -1,4 +1,3 @@
-Reader review forms are sometimes limmited by the standard window width in the reader. This code adds an "Expand/Collapse" link at the top of the review form to adjust the width of the form in the reader.
 // Expand the window
 
 function expand() {
