@@ -6,6 +6,3 @@ Neato
  - [Hide optionis from full events](hide_full.md)
  - [Add some script to force input validation](input_validation_and_more.js)
 
-
-## References
- - [Rich Text Editor in a Form](https://resource.reworkflow.com/books/slate/page/rich-text-editor-in-a-form)
