@@ -36,3 +36,8 @@ $.when(
     console.error("One or more scripts failed to load.");
 });
 ```
+
+
+
+## References
+ - [Rich Text Editor in a Form](https://resource.reworkflow.com/books/slate/page/rich-text-editor-in-a-form)
