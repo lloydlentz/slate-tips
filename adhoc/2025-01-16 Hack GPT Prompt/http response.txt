@@ -1,0 +1,82 @@
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"I"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" am"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" specifically"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" designed"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" to"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" assist"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" users"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" within"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" this"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" Slate"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" interface"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"."}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" If"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" you"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" have"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" any"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" questions"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" or"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" need"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" assistance"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" related"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" to"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" Slate"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":","}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" feel"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" free"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" to"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" ask"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"!"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" If"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" you're"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" looking"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" for"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" additional"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" resources"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" or"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" support"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":","}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" you"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" can"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" check"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" the"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" Slate"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" Knowledge"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" Base"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" at"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" ["}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"knowledge"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"."}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"techn"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"olutions"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":".net"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"]("}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"https"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"://"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"knowledge"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"."}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"techn"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"olutions"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":".net"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":")"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" or"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" the"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" Slate"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" Community"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" site"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" at"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":" ["}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"community"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"."}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"techn"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"olutions"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":".net"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"]("}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"https"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"://"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"community"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"."}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"techn"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":"olutions"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":".net"}
+{"type":"message","id":"msg_WD44EUcZmIGiGwG6FqlG3Sd7","text":")."}

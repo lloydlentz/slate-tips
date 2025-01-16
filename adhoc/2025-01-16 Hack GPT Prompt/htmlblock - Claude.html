@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slate AI Chat Interface</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .chat-container {
+            background-color: white;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .message-container {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            min-height: 0; /* This ensures proper scrolling in flex containers */
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .message code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .message pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .message pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .message h1, .message h2, .message h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .message ul, .message ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .message p {
+            margin: 10px 0;
+        }
+
+        .message blockquote {
+            border-left: 3px solid #ccc;
+            margin: 10px 0;
+            padding-left: 10px;
+            color: #666;
+        }
+
+        .status-message {
+            font-style: italic;
+            color: #666;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            margin: 5px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: 20%;
+        }
+
+        .bot-message {
+            background-color: #f5f5f5;
+            margin-right: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Slate AI Chat Interface</h1>
+        <div class="message-container" id="messageContainer"></div>
+        <div class="input-container">
+            <textarea id="messageInput" placeholder="Type your message..." rows="4" style="resize: vertical;"></textarea>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageContainer = document.getElementById('messageContainer');
+            const message = messageInput.value.trim();
+            
+            if (!message) return;
+
+            // Add user message to the chat
+            addMessage(message, 'user');
+            messageInput.value = '';
+
+            // Prepare the request payload
+            const formData = new FormData();
+            formData.append('cmd', 'assistant_submit');
+            formData.append('message', message);
+            formData.append('url', '/manage/report/render');
+            formData.append('url_title', '9. Admin');
+            formData.append('url_image', 'report');
+
+            try {
+                const response = await fetch('https://student.macalester.edu/manage/database/gpt', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        // Copy necessary headers from the original request
+                        'Accept': '*/*',
+                        'Accept-Language': 'en-US,en;q=0.9',
+                        'Origin': 'https://student.macalester.edu',
+                        'Referer': 'https://student.macalester.edu/manage/'
+                    },
+                    credentials: 'include' // Include cookies
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                // Read the response as a stream of JSON objects
+                const reader = response.body.getReader();
+                let botMessage = '';
+                
+                while (true) {
+                    const {done, value} = await reader.read();
+                    if (done) break;
+                    
+                    // Convert the Uint8Array to text
+                    const text = new TextDecoder().decode(value);
+                    // Split by newlines to handle multiple JSON objects
+                    const jsonStrings = text.trim().split('\n');
+                    
+                    for (const jsonString of jsonStrings) {
+                        if (jsonString) {
+                            const data = JSON.parse(jsonString);
+                            if (data.type === 'status') {
+                                updateStatusMessage(data.status);
+                            } else if (data.type === 'message') {
+                                botMessage += data.text;
+                                // Update the bot message in real-time
+                                updateBotMessage(botMessage);
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('Sorry, there was an error sending your message.', 'bot');
+            }
+        }
+
+        function addMessage(text, type) {
+            const messageContainer = document.getElementById('messageContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}-message`;
+            // Process text as markdown and set the HTML
+            const htmlContent = marked.parse(text);
+            messageDiv.innerHTML = htmlContent;
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        function updateStatusMessage(status) {
+            const messageContainer = document.getElementById('messageContainer');
+            let statusDiv = messageContainer.querySelector('.status-message');
+            
+            if (!statusDiv) {
+                statusDiv = document.createElement('div');
+                statusDiv.className = 'status-message';
+                messageContainer.appendChild(statusDiv);
+            }
+            
+            statusDiv.textContent = status;
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        function updateBotMessage(text) {
+            const messageContainer = document.getElementById('messageContainer');
+            
+            // Remove status message if it exists
+            const statusDiv = messageContainer.querySelector('.status-message');
+            if (statusDiv) {
+                statusDiv.remove();
+            }
+            
+            let botMessageDiv = messageContainer.querySelector('.bot-message:last-child');
+            
+            if (!botMessageDiv) {
+                botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'message bot-message';
+                messageContainer.appendChild(botMessageDiv);
+            }
+            
+            // Process text as markdown and set the HTML
+            const htmlContent = marked.parse(text);
+            botMessageDiv.innerHTML = htmlContent;
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        // Handle Enter key in input
+        document.getElementById('messageInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

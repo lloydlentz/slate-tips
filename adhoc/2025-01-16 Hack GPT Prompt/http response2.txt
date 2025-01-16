@@ -1,0 +1,321 @@
+{"type":"status","status":"Searching Knowledge Base for \"best methodology for developing a Slate portal\"..."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"To"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" develop"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" a"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Slate"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" portal"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" effectively"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":","}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" there"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" are"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" several"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" methodologies"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":","}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" best"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" practices"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":","}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" steps"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" that"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" should"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" be"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" considered"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Here's"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" a"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" summary"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" based"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" on"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Slate"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Knowledge"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Base"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" recommended"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" practices"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":":\n\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"1"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" **"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"Define"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Goals"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Audience"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"**"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":":\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Determine"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" overall"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" goal"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" of"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" portal"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Understand"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" who"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" users"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" are"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" what"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" they"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" should"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" be"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" able"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" to"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" accomplish"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" with"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" portal"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"2"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" **"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"Plan"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Function"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"ality"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"**"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":":\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Identify"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" specific"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" functionalities"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" required"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" by"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" users"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Determine"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" which"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Slate"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" users"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" should"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" have"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" editing"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" permissions"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" for"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" portal"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"3"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" **"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"Util"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"ize"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Existing"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Tools"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"**"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":":\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Use"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Slate"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" forms"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" existing"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" features"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" instead"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" of"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" replacing"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" or"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" duplic"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"ating"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" functionality"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Avoid"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" custom"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" SQL"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" to"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" ensure"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" portal"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" is"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" sustainable"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" easy"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" to"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" maintain"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"4"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" **"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"Design"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" with"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Best"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Practices"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"**"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":":\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Incorpor"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"ate"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" your"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" institution"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"'s"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" branding"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" visual"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" identity"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Use"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" widgets"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" dynamic"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" content"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" blocks"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" to"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" enhance"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" portal"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" functionality"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"5"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" **"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"Testing"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Iter"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"ation"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"**"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":":\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Test"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" portal"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" with"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" diverse"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" scenarios"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" sample"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" records"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" to"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" ensure"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" its"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" robustness"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Obtain"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" feedback"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" from"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" potential"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" users"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" make"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" necessary"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" adjustments"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"6"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" **"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"Documentation"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Support"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"**"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":":\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Document"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" development"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" process"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" maintain"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" updated"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" records"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"  "}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" -"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Utilize"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" resources"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" like"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Slate"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Knowledge"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Base"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Community"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Site"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" for"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" guidance"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"For"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" more"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" detailed"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" guidelines"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" resources"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":","}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" it's"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" helpful"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" to"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" refer"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" to"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" the"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Slate"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Knowledge"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Base"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" article"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" on"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" ["}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"Port"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"als"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Best"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Practices"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"]("}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"https"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"://"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"knowledge"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"techn"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"olutions"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".net"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"/docs"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"/en"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"/"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"port"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"als"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"-best"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"-pr"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"act"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"ices"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":")."}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" This"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" covers"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" essential"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" practices"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" for"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" building"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" effective"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" and"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" efficient"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" portals"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" within"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" Slate"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":".\n\n"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"Feel"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" free"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" to"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" ask"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" if"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" you"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" have"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" any"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" more"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" questions"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" or"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" need"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" further"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":" assistance"}
+{"type":"message","id":"msg_goq2wEvZe5gFjBrUDStlEvu1","text":"!"}

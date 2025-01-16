@@ -1,0 +1,56 @@
+Request URL:
+https://student.macalester.edu/manage/database/gpt
+Request Method:
+POST
+Status Code:
+200 OK
+Remote Address:
+34.198.122.35:443
+Referrer Policy:
+origin-when-cross-origin
+cache-control:
+private
+content-type:
+application/json-seq; charset=utf-8
+date:
+Thu, 16 Jan 2025 15:09:13 GMT
+:authority:
+student.macalester.edu
+:method:
+POST
+:path:
+/manage/database/gpt
+:scheme:
+https
+accept:
+*/*
+accept-encoding:
+gzip, deflate, br, zstd
+accept-language:
+en-US,en;q=0.9
+content-length:
+690
+content-type:
+multipart/form-data; boundary=----WebKitFormBoundary6PXOlHpSOl5gbWey
+cookie:
+xxxxxx
+origin:
+https://student.macalester.edu
+priority:
+u=1, i
+referer:
+https://student.macalester.edu/manage/
+sec-ch-ua:
+"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile:
+?0
+sec-ch-ua-platform:
+"Windows"
+sec-fetch-dest:
+empty
+sec-fetch-mode:
+cors
+sec-fetch-site:
+same-origin
+user-agent:
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36

@@ -1,0 +1,5 @@
+cmd: assistant_submit
+message: Is there a way to interact with this AI chatbot outside of this particular web interface?
+url: /manage/report/render?id=4dc45cd4-3265-47e0-a060-4ae6a8e2d20d
+url_title: 9. Admin
+url_image: report
