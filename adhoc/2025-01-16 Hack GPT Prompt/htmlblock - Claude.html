@@ -63,6 +63,21 @@
             background-color: #0056b3;
         }
 
+        .loading-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .loading-container.visible {
+            display: flex;
+        }
+
+        .loading-container img {
+            max-width: 200px;
+        }
+
         .message {
             margin: 10px 0;
             padding: 10px;
@@ -139,7 +154,12 @@
 <body>
     <div class="chat-container">
         <h1>Slate AI Chat Interface</h1>
-        <div class="message-container" id="messageContainer"></div>
+        <div id="messageContainer" class="message-container">
+            <!-- Messages will be inserted here -->
+        </div>
+        <div id="loadingContainer" class="loading-container">
+            <img src="https://lloydl.com/img/slateisgreat.gif" alt="Loading..." />
+        </div>
         <div class="input-container">
             <textarea id="messageInput" placeholder="Type your message..." rows="4" style="resize: vertical;"></textarea>
             <button onclick="sendMessage()">Send</button>
@@ -150,6 +170,7 @@
         async function sendMessage() {
             const messageInput = document.getElementById('messageInput');
             const messageContainer = document.getElementById('messageContainer');
+            const loadingContainer = document.getElementById('loadingContainer');
             const message = messageInput.value.trim();
             
             if (!message) return;
@@ -157,6 +178,9 @@
             // Add user message to the chat
             addMessage(message, 'user');
             messageInput.value = '';
+
+            // Show loading animation
+            loadingContainer.classList.add('visible');
 
             // Prepare the request payload
             const formData = new FormData();
@@ -171,7 +195,6 @@
                     method: 'POST',
                     body: formData,
                     headers: {
-                        // Copy necessary headers from the original request
                         'Accept': '*/*',
                         'Accept-Language': 'en-US,en;q=0.9',
                     },
@@ -182,19 +205,16 @@
                     throw new Error('Network response was not ok');
                 }
 
-                // Read the response as a stream of JSON objects
                 const reader = response.body.getReader();
                 let botMessage = '';
-                
+
                 while (true) {
-                    const {done, value} = await reader.read();
+                    const { done, value } = await reader.read();
                     if (done) break;
-                    
-                    // Convert the Uint8Array to text
+
                     const text = new TextDecoder().decode(value);
-                    // Split by newlines to handle multiple JSON objects
                     const jsonStrings = text.trim().split('\n');
-                    
+
                     for (const jsonString of jsonStrings) {
                         if (jsonString) {
                             const data = JSON.parse(jsonString);
@@ -202,8 +222,10 @@
                                 updateStatusMessage(data.status);
                             } else if (data.type === 'message') {
                                 botMessage += data.text;
-                                // Update the bot message in real-time
                                 updateBotMessage(botMessage);
+
+                                // Hide loading animation once the response starts
+                                loadingContainer.classList.remove('visible');
                             }
                         }
                     }
@@ -211,6 +233,9 @@
             } catch (error) {
                 console.error('Error:', error);
                 addMessage('Sorry, there was an error sending your message.', 'bot');
+            } finally {
+                // Ensure loading animation is hidden at the end
+                loadingContainer.classList.remove('visible');
             }
         }
 
@@ -218,7 +243,6 @@
             const messageContainer = document.getElementById('messageContainer');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}-message`;
-            // Process text as markdown and set the HTML
             const htmlContent = marked.parse(text);
             messageDiv.innerHTML = htmlContent;
             messageContainer.appendChild(messageDiv);
@@ -242,7 +266,6 @@
         function updateBotMessage(text) {
             const messageContainer = document.getElementById('messageContainer');
             
-            // Remove status message if it exists
             const statusDiv = messageContainer.querySelector('.status-message');
             if (statusDiv) {
                 statusDiv.remove();
@@ -256,13 +279,11 @@
                 messageContainer.appendChild(botMessageDiv);
             }
             
-            // Process text as markdown and set the HTML
             const htmlContent = marked.parse(text);
             botMessageDiv.innerHTML = htmlContent;
             messageContainer.scrollTop = messageContainer.scrollHeight;
         }
 
-        // Handle Enter key in input
         document.getElementById('messageInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
