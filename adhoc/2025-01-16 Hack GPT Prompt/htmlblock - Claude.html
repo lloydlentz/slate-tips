@@ -167,15 +167,13 @@
             formData.append('url_image', 'report');
 
             try {
-                const response = await fetch('https://student.macalester.edu/manage/database/gpt', {
+                const response = await fetch('/manage/database/gpt', {
                     method: 'POST',
                     body: formData,
                     headers: {
                         // Copy necessary headers from the original request
                         'Accept': '*/*',
                         'Accept-Language': 'en-US,en;q=0.9',
-                        'Origin': 'https://student.macalester.edu',
-                        'Referer': 'https://student.macalester.edu/manage/'
                     },
                     credentials: 'include' // Include cookies
                 });
