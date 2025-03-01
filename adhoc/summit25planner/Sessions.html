@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div>
+      <table class="xtable xsortable xsearchable display" id="sessionTable" width="100%">
+        <thead>
+          <tr class="column">
+            <th>Title</th>
+            <th>Section</th>
+            <th>Location</th>
+            <th>Start_Date</th>
+            <th>Start_Time</th>
+            <th>Day_Of_Week</th>
+            <th>Track</th>
+            <th>Presenters</th>
+          </tr>
+        </thead>
+        <tbody>{% for item in sessions limit:500 %}
+          <tr>
+            <td><a data-href="?cmd=detail&amp;uid={{item.id}}" href="#" onclick="return (FW.Lazy.Popup(this));">{{item.title}}</a></td>
+            <td>{{item.section}}</td>
+            <td>{{item.location}}</td>
+            <td>{{item.start_date}}</td>
+            <td>{{item.start_time}}</td>
+            <td>{{item.day_of_week}}</td>
+            <td>{{item.track}}</td>
+            <td>{% assign speakers =  item.presenters  | split: "|" %}{% for speaker in speakers %}
+            <div>
+              {% assign someone = speaker  | split: "," %}{{someone.first}}
+            </div>
+            {% endfor %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tbody><script>        
+ $(document).ready(function() {
+    let table = new DataTable('#sessionTable', {
+        dom: '<"top"SP><"secondRow"f>rt<"bottom"lip>',
+        layout: {
+            topStart: {
+                searchPanes: {
+                    cascadePanes: true
+                }
+            }
+        },
+        searchPanes: {
+            columns: [1, 5, 4, 2, 6]
+        },
+        paging: true,
+        searching: true,
+        info: true,
+        pageLength: 50, // Default to 50 rows per page
+        lengthMenu: [10, 25, 50, 100] // Options for the "Show X entries" dropdown
+    });
+
+    // Add a second row for column-wise filtering
+//    $('#sessionTable thead').append('<tr class="filters"></tr>');
+
+ //   $('#sessionTable thead th').each(function(index) {
+ //       $('.filters').append('<th><input type="text" class="column-search" data-index="' + index + '" placeholder="Search ' + $(this).text() + '" /></th>');
+ //   });
+
+    // Apply search for each column
+    $('.column-search').on('keyup change', function() {
+        let columnIndex = $(this).data('index');
+        table.column(columnIndex).search(this.value).draw();
+    });
+});
+         
+          
+ 
+ 
+      </script>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

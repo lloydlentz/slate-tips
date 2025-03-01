@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <!-- https://slate-community-ambassadors.test.technolutions.net/manage/database/portal/view?id=cc078ce2-4209-455c-bc66-b5c7590468a0 -->
+  <head>
+    <title></title>
+  </head>
+  <body>
+    {% assign  session = sessions.first %}
+    <div class="header">
+      {{session.section}} - {{session.start_date}} at {{session.start_time}}
+    </div>
+
+    <div class="content" style="min-width: 600px; width: 800px; height: 600px; overflow-y: auto;">
+      <div class="action-buttons">
+        {% if session.my_session_k.size > 0 %}
+            <a class="btn btn-primary" data-href="/register?k={{session.my_session_k}}" href="#"onclick="return (FW.Lazy.Popup(this));">Edit My Agenda Item</a>
+        {% else %}
+            <a class="btn btn-primary" data-href="?cmd=add_session&amp;form_session_guid={{session.id}}" href="#"onclick="return (FW.Lazy.Popup(this));">Add to my Agenda</a>
+        {% endif %}
+      </div>
+      <!-- Summary Tiles Section -->
+      
+      <div class="summary">
+
+        <div class="tile">
+          <p>
+            Day
+          </p>
+          <strong>{{session.day_of_week}}</strong>
+        </div>
+
+        <div class="tile">
+          <p>
+            Time
+          </p>
+          <strong>{{session.start_time}}</strong>
+        </div>
+
+        <div class="tile">
+          <p>
+            Location
+          </p>
+          <strong>{{session.location}}</strong>
+        </div>
+
+        <div class="tile">
+          <p>
+            Track
+          </p>
+          <strong>{{session.track}}</strong>
+        </div>
+
+      </div>
+      <!-- Description Section -->
+
+      <div class="details-section">
+        <h2>
+            {{session.title}}
+        </h2>
+
+      </div>
+
+      <div class="details-section">
+        <h3>
+          Session Description
+        </h3>
+
+        <p>
+          {{session.description | rawhtml}}
+        </p>
+      </div>
+      <!-- Contact Info Section -->
+
+      <div class="contact-info-section">
+          {% assign speakers = session.presenters | split: "|" %}
+          
+          {% for speaker in speakers %}
+          <div class="contact-info">
+                <strong>{{speaker}}</strong>    
+            </div>
+            {% endfor %}
+        <div class="contact-info">
+          <i class="fas fa-envelope"></i><a href="mailto:add-email-merge-field">Contact Speaker</a>
+        </div>
+      </div>
+      <!-- Date and Time Section -->
+
+      <div class="details-section">
+      </div>
+    </div>
+  </body>
+</html>
