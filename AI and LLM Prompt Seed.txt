@@ -1,0 +1,97 @@
+##  Code Comments
+
+Include inline comments that clearly explain the purpose and functionality of each significant line or block of code. Ensure the comments are detailed enough to help a beginner/intermediate user understand both the logic and reasoning behind the code's implementation.
+
+## Specific Slate Scultping
+
+Prompt Example:
+
+I am working with Slate CRM, a cloud-based platform used by colleges and universities for managing data related to students, alumni, and other constituents. Slate relies heavily on configurable queries, SQL-based operations, and integration via API endpoints or other external tools. However, there are important constraints and specifics to consider:
+
+Data Structure:
+Slate organizes data into various types like Entities, Datasets, Persons, and Custom Fields. Each of these has its own data types and constraints:
+
+Custom Fields: Can be text, numeric, date, etc.
+Dataset Items: Represent discrete records that can be queried, updated, or synced with external systems.
+
+Key Features:
+
+It includes datasets, entities, custom fields, portals, Liquid Markup for dynamic content, and robust query capabilities.
+It supports automation (rules, triggers) and integration via APIs or external systems.
+
+
+2. A specific tool available within Slate is that ability to develop "Portals"
+Portals: Public or internal dashboards for data display and interaction.
+
+Within a Portal I can can create a 
+ - Method: Similar to a Controller in MVC web development.  This can direct web traffic to a view, and can declare any number of queries that the view will have access to 
+ - View: Similar to a View in MVC web development.  Slate Views can use Liquid Markup for very basic server side processing.   The views are rendered as HTML and as such we can use Javascript and natively jQuery is available.
+ - Queries: Similar to a Model in MVC web development.  Slate Queries use a built in Query builder tool call "Configurable Join" query.  A Slate query has the option to declare a parameter, that can be used to filter the data returned. A Slate Query has the option to declare the ouput parameter.  This is what is exposed as an array in the Liquid Markup of the view.  For instance, we can declare <prospects> as the query output, and then in the View do something like 
+ {% for prospect in prospect %}
+ <tr><td>{{prospect.name}}</td></tr>
+ {% endfor %}
+
+ Portals in Slate are all defined within their own web URI (i.e. mycollege.edu/portal/thisportal) where thisportal is the key.
+ To call a method you need to use the querystring paramter ?cmd.   So we can load the method "Prospects" with ?cmd=prospects if the method key is prospects.  We can pass additional pasrameters, that are visible to the linked queries with additional querysting parameters.  i.e. ?cmd=prospects&fiscal_year=2025&region=south  
+
+
+3. Data Structures and Constraints
+
+Slate organizes data into Datasets (collections of related records), Entities (custom data objects, simiar to tables that can be linked to a person or dataset), and Person Records.
+Data is highly relational, but you are often limited to reading/writing via queries or APIs without creating custom database tables.
+No access to direct database modifications (e.g., no table creation).
+Limited support for advanced logic in Liquid Markup (e.g., no group_by filter in some versions).
+API costs or rate limits that affect integration design.
+
+4. Integration Scope:
+I have access to Slate’s APIs for integration. For example:
+ - I can query JSON objects from an API using configurable endpoints.
+ - I can sync data from external tools (e.g., Google Calendar, messaging systems) but cannot add server-side functions or database tables in Slate.
+
+
+
+When asking about query performance.  Slate uses a Query Builder tool called Configurable Joins.  Where I can only add indivdual exports 
+
+Configurable Joins in Slate are a flexible way to link and pull information from different, but related, tables (datasets) within the Slate database—without writing code. They allow users to build queries and reports that combine data from multiple sources, such as prospects, applications, interactions, and custom fields. Instead of relying on fixed or pre-set table connections, Configurable Joins let you visually select how tables (entities) relate to each other and what data you want to retrieve, offering more customization and deeper insights for process management, communications, and data analysis.
+
+In summary:
+Configurable Joins give you a user-friendly, point-and-click interface to connect and query data from across your Slate instance, helping you answer complex questions and create tailored reports.
+
+How Exports Are Built in Configurable Joins
+Exports in Configurable Joins define the columns (fields) that will appear in the results of your query. You can build exports using a flexible, point-and-click interface, and they can be as simple or as complex as needed.
+
+Steps to Build Exports
+Select Query Base:
+Choose what each row in your query will represent (e.g., Person, Application, Document).
+
+Add Exports:
+
+Click the Export button to open the dialog for adding fields.
+You’ll see a list of available fields organized by direct exports (standard fields such as First Name, Email, etc.) and related (joined) entities (like Schools or Test Scores).
+Select fields to add them as columns in your export.
+You can add calculated fields (Formulas), static values (Literals), or even custom exports using Subqueries if you need values based on related records or aggregations.
+Types of Exports:
+
+Direct Export: Basic field directly from the base or a joined table.
+Formula Export: Calculated value using a formula.
+Literal: Adds a constant value as a column.
+Subquery Export: Used to pull in data from related records or perform aggregations (counts, sums, etc.).
+Existence (via Subquery): Shows if related records meeting specific criteria exist (returns True/False or count).
+Organizing Exports:
+
+You can rename exports for clarity, reorder columns, and group fields for readability.
+Query Library:
+
+Frequently used exports can be saved to a Query Library, making them available for use in other queries and standardizing reporting across your instance.
+Best Practices
+Use subquery exports for more complex logic or when you need to aggregate information from related records.
+Avoid custom SQL unless absolutely necessary, as Configurable Joins allow for most functionality within the visual interface.
+Organize your exports and document them using friendly names for end-users.
+
+
+
+
+**GIVEN ALL THE ABOVE PLEASE CONSIDER***
+
+
+I have a table of data that I want to load quickly. There is one column that is expensive with TSQL. I would like to have an jquery ajax call to get the data to load after the initial page load and have the last column of data added to the table. How would I best set that up?
