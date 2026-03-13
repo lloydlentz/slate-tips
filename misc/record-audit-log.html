@@ -198,6 +198,9 @@
       font-size: 11px;
     }
 
+    /* ─── Visibility toggle (avoids conflict with Slate's .hidden class) ── */
+    .audit-off { display: none !important; }
+
     /* ─── Loading / Error / Empty ───────────────────────────── */
     #audit-status {
       padding: 30px;
@@ -257,9 +260,9 @@
       <option value="first">First-set only</option>
     </select>
   </label>
-  <button class="toolbar-btn" id="btn-group">Group by Field</button>
-  <button class="toolbar-btn" id="btn-clear">Clear Filters</button>
-  <button class="toolbar-btn" id="btn-csv">⬇ Export CSV</button>
+  <button type="button" class="toolbar-btn" id="btn-group">Group by Field</button>
+  <button type="button" class="toolbar-btn" id="btn-clear">Clear Filters</button>
+  <button type="button" class="toolbar-btn" id="btn-csv">⬇ Export CSV</button>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════
@@ -272,7 +275,7 @@
 ════════════════════════════════════════════════════════════ -->
 <div id="audit-table-wrap">
   <div id="audit-status">Loading audit data…</div>
-  <table id="audit-table" style="display:none">
+  <table id="audit-table" class="audit-off">
     <thead>
       <tr>
         <th data-col="time">Timestamp <span class="sort-icon">▼</span></th>
@@ -283,7 +286,7 @@
     </thead>
     <tbody id="audit-tbody"></tbody>
   </table>
-  <div id="audit-pagination" style="display:none"></div>
+  <div id="audit-pagination" class="audit-off"></div>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════
@@ -301,9 +304,8 @@ $(function () {
   /* ──────────────────────────────────────────────────────────
      STEP 1 – Detect record ID & type from the current URL
   ────────────────────────────────────────────────────────── */
-  var params     = new URLSearchParams(window.location.search);
-  var recordId   = params.get('id');
-  var isDataset  = window.location.pathname.indexOf('/lookup/dataset') !== -1;
+  var params   = new URLSearchParams(window.location.search);
+  var recordId = params.get('id');
 
   if (!recordId) {
     showError('Could not detect record ID from the page URL. '
@@ -311,106 +313,171 @@ $(function () {
     return;
   }
 
-  /* ──────────────────────────────────────────────────────────
-     STEP 2 – Fetch raw log entries
-             Dataset records → JSON  (field_versions_json)
-             Person/lookup records → HTML  (cmd=audit)
-  ────────────────────────────────────────────────────────── */
-  if (isDataset) {
-    // Dataset path — JSON API
+  // ── Default date range: one month ago → today ──────────────
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function toYMD(d) {
+    return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+  var _today        = new Date();
+  var _oneMonthAgo  = new Date(_today.getFullYear(), _today.getMonth() - 1, _today.getDate());
+  $('#filter-date-from').val(toYMD(_oneMonthAgo));
+  $('#filter-date-to').val(toYMD(_today));
+
+  function loadData() {
+    var dtstart = $('#filter-date-from').val();
+    var dtend   = $('#filter-date-to').val();
+
+    // Always use audit_results with explicit dates so we get year-unambiguous ranges
+    var url = '/manage/lookup/record?id=' + recordId + '&cmd=audit_results';
+    if (dtstart) url += '&dtstart=' + encodeURIComponent(toSlateDate(dtstart));
+    if (dtend)   url += '&dtend='   + encodeURIComponent(toSlateDate(dtend));
+
+    // Keep the parsed Date objects so processRows can resolve years from them
+    var rangeStart = dtstart ? new Date(dtstart)              : null;
+    var rangeEnd   = dtend   ? new Date(dtend + 'T23:59:59')  : null;
+
+    $('#audit-status').text('Loading audit data\u2026').removeClass('error').show();
+    $('#audit-table').addClass('audit-off');
+    $('#audit-pagination').addClass('audit-off');
+    ALL_DIFF_ROWS = [];
+
     $.ajax({
-      url: '/portal/fundraising_initiative_admin?cmd=field_versions_json&guid=' + recordId,
-      dataType: 'json',
-      success: function (data) {
-        var rows = data.row || data.rows || [];
-        if (!rows.length) { showError('No audit entries found for this record.'); return; }
-        processRows(rows);
-      },
-      error: function () {
-        showError('Could not load audit data (field_versions_json). '
-                + 'Check that you are logged in and have access to this record.');
-      }
-    });
-  } else {
-    // Person / lookup record path — HTML scraping
-    $.ajax({
-      url: '/manage/lookup/record?id=' + recordId + '&cmd=audit',
+      url: url,
       dataType: 'html',
       success: function (html) {
         var rows = parseAuditHtml(html);
-        if (!rows.length) { showError('No audit entries found (or could not parse response).'); return; }
-        processRows(rows);
+        if (!rows.length) { showError('No audit entries found for this date range.'); return; }
+        processRows(rows, rangeStart, rangeEnd);
       },
       error: function () {
-        showError('Could not load audit data (cmd=audit). '
-                + 'Check that you are logged in and have access to this record.');
+        showError('Could not load audit data. Check that you are logged in and have access to this record.');
       }
     });
   }
 
-  /* ──────────────────────────────────────────────────────────
-     STEP 3 – Parse HTML response from cmd=audit
-             Expects a <table> with rows: Field | Value | Timestamp
-  ────────────────────────────────────────────────────────── */
+  // Convert a date input value (YYYY-MM-DD) to Slate's MM/DD/YYYY format
+  function toSlateDate(ymd) {
+    var parts = ymd.split('-');
+    if (parts.length !== 3) return ymd;
+    return parts[1] + '/' + parts[2] + '/' + parts[0];
+  }
+
+  loadData();
+
   function parseAuditHtml(html) {
-    var rows = [];
+    // The audit endpoint returns a timeline table where each row is:
+    //   td[0] = timestamp  e.g. "03/13 01:59:20 PM"
+    //   td[1] = description e.g. "Reporting - Donors set to 71"
+    //                        or  "Reporting - Donors unset from 70"
+    // Paired set/unset rows at the same timestamp represent one field change.
+    var entries = [];
     var $doc = $('<div>').html(html);
+
     $doc.find('table tr').each(function () {
-      var $cells = $(this).find('td');
-      if ($cells.length >= 3) {
-        rows.push({
-          field : $cells.eq(0).text().trim(),
-          value : $cells.eq(1).text().trim(),
-          time  : $cells.eq(2).text().trim()
-        });
+      var $tds = $(this).find('td');
+      if ($tds.length < 2) return;  // skip month-header rows (th only)
+
+      var timeStr = $tds.eq(0).text().trim();
+      var desc    = $tds.eq(1).text().trim();
+      if (!timeStr || !desc) return;
+
+      var setMatch   = desc.match(/^(.+?)\s+set to\s+(.+)$/);
+      var unsetMatch = desc.match(/^(.+?)\s+unset from\s+(.+)$/);
+
+      if (setMatch) {
+        entries.push({ time: timeStr, field: setMatch[1].trim(),   action: 'set',   value: setMatch[2].trim() });
+      } else if (unsetMatch) {
+        entries.push({ time: timeStr, field: unsetMatch[1].trim(), action: 'unset', value: unsetMatch[2].trim() });
       }
     });
-    return rows;
+
+    return entries;
   }
 
-  /* ──────────────────────────────────────────────────────────
-     STEP 4 – Transform flat log rows → diff rows
-             For each field, walk the timeline and record
-             what it was vs. what it became at each timestamp.
-  ────────────────────────────────────────────────────────── */
   var ALL_DIFF_ROWS = [];
   var SORT_COL      = 'time';
   var SORT_DIR      = 'desc';
   var CURRENT_PAGE  = 1;
 
-  function processRows(rows) {
-    // Normalise timestamps to real Date objects
-    rows.forEach(function (r) {
-      r._date = new Date(r.time);
-      if (isNaN(r._date)) r._date = parseSlateDate(r.time);
+  function processRows(entries, rangeStart, rangeEnd) {
+    // Parse timestamps, using the known date range to resolve the year
+    entries.forEach(function (e) {
+      e._date = parseSlateDate(e.time, rangeStart, rangeEnd);
     });
 
-    // Sort ascending so we can compute prev values
-    rows.sort(function (a, b) { return a._date - b._date; });
+    // Sort ascending
+    entries.sort(function (a, b) { return a._date - b._date; });
 
-    // Build per-field history then emit diff rows
-    var fieldHistory = {};
-    var diffRows     = [];
+    // Group by timestamp+field, pairing "unset from" (old value) with "set to" (new value)
+    var byTime    = {};
+    var timeOrder = [];
 
-    rows.forEach(function (r) {
-      var prev    = fieldHistory.hasOwnProperty(r.field) ? fieldHistory[r.field] : null;
-      var isFirst = prev === null;
+    entries.forEach(function (e) {
+      var key = e.time;
+      if (!byTime[key]) { byTime[key] = {}; timeOrder.push(key); }
+      if (!byTime[key][e.field]) byTime[key][e.field] = { unset: null, set: null, date: e._date };
+      if (e.action === 'set')   byTime[key][e.field].set   = e.value;
+      if (e.action === 'unset') byTime[key][e.field].unset = e.value;
+    });
 
-      diffRows.push({
-        time    : r._date,
-        timeStr : formatDate(r._date),
-        field   : r.field,
-        from    : prev,
-        to      : r.value,
-        isFirst : isFirst
+    // Build one diff row per timestamp+field combination
+    var diffRows = [];
+    timeOrder.forEach(function (timeKey) {
+      Object.keys(byTime[timeKey]).forEach(function (field) {
+        var pair = byTime[timeKey][field];
+        diffRows.push({
+          time    : pair.date,
+          timeStr : formatDate(pair.date),
+          field   : field,
+          from    : pair.unset,
+          to      : pair.set,
+          isFirst : pair.unset === null && pair.set !== null
+        });
       });
-
-      fieldHistory[r.field] = r.value;
     });
 
-    ALL_DIFF_ROWS = diffRows;
+    // ── Merge orphaned pairs ────────────────────────────────────
+    // Slate sometimes records "unset from X" and "set to Y" for the same
+    // field at timestamps 1-2 seconds apart, producing two rows instead of
+    // one: { from: X, to: null } and { from: null, to: Y }.
+    // Find and collapse these into a single { from: X, to: Y } row.
+    var MERGE_WINDOW_MS = 60000; // 60-second window
+    diffRows.sort(function (a, b) { return a.time - b.time; });
 
-    renderStats(diffRows, rows);
+    var skip = {};
+    var merged = [];
+    diffRows.forEach(function (row, i) {
+      if (skip[i]) return;
+
+      // Only look to merge if this row is an orphaned unset (to === null)
+      if (row.to === null) {
+        for (var j = i + 1; j < diffRows.length; j++) {
+          if (skip[j]) continue;
+          var next = diffRows[j];
+          // Must be the same field and within the merge window
+          if (next.field !== row.field) continue;
+          if (next.time - row.time > MERGE_WINDOW_MS) break;
+          // Partner must be an orphaned set (from === null)
+          if (next.from === null && next.to !== null) {
+            merged.push({
+              time    : row.time,
+              timeStr : row.timeStr,
+              field   : row.field,
+              from    : row.from,      // the original "unset from" value
+              to      : next.to,       // the "set to" value
+              isFirst : row.from === null
+            });
+            skip[j] = true;
+            return;
+          }
+        }
+      }
+
+      merged.push(row);
+    });
+
+    ALL_DIFF_ROWS = merged;
+    renderStats(diffRows, entries);
     applyFiltersAndRender();
   }
 
@@ -418,15 +485,11 @@ $(function () {
      STEP 5 – Filtering, sorting, and rendering
   ────────────────────────────────────────────────────────── */
   function applyFiltersAndRender() {
-    var fieldFilter  = $('#filter-field').val().trim().toLowerCase();
-    var dateFrom     = $('#filter-date-from').val() ? new Date($('#filter-date-from').val()) : null;
-    var dateTo       = $('#filter-date-to').val()   ? new Date($('#filter-date-to').val() + 'T23:59:59') : null;
-    var changeType   = $('#filter-changetype').val();
+    var fieldFilter = $('#filter-field').val().trim().toLowerCase();
+    var changeType  = $('#filter-changetype').val();
 
     var filtered = ALL_DIFF_ROWS.filter(function (r) {
       if (fieldFilter && r.field.toLowerCase().indexOf(fieldFilter) === -1) return false;
-      if (dateFrom     && r.time < dateFrom)  return false;
-      if (dateTo       && r.time > dateTo)    return false;
       if (changeType === 'changes' && r.isFirst)  return false;
       if (changeType === 'first'   && !r.isFirst) return false;
       return true;
@@ -459,12 +522,12 @@ $(function () {
   function renderTable(rows) {
     var $tbody = $('#audit-tbody').empty();
     $('#audit-status').hide();
-    $('#audit-table').show();
+    $('#audit-table').removeClass('audit-off');
 
     if (!rows.length) {
       $('#audit-status').text('No matching entries.').show();
-      $('#audit-table').hide();
-      $('#audit-pagination').hide();
+      $('#audit-table').addClass('audit-off');
+      $('#audit-pagination').addClass('audit-off');
       return;
     }
 
@@ -564,7 +627,7 @@ $(function () {
      PAGINATION
   ────────────────────────────────────────────────────────── */
   function renderPagination(total, totalPages) {
-    var $pag = $('#audit-pagination').empty().show();
+    var $pag = $('#audit-pagination').empty().removeClass('audit-off');
     var startRow = (CURRENT_PAGE - 1) * PAGE_SIZE + 1;
     var endRow   = Math.min(CURRENT_PAGE * PAGE_SIZE, total);
 
@@ -573,7 +636,7 @@ $(function () {
     var $btns = $('<span>');
     if (totalPages <= 1) { return; }
 
-    var $prev = $('<button class="page-btn">&laquo; Prev</button>')
+    var $prev = $('<button type="button" class="page-btn">&laquo; Prev</button>')
       .prop('disabled', CURRENT_PAGE === 1)
       .click(function () { CURRENT_PAGE--; applyFiltersAndRender(); });
     $btns.append($prev);
@@ -583,14 +646,14 @@ $(function () {
     var end   = Math.min(totalPages, start + 4);
     for (var p = start; p <= end; p++) {
       (function (pg) {
-        var $b = $('<button class="page-btn">' + pg + '</button>')
+        var $b = $('<button type="button" class="page-btn">' + pg + '</button>')
           .toggleClass('active', pg === CURRENT_PAGE)
           .click(function () { CURRENT_PAGE = pg; applyFiltersAndRender(); });
         $btns.append($b);
       })(p);
     }
 
-    var $next = $('<button class="page-btn">Next &raquo;</button>')
+    var $next = $('<button type="button" class="page-btn">Next &raquo;</button>')
       .prop('disabled', CURRENT_PAGE === totalPages)
       .click(function () { CURRENT_PAGE++; applyFiltersAndRender(); });
     $btns.append($next);
@@ -619,15 +682,23 @@ $(function () {
   /* ──────────────────────────────────────────────────────────
      FILTER EVENTS
   ────────────────────────────────────────────────────────── */
-  $('#filter-field').on('input',  debounce(applyFiltersAndRender, 250));
-  $('#filter-date-from, #filter-date-to, #filter-changetype').on('change', applyFiltersAndRender);
+  $('#filter-field').on('input', debounce(applyFiltersAndRender, 250));
+  $('#filter-changetype').on('change', applyFiltersAndRender);
+
+  // Date changes re-fetch from the server with the new dtstart/dtend params
+  $('#filter-date-from, #filter-date-to').on('change', debounce(loadData, 400));
 
   $('#btn-clear').click(function () {
     $('#filter-field').val('');
+    $('#filter-changetype').val('all');
+    var hadDates = $('#filter-date-from').val() || $('#filter-date-to').val();
     $('#filter-date-from').val('');
     $('#filter-date-to').val('');
-    $('#filter-changetype').val('all');
-    applyFiltersAndRender();
+    if (hadDates) {
+      loadData();  // re-fetch without date params
+    } else {
+      applyFiltersAndRender();
+    }
   });
 
   /* ──────────────────────────────────────────────────────────
@@ -651,15 +722,11 @@ $(function () {
      EXPORT CSV
   ────────────────────────────────────────────────────────── */
   $('#btn-csv').click(function () {
-    var fieldFilter  = $('#filter-field').val().trim().toLowerCase();
-    var dateFrom     = $('#filter-date-from').val() ? new Date($('#filter-date-from').val()) : null;
-    var dateTo       = $('#filter-date-to').val()   ? new Date($('#filter-date-to').val() + 'T23:59:59') : null;
-    var changeType   = $('#filter-changetype').val();
+    var fieldFilter = $('#filter-field').val().trim().toLowerCase();
+    var changeType  = $('#filter-changetype').val();
 
     var rows = ALL_DIFF_ROWS.filter(function (r) {
       if (fieldFilter && r.field.toLowerCase().indexOf(fieldFilter) === -1) return false;
-      if (dateFrom     && r.time < dateFrom)  return false;
-      if (dateTo       && r.time > dateTo)    return false;
       if (changeType === 'changes' && r.isFirst)  return false;
       if (changeType === 'first'   && !r.isFirst) return false;
       return true;
@@ -690,7 +757,7 @@ $(function () {
   ────────────────────────────────────────────────────────── */
   function showError(msg) {
     $('#audit-status').text(msg).addClass('error').show();
-    $('#audit-table').hide();
+    $('#audit-table').addClass('audit-off');
   }
 
   function escapeHtml(str) {
@@ -708,18 +775,45 @@ $(function () {
     });
   }
 
-  // Handle Slate's locale date strings like "3/13/2026, 11:10:19 AM"
-  function parseSlateDate(str) {
-    var d = new Date(str);
-    if (!isNaN(d)) return d;
-    // Try M/D/YYYY, H:MM:SS AM/PM
-    var m = str.match(/(\d+)\/(\d+)\/(\d{4}),\s*(\d+):(\d+):(\d+)\s*(AM|PM)/i);
+  function parseSlateDate(str, rangeStart, rangeEnd) {
+    // "3/13/2026, 11:10:19 AM" — has explicit 4-digit year, use as-is
+    var m = str.match(/(\d+)\/(\d+)\/(\d{4}),?\s*(\d+):(\d+):(\d+)\s*(AM|PM)/i);
     if (m) {
       var hr = parseInt(m[4], 10);
       if (m[7].toUpperCase() === 'PM' && hr < 12) hr += 12;
       if (m[7].toUpperCase() === 'AM' && hr === 12) hr = 0;
       return new Date(+m[3], +m[1]-1, +m[2], hr, +m[5], +m[6]);
     }
+
+    // "03/13 01:59:20 PM" — no year in string; derive it from the known date range
+    var m2 = str.match(/(\d+)\/(\d+)\s+(\d+):(\d+):(\d+)\s*(AM|PM)/i);
+    if (m2) {
+      var hr2 = parseInt(m2[3], 10);
+      if (m2[6].toUpperCase() === 'PM' && hr2 < 12) hr2 += 12;
+      if (m2[6].toUpperCase() === 'AM' && hr2 === 12) hr2 = 0;
+      var mon = +m2[1] - 1, day = +m2[2], min = +m2[4], sec = +m2[5];
+
+      // Use the year from rangeStart (the dtstart input) as the anchor.
+      // If no range is available fall back to the current year.
+      var refYear = rangeStart ? rangeStart.getFullYear() : new Date().getFullYear();
+      var candidate = new Date(refYear, mon, day, hr2, min, sec);
+
+      // If the candidate falls before rangeStart, the entry might be
+      // in the next calendar year (rare but possible for year-crossing ranges).
+      if (rangeStart && candidate < rangeStart) {
+        var nextYr = new Date(refYear + 1, mon, day, hr2, min, sec);
+        if (!rangeEnd || nextYr <= rangeEnd) candidate = nextYr;
+      }
+
+      // If it's still after rangeEnd, try the previous year
+      // (handles ranges that start in one year and end in another).
+      if (rangeEnd && candidate > rangeEnd) {
+        candidate = new Date(refYear - 1, mon, day, hr2, min, sec);
+      }
+
+      return candidate;
+    }
+
     return new Date(NaN);
   }
 
