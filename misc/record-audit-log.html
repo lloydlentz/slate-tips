@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Slate Audit Diff Viewer</title>
+
+  <!-- jQuery (use Slate's bundled jQuery if embedding inside Slate; otherwise CDN below) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <style>
+    /* ─── Reset / Base ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 13px;
+      color: #333;
+      background: #f4f6f8;
+      padding: 16px;
+    }
+
+    /* ─── Toolbar ───────────────────────────────────────────── */
+    #audit-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+      margin-bottom: 14px;
+      background: #fff;
+      border: 1px solid #dde1e7;
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    #audit-toolbar label {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    #audit-toolbar input,
+    #audit-toolbar select {
+      padding: 5px 9px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 13px;
+      min-width: 140px;
+      color: #333;
+      background: #fafafa;
+    }
+    #audit-toolbar input:focus,
+    #audit-toolbar select:focus {
+      outline: none;
+      border-color: #0070cc;
+      background: #fff;
+    }
+    .toolbar-btn {
+      padding: 6px 14px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s;
+    }
+    #btn-clear   { background:#e9ecef; color:#444; margin-top:18px; }
+    #btn-clear:hover { background:#dee2e6; }
+    #btn-csv     { background:#0070cc; color:#fff; margin-top:18px; }
+    #btn-csv:hover { background:#005aa3; }
+    #btn-group   { background:#f47721; color:#fff; margin-top:18px; }
+    #btn-group:hover { background:#d4631a; }
+
+    /* ─── Stats Bar ─────────────────────────────────────────── */
+    #audit-stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .stat-pill {
+      background: #fff;
+      border: 1px solid #dde1e7;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: #555;
+    }
+    .stat-pill strong { color: #0070cc; }
+
+    /* ─── Main Table ────────────────────────────────────────── */
+    #audit-table-wrap {
+      background: #fff;
+      border: 1px solid #dde1e7;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #audit-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #audit-table thead th {
+      background: #f0f4f8;
+      color: #555;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 2px solid #dde1e7;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    #audit-table thead th .sort-icon { margin-left:4px; opacity:0.4; }
+    #audit-table thead th.sorted-asc  .sort-icon { opacity:1; content:"▲"; }
+    #audit-table thead th.sorted-desc .sort-icon { opacity:1; }
+
+    #audit-table tbody tr { border-bottom: 1px solid #f0f0f0; }
+    #audit-table tbody tr:hover { background: #f8fafc; }
+    #audit-table tbody td { padding: 9px 14px; vertical-align: top; }
+
+    /* timestamp column */
+    td.col-time {
+      white-space: nowrap;
+      font-size: 11.5px;
+      color: #666;
+      width: 160px;
+    }
+    /* field column */
+    td.col-field {
+      font-family: 'Courier New', monospace;
+      font-size: 11.5px;
+      color: #444;
+      width: 200px;
+    }
+    /* from / to columns */
+    td.col-from,
+    td.col-to {
+      max-width: 280px;
+      word-break: break-word;
+    }
+    .value-empty {
+      color: #aaa;
+      font-style: italic;
+      font-size: 11px;
+    }
+    .value-from {
+      display: inline-block;
+      background: #fff0f0;
+      color: #b91c1c;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 12px;
+      text-decoration: line-through;
+      text-decoration-color: #f87171;
+    }
+    .value-to {
+      display: inline-block;
+      background: #f0fdf4;
+      color: #166534;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 12px;
+    }
+    .value-initial {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1e40af;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 12px;
+      font-style: italic;
+    }
+    /* change arrow */
+    .change-arrow {
+      font-size: 13px;
+      color: #aaa;
+      margin: 0 5px;
+    }
+
+    /* ─── Group header rows ─────────────────────────────────── */
+    tr.group-header td {
+      background: #f7f9fc;
+      font-weight: 700;
+      font-size: 11.5px;
+      color: #444;
+      padding: 7px 14px;
+      border-top: 2px solid #e2e8f0;
+    }
+    tr.group-header td span.group-count {
+      font-weight: normal;
+      color: #888;
+      margin-left: 6px;
+      font-size: 11px;
+    }
+
+    /* ─── Loading / Error / Empty ───────────────────────────── */
+    #audit-status {
+      padding: 30px;
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+    }
+    #audit-status.error { color: #b91c1c; }
+
+    /* ─── Pagination ────────────────────────────────────────── */
+    #audit-pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: #fafbfc;
+      border-top: 1px solid #eee;
+      font-size: 12px;
+      color: #666;
+    }
+    .page-btn {
+      padding: 4px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 12px;
+      margin: 0 2px;
+    }
+    .page-btn:disabled { opacity: 0.4; cursor: default; }
+    .page-btn.active   { background: #0070cc; color: #fff; border-color: #0070cc; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     TOOLBAR
+════════════════════════════════════════════════════════════ -->
+<div id="audit-toolbar">
+  <label>
+    Filter Field
+    <input type="text" id="filter-field" placeholder="e.g. fi_rpt_dollars" />
+  </label>
+  <label>
+    From Date
+    <input type="date" id="filter-date-from" />
+  </label>
+  <label>
+    To Date
+    <input type="date" id="filter-date-to" />
+  </label>
+  <label>
+    Show
+    <select id="filter-changetype">
+      <option value="all">All entries</option>
+      <option value="changes">Changes only (not first-set)</option>
+      <option value="first">First-set only</option>
+    </select>
+  </label>
+  <button class="toolbar-btn" id="btn-group">Group by Field</button>
+  <button class="toolbar-btn" id="btn-clear">Clear Filters</button>
+  <button class="toolbar-btn" id="btn-csv">⬇ Export CSV</button>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     STATS BAR
+════════════════════════════════════════════════════════════ -->
+<div id="audit-stats"></div>
+
+<!-- ════════════════════════════════════════════════════════════
+     TABLE
+════════════════════════════════════════════════════════════ -->
+<div id="audit-table-wrap">
+  <div id="audit-status">Loading audit data…</div>
+  <table id="audit-table" style="display:none">
+    <thead>
+      <tr>
+        <th data-col="time">Timestamp <span class="sort-icon">▼</span></th>
+        <th data-col="field">Field <span class="sort-icon">⇅</span></th>
+        <th data-col="from">Previous Value <span class="sort-icon">⇅</span></th>
+        <th data-col="to">New Value <span class="sort-icon">⇅</span></th>
+      </tr>
+    </thead>
+    <tbody id="audit-tbody"></tbody>
+  </table>
+  <div id="audit-pagination" style="display:none"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SCRIPT
+════════════════════════════════════════════════════════════ -->
+<script>
+$(function () {
+
+  /* ──────────────────────────────────────────────────────────
+     CONFIG — tweak these if the page structure changes
+  ────────────────────────────────────────────────────────── */
+  var PAGE_SIZE  = 50;   // rows per page
+  var GROUP_MODE = false; // toggled by button
+
+  /* ──────────────────────────────────────────────────────────
+     STEP 1 – Detect record ID & type from the current URL
+  ────────────────────────────────────────────────────────── */
+  var params     = new URLSearchParams(window.location.search);
+  var recordId   = params.get('id');
+  var isDataset  = window.location.pathname.indexOf('/lookup/dataset') !== -1;
+
+  if (!recordId) {
+    showError('Could not detect record ID from the page URL. '
+            + 'Make sure this page is embedded inside a Slate record view.');
+    return;
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     STEP 2 – Fetch raw log entries
+             Dataset records → JSON  (field_versions_json)
+             Person/lookup records → HTML  (cmd=audit)
+  ────────────────────────────────────────────────────────── */
+  if (isDataset) {
+    // Dataset path — JSON API
+    $.ajax({
+      url: '/portal/fundraising_initiative_admin?cmd=field_versions_json&guid=' + recordId,
+      dataType: 'json',
+      success: function (data) {
+        var rows = data.row || data.rows || [];
+        if (!rows.length) { showError('No audit entries found for this record.'); return; }
+        processRows(rows);
+      },
+      error: function () {
+        showError('Could not load audit data (field_versions_json). '
+                + 'Check that you are logged in and have access to this record.');
+      }
+    });
+  } else {
+    // Person / lookup record path — HTML scraping
+    $.ajax({
+      url: '/manage/lookup/record?id=' + recordId + '&cmd=audit',
+      dataType: 'html',
+      success: function (html) {
+        var rows = parseAuditHtml(html);
+        if (!rows.length) { showError('No audit entries found (or could not parse response).'); return; }
+        processRows(rows);
+      },
+      error: function () {
+        showError('Could not load audit data (cmd=audit). '
+                + 'Check that you are logged in and have access to this record.');
+      }
+    });
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     STEP 3 – Parse HTML response from cmd=audit
+             Expects a <table> with rows: Field | Value | Timestamp
+  ────────────────────────────────────────────────────────── */
+  function parseAuditHtml(html) {
+    var rows = [];
+    var $doc = $('<div>').html(html);
+    $doc.find('table tr').each(function () {
+      var $cells = $(this).find('td');
+      if ($cells.length >= 3) {
+        rows.push({
+          field : $cells.eq(0).text().trim(),
+          value : $cells.eq(1).text().trim(),
+          time  : $cells.eq(2).text().trim()
+        });
+      }
+    });
+    return rows;
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     STEP 4 – Transform flat log rows → diff rows
+             For each field, walk the timeline and record
+             what it was vs. what it became at each timestamp.
+  ────────────────────────────────────────────────────────── */
+  var ALL_DIFF_ROWS = [];
+  var SORT_COL      = 'time';
+  var SORT_DIR      = 'desc';
+  var CURRENT_PAGE  = 1;
+
+  function processRows(rows) {
+    // Normalise timestamps to real Date objects
+    rows.forEach(function (r) {
+      r._date = new Date(r.time);
+      if (isNaN(r._date)) r._date = parseSlateDate(r.time);
+    });
+
+    // Sort ascending so we can compute prev values
+    rows.sort(function (a, b) { return a._date - b._date; });
+
+    // Build per-field history then emit diff rows
+    var fieldHistory = {};
+    var diffRows     = [];
+
+    rows.forEach(function (r) {
+      var prev    = fieldHistory.hasOwnProperty(r.field) ? fieldHistory[r.field] : null;
+      var isFirst = prev === null;
+
+      diffRows.push({
+        time    : r._date,
+        timeStr : formatDate(r._date),
+        field   : r.field,
+        from    : prev,
+        to      : r.value,
+        isFirst : isFirst
+      });
+
+      fieldHistory[r.field] = r.value;
+    });
+
+    ALL_DIFF_ROWS = diffRows;
+
+    renderStats(diffRows, rows);
+    applyFiltersAndRender();
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     STEP 5 – Filtering, sorting, and rendering
+  ────────────────────────────────────────────────────────── */
+  function applyFiltersAndRender() {
+    var fieldFilter  = $('#filter-field').val().trim().toLowerCase();
+    var dateFrom     = $('#filter-date-from').val() ? new Date($('#filter-date-from').val()) : null;
+    var dateTo       = $('#filter-date-to').val()   ? new Date($('#filter-date-to').val() + 'T23:59:59') : null;
+    var changeType   = $('#filter-changetype').val();
+
+    var filtered = ALL_DIFF_ROWS.filter(function (r) {
+      if (fieldFilter && r.field.toLowerCase().indexOf(fieldFilter) === -1) return false;
+      if (dateFrom     && r.time < dateFrom)  return false;
+      if (dateTo       && r.time > dateTo)    return false;
+      if (changeType === 'changes' && r.isFirst)  return false;
+      if (changeType === 'first'   && !r.isFirst) return false;
+      return true;
+    });
+
+    // Sort
+    filtered.sort(function (a, b) {
+      var aVal, bVal;
+      if (SORT_COL === 'time') {
+        aVal = a.time; bVal = b.time;
+      } else if (SORT_COL === 'field') {
+        aVal = a.field.toLowerCase(); bVal = b.field.toLowerCase();
+      } else if (SORT_COL === 'from') {
+        aVal = (a.from || '').toLowerCase(); bVal = (b.from || '').toLowerCase();
+      } else {
+        aVal = (a.to || '').toLowerCase(); bVal = (b.to || '').toLowerCase();
+      }
+      if (aVal < bVal) return SORT_DIR === 'asc' ? -1 :  1;
+      if (aVal > bVal) return SORT_DIR === 'asc' ?  1 : -1;
+      return 0;
+    });
+
+    CURRENT_PAGE = 1;
+    renderTable(filtered);
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     RENDER TABLE  (flat or grouped)
+  ────────────────────────────────────────────────────────── */
+  function renderTable(rows) {
+    var $tbody = $('#audit-tbody').empty();
+    $('#audit-status').hide();
+    $('#audit-table').show();
+
+    if (!rows.length) {
+      $('#audit-status').text('No matching entries.').show();
+      $('#audit-table').hide();
+      $('#audit-pagination').hide();
+      return;
+    }
+
+    var totalPages = Math.ceil(rows.length / PAGE_SIZE);
+    var startIdx   = (CURRENT_PAGE - 1) * PAGE_SIZE;
+    var pageRows   = rows.slice(startIdx, startIdx + PAGE_SIZE);
+
+    if (GROUP_MODE) {
+      renderGrouped(pageRows, $tbody);
+    } else {
+      renderFlat(pageRows, $tbody);
+    }
+
+    renderPagination(rows.length, totalPages);
+  }
+
+  function renderFlat(rows, $tbody) {
+    rows.forEach(function (r) {
+      $tbody.append(buildRow(r));
+    });
+  }
+
+  function renderGrouped(rows, $tbody) {
+    // Group by field name
+    var groups = {};
+    var order  = [];
+    rows.forEach(function (r) {
+      if (!groups[r.field]) { groups[r.field] = []; order.push(r.field); }
+      groups[r.field].push(r);
+    });
+
+    order.forEach(function (field) {
+      var fieldRows = groups[field];
+      var $header   = $('<tr class="group-header"><td colspan="4">' +
+        escapeHtml(field) +
+        '<span class="group-count">' + fieldRows.length + ' change' +
+        (fieldRows.length !== 1 ? 's' : '') + '</span></td></tr>');
+      $tbody.append($header);
+      fieldRows.forEach(function (r) { $tbody.append(buildRow(r)); });
+    });
+  }
+
+  function buildRow(r) {
+    var fromHtml, toHtml;
+
+    if (r.isFirst) {
+      fromHtml = '<span class="value-empty">(first recorded value)</span>';
+      toHtml   = '<span class="value-initial">' + escapeHtml(r.to) + '</span>';
+    } else if (r.from === r.to) {
+      fromHtml = '<span class="value-empty">(unchanged — same value re-written)</span>';
+      toHtml   = '<span class="value-to">'   + escapeHtml(r.to)   + '</span>';
+    } else {
+      fromHtml = '<span class="value-from">' + escapeHtml(r.from || '') + '</span>';
+      toHtml   = '<span class="value-to">'   + escapeHtml(r.to)         + '</span>';
+    }
+
+    return $('<tr>')
+      .append($('<td class="col-time">').text(r.timeStr))
+      .append($('<td class="col-field">').text(r.field))
+      .append($('<td class="col-from">').html(fromHtml))
+      .append($('<td class="col-to">').html(toHtml));
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     STATS BAR
+  ────────────────────────────────────────────────────────── */
+  function renderStats(diffRows, rawRows) {
+    var totalEntries = rawRows.length;
+    var totalChanges = diffRows.filter(function (r) { return !r.isFirst; }).length;
+    var uniqueFields = Object.keys(
+      diffRows.reduce(function (acc, r) { acc[r.field] = 1; return acc; }, {})
+    ).length;
+
+    // Most-changed field
+    var fieldCounts = {};
+    diffRows.filter(function (r) { return !r.isFirst; }).forEach(function (r) {
+      fieldCounts[r.field] = (fieldCounts[r.field] || 0) + 1;
+    });
+    var topField = Object.keys(fieldCounts).sort(function (a, b) {
+      return fieldCounts[b] - fieldCounts[a];
+    })[0];
+
+    var $stats = $('#audit-stats').empty();
+    pill($stats, 'Total log entries', totalEntries);
+    pill($stats, 'Distinct changes', totalChanges);
+    pill($stats, 'Fields tracked', uniqueFields);
+    if (topField) pill($stats, 'Most changed', topField + ' (' + fieldCounts[topField] + 'x)');
+  }
+
+  function pill($parent, label, val) {
+    $parent.append(
+      $('<div class="stat-pill">').html(label + ': <strong>' + escapeHtml(String(val)) + '</strong>')
+    );
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     PAGINATION
+  ────────────────────────────────────────────────────────── */
+  function renderPagination(total, totalPages) {
+    var $pag = $('#audit-pagination').empty().show();
+    var startRow = (CURRENT_PAGE - 1) * PAGE_SIZE + 1;
+    var endRow   = Math.min(CURRENT_PAGE * PAGE_SIZE, total);
+
+    $pag.append($('<span>').text('Showing ' + startRow + '–' + endRow + ' of ' + total + ' entries'));
+
+    var $btns = $('<span>');
+    if (totalPages <= 1) { return; }
+
+    var $prev = $('<button class="page-btn">&laquo; Prev</button>')
+      .prop('disabled', CURRENT_PAGE === 1)
+      .click(function () { CURRENT_PAGE--; applyFiltersAndRender(); });
+    $btns.append($prev);
+
+    // Page number buttons (show window of 5)
+    var start = Math.max(1, CURRENT_PAGE - 2);
+    var end   = Math.min(totalPages, start + 4);
+    for (var p = start; p <= end; p++) {
+      (function (pg) {
+        var $b = $('<button class="page-btn">' + pg + '</button>')
+          .toggleClass('active', pg === CURRENT_PAGE)
+          .click(function () { CURRENT_PAGE = pg; applyFiltersAndRender(); });
+        $btns.append($b);
+      })(p);
+    }
+
+    var $next = $('<button class="page-btn">Next &raquo;</button>')
+      .prop('disabled', CURRENT_PAGE === totalPages)
+      .click(function () { CURRENT_PAGE++; applyFiltersAndRender(); });
+    $btns.append($next);
+
+    $pag.append($btns);
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     SORT HEADERS
+  ────────────────────────────────────────────────────────── */
+  $('#audit-table thead th').click(function () {
+    var col = $(this).data('col');
+    if (!col) return;
+    if (SORT_COL === col) {
+      SORT_DIR = SORT_DIR === 'asc' ? 'desc' : 'asc';
+    } else {
+      SORT_COL = col;
+      SORT_DIR = col === 'time' ? 'desc' : 'asc';
+    }
+    $('#audit-table thead th').removeClass('sorted-asc sorted-desc');
+    $(this).addClass(SORT_DIR === 'asc' ? 'sorted-asc' : 'sorted-desc');
+    $(this).find('.sort-icon').text(SORT_DIR === 'asc' ? '▲' : '▼');
+    applyFiltersAndRender();
+  });
+
+  /* ──────────────────────────────────────────────────────────
+     FILTER EVENTS
+  ────────────────────────────────────────────────────────── */
+  $('#filter-field').on('input',  debounce(applyFiltersAndRender, 250));
+  $('#filter-date-from, #filter-date-to, #filter-changetype').on('change', applyFiltersAndRender);
+
+  $('#btn-clear').click(function () {
+    $('#filter-field').val('');
+    $('#filter-date-from').val('');
+    $('#filter-date-to').val('');
+    $('#filter-changetype').val('all');
+    applyFiltersAndRender();
+  });
+
+  /* ──────────────────────────────────────────────────────────
+     GROUP TOGGLE
+  ────────────────────────────────────────────────────────── */
+  $('#btn-group').click(function () {
+    GROUP_MODE = !GROUP_MODE;
+    $(this).text(GROUP_MODE ? 'Ungroup (by time)' : 'Group by Field');
+    if (GROUP_MODE) {
+      // When grouping, sort by field then time
+      SORT_COL = 'field';
+      SORT_DIR = 'asc';
+    } else {
+      SORT_COL = 'time';
+      SORT_DIR = 'desc';
+    }
+    applyFiltersAndRender();
+  });
+
+  /* ──────────────────────────────────────────────────────────
+     EXPORT CSV
+  ────────────────────────────────────────────────────────── */
+  $('#btn-csv').click(function () {
+    var fieldFilter  = $('#filter-field').val().trim().toLowerCase();
+    var dateFrom     = $('#filter-date-from').val() ? new Date($('#filter-date-from').val()) : null;
+    var dateTo       = $('#filter-date-to').val()   ? new Date($('#filter-date-to').val() + 'T23:59:59') : null;
+    var changeType   = $('#filter-changetype').val();
+
+    var rows = ALL_DIFF_ROWS.filter(function (r) {
+      if (fieldFilter && r.field.toLowerCase().indexOf(fieldFilter) === -1) return false;
+      if (dateFrom     && r.time < dateFrom)  return false;
+      if (dateTo       && r.time > dateTo)    return false;
+      if (changeType === 'changes' && r.isFirst)  return false;
+      if (changeType === 'first'   && !r.isFirst) return false;
+      return true;
+    });
+
+    var csvLines = ['"Timestamp","Field","Previous Value","New Value","Type"'];
+    rows.forEach(function (r) {
+      csvLines.push([
+        '"' + r.timeStr.replace(/"/g, '""') + '"',
+        '"' + r.field.replace(/"/g, '""') + '"',
+        '"' + (r.from || '').toString().replace(/"/g, '""') + '"',
+        '"' + (r.to   || '').toString().replace(/"/g, '""') + '"',
+        '"' + (r.isFirst ? 'first-set' : 'change') + '"'
+      ].join(','));
+    });
+
+    var blob = new Blob([csvLines.join('\n')], { type: 'text/csv' });
+    var url  = URL.createObjectURL(blob);
+    var $a   = $('<a>').attr({ href: url, download: 'audit-diff-' + new Date().toISOString().slice(0,10) + '.csv' });
+    $('body').append($a);
+    $a[0].click();
+    $a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  /* ──────────────────────────────────────────────────────────
+     HELPERS
+  ────────────────────────────────────────────────────────── */
+  function showError(msg) {
+    $('#audit-status').text(msg).addClass('error').show();
+    $('#audit-table').hide();
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(String(str)));
+    return div.innerHTML;
+  }
+
+  function formatDate(d) {
+    if (!(d instanceof Date) || isNaN(d)) return 'Invalid date';
+    return d.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'short', day: 'numeric'
+    }) + ', ' + d.toLocaleTimeString('en-US', {
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+  }
+
+  // Handle Slate's locale date strings like "3/13/2026, 11:10:19 AM"
+  function parseSlateDate(str) {
+    var d = new Date(str);
+    if (!isNaN(d)) return d;
+    // Try M/D/YYYY, H:MM:SS AM/PM
+    var m = str.match(/(\d+)\/(\d+)\/(\d{4}),\s*(\d+):(\d+):(\d+)\s*(AM|PM)/i);
+    if (m) {
+      var hr = parseInt(m[4], 10);
+      if (m[7].toUpperCase() === 'PM' && hr < 12) hr += 12;
+      if (m[7].toUpperCase() === 'AM' && hr === 12) hr = 0;
+      return new Date(+m[3], +m[1]-1, +m[2], hr, +m[5], +m[6]);
+    }
+    return new Date(NaN);
+  }
+
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      clearTimeout(timer);
+      timer = setTimeout(fn, ms);
+    };
+  }
+
+});
+</script>
+
+</body>
+</html>
