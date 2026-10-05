@@ -70,7 +70,60 @@ See [material_download_url.sql](material_download_url.sql) for the long form.
 
 > **Security:** anyone holding this URL can download the file. It never expires. Only hand it to the person who should see that document, and never put it in a public page.
 
-## 6. From JavaScript
+## 6. Display the document with Slate's PDF viewer
+
+**Usage:** When you don't want the user to download the PDF.
+
+The same signed `part`/`h` pair also works on `/apply/download` (no `.pdf`). Point an `<iframe>` at it to show the document inline in a portal page, so reviewers stay on your page instead of opening a new tab.
+
+```
+https://<your-instance>/apply/download?part=stream:<stream-guid>&h=<md5(part + salt)>
+```
+
+Add a Custom SQL export (here named `document_url`) to the portal's Materials query:
+
+```sql
+concat(
+    (select [value] from [config] where [key] = 'https'),
+    '/apply/download?',
+    '&part=stream:', dbo.toGuidString(m.[stream]),
+    '&h=', dbo.toGuidString(dbo.md5(convert(varbinary(max),
+        concat('stream:', dbo.toGuidString(m.[stream])) + dbo.salt())))
+) as [document_url]
+```
+
+Then render it in the portal view directly as a link, or even use an ifame:
+
+```html
+<iframe id="document-preview"
+        title="Document preview"
+        src="{{ material.document_url }}"
+        referrerpolicy="no-referrer"
+        style="width:100%; height:80vh; border:0;"></iframe>
+```
+
+To switch between several materials, put each URL in a `data-` attribute and swap the iframe's `src` with JavaScript:
+
+```html
+{% for material in materials %}
+<button type="button" class="doc-tab" data-document-url="{{ material.document_url }}">{{ material.filename }}</button>
+{% endfor %}
+<iframe id="document-preview" title="Document preview" src="about:blank" referrerpolicy="no-referrer"></iframe>
+
+<script>
+  $(document).on('click', '.doc-tab', function () {
+    $('#document-preview').attr('src', $(this).data('document-url') || 'about:blank');
+  });
+</script>
+```
+
+Tips:
+
+- Hold off on adding `sandbox` to the iframe. A restrictive sandbox can stop Slate's document reader from working.
+- `referrerpolicy="no-referrer"` keeps the signed URL out of the Referer header sent to other sites.
+- The signed link is the same never-expiring link as in section 5. Treat it like the document itself: keep it out of form responses, logs, and `localStorage`, and filter the query so it returns only materials the viewer should see.
+
+## 7. From JavaScript
 
 If you only have the material GUID on the client, follow the `cmd=display` redirect to find the stream, then open it:
 
@@ -89,3 +142,4 @@ fetch('/manage/lookup/material?id=' + guid + '&cmd=display').then(function (r) {
 | Staff saving a copy | `cmd=download` |
 | A preview image in a list | `acquire?cmd=tile` |
 | A link for someone without a Slate login | signed `download.pdf?part=...&h=...` |
+| A document shown inline on a portal page | signed `download?part=...&h=...` in an `<iframe>` |
