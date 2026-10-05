@@ -1,4 +1,4 @@
-# Slate has some built in funcitons that are super handy to use.
+# Slate has some built in functions that are super handy to use.
 
 ### Fiscal year
 dbo.getFiscalYear(theDate *Date*, FiscalYearStartDay *String*)

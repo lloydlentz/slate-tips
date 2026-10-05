@@ -1,9 +1,10 @@
 # SQL
- * [Basic SQL Sorthands and Slate Built In Functions](slate_sql_functions.md)
- * [How to Query a node in XML](xml.md) Especially handy with Technolutions internal style-guide driven way of storing things in p/k/v format.
- * [Remove HTML from a value field](remove_html.md)  for example the Project Task table
- * [Get Geo Location from IP Address](geolocate_ip.md)  *[from Slack](https://slate-users.slack.com/archives/CFUUKHULW/p1629296632070700?thread_ts=1629296139.070600&cid=CFUUKHULW)* credit to Jamie Davis @ University of Michigan
- * [Add an new entity with values](add_entity.md)
- * [Powershell Script that will generate multiple output files](GenerateYearlyGivingSummary.ps1)
- * [Search names split by space.  Matching both parts of words](split_space.md)
- 
+
+* [Basic SQL shorthands and Slate built-in functions](slate_sql_functions.md) (see also [helpers/sqlfunctions.md](../helpers/sqlfunctions.md))
+* [Query a node in XML](xml.md), handy for Slate's key/value XML columns
+* [Remove HTML from a value field](remove_html.md), e.g. the Project Task table
+* [Split on spaces](split_space.md)
+* [Get geolocation from an IP address](geolocate_ip.md), credit Jamie Davis @ University of Michigan
+* [Add a new entity with values](add_entity.md)
+* Slate Voice/SMS usage: [v1](slate_voice_sms_usage.sql), [v2](slate_voice_sms_usage2.sql), [update entity](slate_voice_sms_usage_update_entity.sql)
+* [Generate yearly giving summary (PowerShell)](GenerateYearlyGivingSummary.ps1)

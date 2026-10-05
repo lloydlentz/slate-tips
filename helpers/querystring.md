@@ -1,6 +1,6 @@
-# Get Querysting Info
+# Get Querystring Info
 
-The Querystring Paramas are those thing in the URL of your browser like ?param=val
+The Querystring Params are those thing in the URL of your browser like ?param=val
 
 **NOTE** This method will not work in a popup window.  the JS in a popup window will evaluate the querystring that is in the host window.  If you are looking to capture passed parameters that way you have to do it via Liquid Markup and Configurable Joins query Parameters
 
@@ -10,12 +10,12 @@ delete qs.cmd;
 console.log(qs.param)
 ```
 
-Is what Slate uses for thier built in.   
+Is what Slate uses for their built-in.   
 
 ## HOWEVER
 
-That does not always parse params as expected.   After some [discussion wht my elders](https://stackoverflow.com/questions/7731778/get-query-string-parameters-url-values-with-jquery-javascript-querystring)
- I'd reccomend adding a jQuery bootstrap
+That does not always parse params as expected.   After some [discussion with my elders](https://stackoverflow.com/questions/7731778/get-query-string-parameters-url-values-with-jquery-javascript-querystring)
+ I'd recommend adding a jQuery bootstrap
  
 ```JAVASCRIPT
 $.urlParam = function (name) {

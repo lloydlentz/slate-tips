@@ -6,4 +6,4 @@
 
 will return a JSON array of all names that match *name*
 
-[Sample](autocmplete-sample.html)
+[Sample](autocomplete-sample.html)

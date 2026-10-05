@@ -20,7 +20,7 @@ select top 10
  ```
  
  
- FWIW Slate stores the p/k/v of the merge elements in the [xml] feild in message in a structure like 
+ FWIW Slate stores the p/k/v of the merge elements in the [xml] field in message in a structure like 
  ``` xml
  <p>
 	<k>

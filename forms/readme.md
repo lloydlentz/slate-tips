@@ -1,8 +1,16 @@
-Neato
+## Forms
 
-
- - [Add Required Astrisks with CSS](Add_Required_Astrisks_with_CSS.md)
- - [Embed a Form with easy to read JQuery](/portals/jquery-form-embed.md)
- - [Hide optionis from full events](hide_full.md)
- - [Add some script to force input validation](input_validation_and_more.js)
-
+* [Date Picker](date-picker.md)
+* [Redirect After Submit](redirect.md)
+* [Only allow a form to be filled out internally](redirect-to-internal-form.md)
+* [Hide the "Not SoAndSo, click here" option](hide-notpersonoption.md)
+* [Hide options from full events](hide_full.md)
+* [Add required asterisks with CSS](Add_Required_Asterisks_with_CSS.md)
+* [Restrict autocomplete to a population](autocomplete_restrict_to_population.md)
+* [Rich text input](rich_text_input.md)
+* [Photo uploader](photo_uploader.md) ([resize](photo_uploader_resize.js), [thumbnail](photo_uploader_thumbnail.js))
+* [Input validation and more](input_validation_and_more.js)
+* [Change submit button text](change_submit_button_text.js)
+* [Add a cancel button](add_cancel_button.js)
+* [Expandable reader forms](expandable_reader_forms.js)
+* [Embed a form with readable jQuery](../portals/jquery-form-embed.md)

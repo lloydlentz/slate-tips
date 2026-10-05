@@ -1,57 +1,66 @@
 # slate-tips
 
-## [General Slate Productivity Helpers](productivity/readme.md)
+Tips, snippets, and patterns for [Technolutions Slate](https://technolutions.com/). Each folder has its own `readme.md` index.
 
- - [Chrome Search Engine Shortcut to search the Knowledgebase or your own Instance](productivity/search_engine_key.md)
- - Rick Click on text and search slate **From anywhere on the web** [Chrome Extension](https://chrome.google.com/webstore/detail/right-click-to-search-sla/gknefgbhjgfjflkdpemekfkiplahiffh)
+## [Productivity](productivity/readme.md)
+ * [Chrome search engine shortcut for the Knowledge Base or your own instance](productivity/search_engine_key.md)
+ * [Right-click to search Slate from anywhere (Chrome extension)](https://chrome.google.com/webstore/detail/right-click-to-search-sla/gknefgbhjgfjflkdpemekfkiplahiffh)
+ * [Manage tasks/projects a little better](helpful/task-manage.md)
 
-
-## Forms
+## [Forms](forms/readme.md)
  * [Date Picker](forms/date-picker.md)
- * [Redirect After Submit](forms/redirect.md)
- * [Only Allow form to be filled out Internally](forms/redirect-to-internal-form.md)
- * [Hide the "Not SoAndSo, click here"](forms/hide-notpersonoption.md)
- * [display Image URL for uploaded file](materials/displaypreview.md)
+ * [Redirect after submit](forms/redirect.md)
+ * [Only allow a form to be filled out internally](forms/redirect-to-internal-form.md)
+ * [Hide the "Not SoAndSo, click here" option](forms/hide-notpersonoption.md)
+ * [Photo uploader](forms/photo_uploader.md)
  * [When is a CDATA section necessary within a script tag?](https://stackoverflow.com/questions/66837/when-is-a-cdata-section-necessary-within-a-script-tag)
 
-## Events
- * [Group Registrations](events/groups.md)
+## [Events](events/readme.md)
+ * [Group registrations](events/groups.md)
+ * [Door scanner / ticket check-in](events/doorscan/readme.md)
 
-## Portals
+## [Portals](portals/readme.md)
+ * [Autocomplete](portals/autocomplete.md)
+ * [Popup template](portals/pop-up-template.html)
+ * [More readable way to embed forms](portals/jquery-form-embed.md)
+ * [Change embedded form submit button text, and add a cancel button](portals/popup_formbuttons.md)
+ * [Display a table of info in Liquid](misc/liquid-loop-table.md)
+ * [Really basic funnel chart](portals/dataviz-funnel.md)
+ * [Portal table and table row classes (KB)](https://technolutions.zendesk.com/hc/en-us/articles/360043316291-Portal-Table-and-Table-Row-Classes)
 
- * Input issues - [Autocomplte](portals/autocomplete.md)
- * Pop Ups - [Pop Up Template](portals/pop-up-template.html)
- * Table CSS - [Portal Table and Table Row Classes](https://technolutions.zendesk.com/hc/en-us/articles/360043316291-Portal-Table-and-Table-Row-Classes)
- * Form Embed - [More readable way to embed forms](portals/jquery-form-embed.md)
- * [Change the embeded Form submit button text, and add a cancel button](portals/popup_formbuttons.md)
+## [Materials](materials/readme.md)
+ * **[Get a material as a PDF (download or Slate viewer)](materials/material-as-pdf.md)**
+ * [Display an uploaded image in a query](materials/displaypreview.md)
+ * [Signed PDF download URL (SQL)](materials/material_download_url.sql)
 
-## Materials
+## Helpers
+ * [Get QueryString params](helpers/querystring.md)
+ * [Built-in SQL functions](helpers/sqlfunctions.md)
 
-This sections needs some work, but here are some code snippets that should get you started on the way.
- * [Materials](materials)
+## [SQL](sql/readme.md)
+ * [Basic SQL shorthands and Slate built-in functions](sql/slate_sql_functions.md)
+ * [Query a node in XML](sql/xml.md)
+ * [Remove HTML from a value field](sql/remove_html.md)
+ * [Get geolocation from an IP address](sql/geolocate_ip.md)
+ * [Add a new entity with values](sql/add_entity.md)
 
-## Built in Framework Funcitons & Helpers
+## UX (User Experience)
+ * [Minimize the Slate default banner](ux/banner.md)
+ * [Hide default data from the person dashboard](ux/hide_default_data_from_person_dashboard.md)
+ * [Remove populations sidebar on datasets](ux/remove_populations_sidebar_on_datasets.js)
+ * [Click to copy Ref ID](ux/click_to_copy_refid.js)
+ * [Web service queries](ux/webservice_query.md)
+ * [Autocomplete](ux/autocomplete/readme.md)
+ * [Calendar visualization](ux/calendarviz/readme.md)
+ * [Entity-aware forms](ux/entityForm/readme.md)
+ * [Custom short URLs](ux/shorturl/readme.md)
+ * [Popup link](misc/pop-up-link.html)
+ * [Record audit log viewer](misc/record-audit-log.html)
 
- * [Get QueryString Params](helpers/querysting.md)
- * [Built In SQL Funcitons](helpers/sqlfunctions.md)
- 
-## SQL
- * [Basic SQL Sorthands and Slate Built In Functions](sql/slate_sql_functions.md)
- * [How to Query a node in XML](sql/xml.md) Especially handy with Technolutions internal style-guide driven way of storing things in p/k/v format.
- * [Remove HTML from a value field](sql/remove_html.md)  for example the Project Task table
- * [Get Geo Location from IP Address](sql/geolocate_ip.md)  *[from Slack](https://slate-users.slack.com/archives/CFUUKHULW/p1629296632070700?thread_ts=1629296139.070600&cid=CFUUKHULW)* credit to Jamie Davis @ University of Michigan
- * [Add an new entity with values](sql/add_entity.md)
- 
-## Misc UX (User Experience)
- * [Display a Table of info in Liquid](liquid-loop-table.md)
- * [Minimize Slate Default Banner](ux/banner.md)
- * [Manage Tasks/Project a little better](helpful/task-manage.md)
- * [Popup Link](https://raw.githubusercontent.com/lloydlentz/slate-tips/main/misc/pop-up-link.html)
- * [Custom Redirect after Form](forms/redirect.md)
- * [Really Basic Funnel Chart](portals/dataviz-funnel.md)
- 
- 
-## Misc Whatever
- * [Here is a list of "valid" Slate Wordle words](misc/ValidSlateWords.txt).
- 
+## Scripts
+ * [Convert base64 images](scripts/convertBase64Images/readme.md)
 
+## Misc
+ * [A list of "valid" Slate Wordle words](misc/ValidSlateWords.txt)
+ * [AI/LLM prompt seed](AI_and_LLM_prompt_seed.txt)
+ * [Adhoc experiments](adhoc/readme.md)

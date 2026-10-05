@@ -32,7 +32,7 @@ Within a Portal I can can create a
  {% endfor %}
 
  Portals in Slate are all defined within their own web URI (i.e. mycollege.edu/portal/thisportal) where thisportal is the key.
- To call a method you need to use the querystring paramter ?cmd.   So we can load the method "Prospects" with ?cmd=prospects if the method key is prospects.  We can pass additional pasrameters, that are visible to the linked queries with additional querysting parameters.  i.e. ?cmd=prospects&fiscal_year=2025&region=south  
+ To call a method you need to use the querystring paramter ?cmd.   So we can load the method "Prospects" with ?cmd=prospects if the method key is prospects.  We can pass additional pasrameters, that are visible to the linked queries with additional querystring parameters.  i.e. ?cmd=prospects&fiscal_year=2025&region=south  
 
 
 3. Data Structures and Constraints
