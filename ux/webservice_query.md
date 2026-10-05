@@ -1,56 +1,40 @@
-# Make your Config Joins Query a Webservice
+# Make a Configurable Joins Query a Web Service
 
-1) New Query - Config Join - Whatever base you are looking to get values from.   Usually Person, but why not something else?   Events? Funds? Contact Reports?
-2) [Edit Permissions] 
-    1)  Add Grantee
-        1)  Type = User Totke
-        2)  Name = `webservice`
-        3)  Allowed Networks *
-        4)  Permissions = ✅ Web Service
-        5)  [Save]
-    2) [Close] 
-3) [Edit Web Services]
-    1) **OPTIONAL** Custom Parameters: add `<param id="q" />`
-    2) Service Type: JSON
-    3) Include NULLs: Include Nulls
-    4) [Save]
-4) Add Exports  (in my example I am an querying person)
-    1) guid
-    2) name
-    3) classyear
-    4) record_type
-5) Add Filters
-    1) Add any over arching filters you want.  (Recrods Status, Degree Type, Donor Categroy, etc)
-    2) Subquery Filter
-        1) Name: Search by Name
-        2) Aggregate: Formula
-        3) Formula: `@Person-Name like '%' + @q + '%'`
-        4) Export: [Person Name]
-        5) [Save]
-6) click on **Web Service** [JSON]
-    1) Service Accunt: User Token - webservice
-    2) Authorization Type: Query String
-    3) URL:  !!COPY THAT!!
+Expose a query as a JSON web service you can call from a form or portal script. Several other tips here ([Autocomplete](autocomplete/readme.md), [Hide full events](../forms/hide_full.md)) start with this setup.
 
+1. Create a new **Configurable Joins** query with whatever base you need: Person usually, but Events, Funds, or Contact Reports work too.
+2. **Edit Permissions** → **Add Grantee**:
+   1. Type: **User Token**
+   2. Name: `webservice`
+   3. Allowed Networks: `*` (or, better, only your campus networks)
+   4. Permissions: ✅ **Web Service**
+   5. **Save**, then **Close**.
+3. **Edit Web Services**:
+   1. (Optional) Custom Parameters: `<param id="q" />`
+   2. Service Type: **JSON**
+   3. Include NULLs: **Include Nulls**
+   4. **Save**.
+4. Add exports. For a person search: `guid`, `name`, `classyear`, `record_type`.
+5. Add filters:
+   1. Any overall filters you want (record status, degree type, donor category, etc.).
+   2. A **Subquery Filter** named "Search by Name": Aggregate **Formula**, export **Person Name**, formula `@Person-Name like '%' + @q + '%'`.
+6. Click **Web Service → JSON**:
+   1. Service Account: **User Token - webservice**
+   2. Authorization Type: **Query String**
+   3. Copy the URL.
 
+> **Security:** the copied URL includes an `h=` token. Anyone who has it can run the query. Keep it out of public pages and public repos, restrict Allowed Networks when the data is personal, and regenerate the token if it leaks.
 
+## Call it from JavaScript
 
-## To use with query 
-
-### Eample 1
-``` Javascript
+```javascript
 $.ajax({
-    // url: "[[!!YOUR WEBSERVICE URL THAT YOU COPPIED FROM STEP 6 ABOVE]]",
-    url: "https://engage.macalester.edu/manage/query/run?id=e6c9632c-5980-4032-8e76-bef80e4d4947&cmd=service&output=json&h=578fea8f-2c64-47a5-820c-42ba3b5809f6",
-    success: function( data ) {
-        data.row.forEach(item => {
-            console.log(item.guid)
-            $('.form_response :input[value="'+eventOptions[item.guid]+'"]').parent().addClass('hidden')
-        });
-    }
+  url: "<YOUR WEB SERVICE URL FROM STEP 6>",
+  data: { q: "smith" },
+  success: function (data) {
+    data.row.forEach(function (item) {
+      console.log(item.guid, item.name);
+    });
+  }
 });
 ```
-
-### Example 2
-
-

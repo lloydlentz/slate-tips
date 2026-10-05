@@ -1,16 +1,18 @@
-## The default data points that come on a person dashboard conntinue to cause more questsions than answers from folks, especially Advancement office folks.  
+# Hide Default Sections on the Person Dashboard
 
-![image](https://github.com/user-attachments/assets/2c403ed4-5315-40b5-bc37-a8c742e422c8)
+The default sections on a person dashboard (Biographic, Activity History, Employment History, Interactions) often raise more questions than they answer, especially for Advancement staff.
 
-Currently to select those items is a bit of a hack, but servicable.   Add this to a script on your Person Dashbaord
+![Default person dashboard sections](https://github.com/user-attachments/assets/2c403ed4-5315-40b5-bc37-a8c742e422c8)
 
-```js
-$("#content h2:contains('Biographic')
-, #content h2:contains('Activity History')
-, #content h2:has(a:contains('Employment History'))
-, #content h2:has(a:contains('Interactions'))")
-    .filter(function() { return !$(this).closest("div[id^='widget_']").length; }) // Exclude sections inside widget_* divs
-    .each(function() {
-        $(this).css("display", "none").next("div").hide(); // Hide both the heading and its section
-    });
+Selecting them is a bit of a hack, but it works. Add this to a script on your Person Dashboard:
+
+```javascript
+$("#content h2:contains('Biographic'), " +
+  "#content h2:contains('Activity History'), " +
+  "#content h2:has(a:contains('Employment History')), " +
+  "#content h2:has(a:contains('Interactions'))")
+  .filter(function () { return !$(this).closest("div[id^='widget_']").length; }) // skip your own widgets
+  .each(function () {
+    $(this).hide().next("div").hide(); // hide the heading and its section
+  });
 ```

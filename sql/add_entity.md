@@ -1,31 +1,32 @@
-# Add Entity with values
+# Add an Entity with Values
 
-In order to add an entity, you first need to create the Entity item, then add the associated field 
+To add an entity row, first insert into `[entity]`, then add each of its fields to `[field]` with the new entity's ID as the `[record]`.
 
+Use this in a portal query (`@record` is the parent record, `@identity` is the logged-in user, `@note` is a parameter).
 
-``` SQL
-declare @newid uniqueidentifier;
-set @newid = NEWID();
+```sql
+declare @newid uniqueidentifier = newid();
 
-BEGIN 
-	INSERT INTO [dbo].[entity] (id, record, created, updated, entity)
-	VALUES (
-		@newid, @record, GETDATE(), GETDATE(), '68446fdb-aa9b-444d-9713-c71d2945b7e1'. -- You need the specific GUID for the Entity
-	);
+insert into [entity] ([id], [record], [created], [updated], [entity])
+values (@newid, @record, getdate(), getdate(),
+        '68446fdb-aa9b-444d-9713-c71d2945b7e1'); -- the GUID of your Entity definition
 
-	INSERT INTO [field] (field, record,related,[timestamp])
-	VALUES ('peercontact_record', @newid, @identity, GETDATE() );  --This field is setup as a related dataset
+-- Related (dataset/user) field
+insert into [field] ([record], [field], [related])
+values (@newid, 'peercontact_record', @identity);
 
-	INSERT INTO [field] (field, record,value,[timestamp])
-	VALUES ('peercontact_date', @newid, FORMAT( GETDATE(), 'MM/dd/yyyy'), GETDATE() );  -- This field is stored as Text/Value
+-- Text value fields
+insert into [field] ([record], [field], [value])
+values (@newid, 'peercontact_date', format(getdate(), 'MM/dd/yyyy'));
 
-	INSERT INTO [field] (field, record,value,[timestamp])
-	VALUES ('peercontact_detail', @newid, @note, GETDATE() );
+insert into [field] ([record], [field], [value])
+values (@newid, 'peercontact_detail', @note);
 
-	INSERT INTO [field] (field, record,[prompt],[timestamp])
-  -- This field is stored as a Prompt Value.  This does a lookup for the prompt GUID based on the key and export... easier to read.
-	VALUES ('peercontact_type', @newid, (select top 1 [id] from [lookup.prompt] 
-																			 where [key]='peercontact_type' and export='G') , GETDATE() );
-
-END
+-- Prompt field: look up the prompt GUID by key and export value
+insert into [field] ([record], [field], [prompt])
+values (@newid, 'peercontact_type',
+        (select top 1 [id] from [lookup.prompt]
+          where [key] = 'peercontact_type' and [export] = 'G'));
 ```
+
+> **Tip:** leave `[timestamp]` and `[source]` out of `[field]` inserts. Slate fills them in itself, and that's what triggers it to update the record.

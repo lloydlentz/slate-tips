@@ -1,6 +1,6 @@
 # SQL
 
-* [Basic SQL shorthands and Slate built-in functions](slate_sql_functions.md) (see also [helpers/sqlfunctions.md](../helpers/sqlfunctions.md))
+* [Basic SQL shorthands and Slate built-in functions](slate_sql_functions.md)
 * [Query a node in XML](xml.md), handy for Slate's key/value XML columns
 * [Remove HTML from a value field](remove_html.md), e.g. the Project Task table
 * [Split on spaces](split_space.md)

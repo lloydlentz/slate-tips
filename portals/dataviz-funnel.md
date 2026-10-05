@@ -1,8 +1,8 @@
 # Basic Funnel Chart
 
-<img src=https://raw.githubusercontent.com/lloydlentz/slate-tips/main/img/dataviz-funnel.png style="width:400" />
+A simple funnel chart in a portal, built from one query and one view.
 
-Two Parts
+<img src="https://raw.githubusercontent.com/lloydlentz/slate-tips/main/img/dataviz-funnel.png" width="400" />
 
- * [Query](dataviz-funnel.sql)
- * [HTML](dataviz-funnel.html)
+- [Query](dataviz-funnel.sql)
+- [View HTML](dataviz-funnel.html)

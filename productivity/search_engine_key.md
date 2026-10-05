@@ -1,32 +1,39 @@
-# Add a Shortcut to Chrome to search the Knowledgebase or community
+# Chrome Search Shortcuts for Slate
 
-Pro Tip credit goes to Paul Turchan @ Technolutions
+Add custom search engines to Chrome so you can type a keyword in the address bar to search the Knowledge Base, Slate Feedback, or your own instance.
 
-> I thought I would share some helpful tools we use on our end to rapidly find articles or posts in Slate Feedback. You can configure custom search engines in Google Chrome by accessing this page: **chrome://settings/searchEngines**. Here are some parameters to enter:
+_Pro tip credit: Paul Turchan, Technolutions._
 
-In the *Site Search* section, click "Add"
+1. Open `chrome://settings/searchEngines`.
+2. Under **Site search**, click **Add**.
+3. Add any of the engines below.
 
-### Searching Knowledge Base Articles
- - Search engine: Knowledge Base Articles
- - Shortcut: kba
- - URL with %s in place of query: 
+### Knowledge Base articles
+
+- Name: Knowledge Base Articles
+- Shortcut: `kba`
+- URL:
+
 ```
 https://technolutions.zendesk.com/hc/en-us/search?filter_by=knowledge_base&utf8=✓&query=%s
 ```
 
-### Searching Slate Feedback
- - Search engine: Slate Feedback
- - Shortcut: sf
- - URL with %s in place of query: 
+### Slate Feedback
+
+- Name: Slate Feedback
+- Shortcut: `sf`
+- URL:
+
 ```
 https://feedback.technolutions.com/forums/923530-slate?query=%s
 ```
 
-### Searching Your Slate for a person or RefID or EMail
- - Search engine: Search Slate for a Person
- - Shortcut: ss
- - URL with %s in place of query: 
-```
-https://[[YOUR SLATE BASE URL]]/manage/lookup/search?q=%s
-```
+### Your Slate (person, Ref ID, or email)
 
+- Name: Search Slate for a Person
+- Shortcut: `ss`
+- URL:
+
+```
+https://<your-slate-instance>/manage/lookup/search?q=%s
+```

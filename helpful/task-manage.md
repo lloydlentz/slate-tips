@@ -1,20 +1,20 @@
 # Task Manager Portal
 
-**Issue:**  Tasks and project in Slate is... functional.  Nearly there.  Super sweet start.  AND we cannot modify it.
+**Problem:** Slate's Tasks and Projects are functional, nearly there, and we can't modify them.
 
-**Solution:**  I started a very simple Task Management Portal.  Basic features: 
- - show all tasks that are not done, by project, and person
- - allow a user to filter down to user assigned, or project, or both.
+**Solution:** a simple task management portal that:
 
-**<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/youtube.png" height=20 /> Walkthrough Video:**  https://youtu.be/5rdT3ekmDZs
+- shows all open tasks by project and person
+- lets a user filter by assignee, project, or both
 
-**Slate Briefcase:** `4beec998-5c62-64c8-854c-2db766cc3e4e@mad`  This will work with no customization, uses Slate Standard Tables and Fields
+**Walkthrough video:** <img src="https://github.com/lloydlentz/slate-tips/raw/main/img/youtube.png" height="20" /> https://youtu.be/5rdT3ekmDZs
 
-<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/task-manage.gif" height=200 />
+**Slate Briefcase:** `4beec998-5c62-64c8-854c-2db766cc3e4e@mad`. Works with no customization; it uses standard Slate tables and fields.
 
-<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/task-manage-all-all.jpg" width=500 />
+<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/task-manage.gif" height="200" />
 
-<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/task-manage-ll-all.jpg" width=500 />
+<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/task-manage-all-all.jpg" width="500" />
 
-<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/task-manage-ll-general.jpg" width=500 />
+<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/task-manage-ll-all.jpg" width="500" />
 
+<img src="https://github.com/lloydlentz/slate-tips/raw/main/img/task-manage-ll-general.jpg" width="500" />

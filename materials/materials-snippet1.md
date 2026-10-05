@@ -1,7 +1,8 @@
-## Snippet from Slack
-### Author:  Bryce Kunkel  [2020-11-12](https://slate-users.slack.com/archives/CJHEUQW5V/p1605193931121400)
+# Get a Material's Viewer Image from JavaScript
 
-If you’ve ever wanted to display materials in a portal (think making your own custom reader process) this script will get it for you.
+To display materials in a portal (say, a custom reader), this returns a page-image URL for a material GUID.
+
+_Credit: Bryce Kunkel ([Slate Community Slack, 2020-11-12](https://slate-users.slack.com/archives/CJHEUQW5V/p1605193931121400))._
 
 ```javascript
 //returns a promise

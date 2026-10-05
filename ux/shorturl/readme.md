@@ -1,6 +1,6 @@
-# Custom Short URL for your Slate Instance
+# Custom Short URLs for Your Slate Instance
 
-Y'know what is kinda fun?   Short links.  Like turning a long URL link into a more readable one
+Y'know what's kinda fun? Short links: turning a long URL into a readable one.
 
 Turn this
 
@@ -17,11 +17,13 @@ I think this is kinda fun, and it was super easy.   Let me show you how you can 
 
 ### Standard Caveat
 
-<img src="doicare.png?"> 
+<img src="doicare.png" /> 
 
 ### STEP 1 - Choose a domain
 
 There are roughly 13 berjillion hosting providers, I am a [Google Guy](https://gdg.community.dev/gdg-twin-cities/), so let me walk you through this dead simple way.
+
+> **Note:** Google Domains has since moved to Squarespace. The steps are similar at most registrars: set up URL forwarding with a 302 redirect, path forwarding on, and SSL.
 
 1. Go to https://domains.google.com
 2. Search for something clever and available.   I chose **mclstr.page**.   Get it?   Macalester without vowels.   I know, very [TWTR](https://www.wired.com/2012/06/alt-text-stupid-new-tlds/) of me.  Also, at the time of print, .page domains are like $8/yr
@@ -37,13 +39,13 @@ There are roughly 13 berjillion hosting providers, I am a [Google Guy](https://g
 
 Because of the way the Internet [Tubing](https://knowyourmeme.com/memes/series-of-tubes) works you may have to wait a couple few hours for this to start working.   In the meantime, let's get your Slate portal setup and ready to accept your new awesome shortlinks.
 
-### Step 2 - Redir Portal
+### Step 2 - Redirect portal
 
-1. Make a new portal with they key "invite"... or whatever you want, but if you change it, change the protal name in STEP 1.4 above. Security = Anonymous
-2. Make a new query, Name = Invite,  custom SQL, of course, add a paraemter `<param id="invite" />` and drop in this [SQL](invite.sql) 
+1. Make a new portal with the key "invite"... or whatever you want, but if you change it, change the portal name in STEP 1.4 above. Security = Anonymous
+2. Make a new query, Name = Invite,  custom SQL, of course, add a parameter `<param id="invite" />` and drop in this [SQL](invite.sql) 
 3. Make a new View, Name = Default.   Put some place holder in there like "hi".
 4. Make a new Method, Name = Default.  No action, Default Branding, View = Default
-5. Make a new method, Name = Invite, Output Type = Redirect, Action = invite, View = Default.   
+5. Make a new Method, Name = Invite, Output Type = Redirect, Action = invite, View = Default.   
 6. In the Invite Method, link queries to your Invite Query
 
 ### Step 3 - Create your reg form, with custom URL
@@ -56,7 +58,7 @@ Remember, we are trying to shorten things up, so come up with some Custom URL th
 
 ### Test it out
 
-By now you should see be able to go to your domain and see what is happening.
+By now you should be able to go to your domain and see what is happening.
 
 Try going to your YOUR-SITE-URL/portal/invite?cmd=invite&invite=/{{YOUR-SHORT-FORM-PATH}}/{{SOME REF ID}}
 
@@ -77,10 +79,10 @@ Run that sucker and try some out!
 <img src="skinner-salt-bae.png" />
 
 
-### Step 5 - A little less guesable
+### Step 5 - A little less guessable
 <img src="security.png" style="width: 100px" />
 
-So.... having sequential refIDs like we do, is not super ideal, if a bad actor wanted to try and spoof the URL, they could impersonate another alumn and, I dunno, register for Happy Hour as a Trustee?   I don't know.   Still, it's always good to think of security.   If it actually needs to be secure, skip a shortURL.   But, we could do incrementally better.
+So.... having sequential refIDs like we do, is not super ideal, if a bad actor wanted to try and spoof the URL, they could impersonate another alum and, I dunno, register for Happy Hour as a Trustee?   I don't know.   Still, it's always good to think of security.   If it actually needs to be secure, skip a shortURL.   But, we could do incrementally better.
 
 In Software Engineering Egghead Land™ (industry term, trust me), you need to "Salt" your encoded item.   Not quite like Skinner the Salt Bae above, but for the level of depth here, lets say sure.  Basically it means, "add something random".  How about a part of a person's GUID.
 
@@ -94,4 +96,4 @@ And update your merge Query to add to the subquery export
 
 
 
-As always, mileage may vary.  Comments welcome.  Click that subcribe, and tip your waitstaff.  
+As always, mileage may vary.  Comments welcome.  Click that subscribe, and tip your waitstaff.  

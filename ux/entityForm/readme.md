@@ -1,32 +1,37 @@
-# Shortcut Pattern for having a form that is aware of it's entity.
+# Entity-Aware Forms
 
- 1) Add Entity Fields you want your users to update to a form.
- 2) Add a hidden text input field with the Entity GUID
- 3) Add a hidden text input filed with the key [entguid]
- 4) GOTO your Forms Script [Edit Form]>>[Edit Scripts / Styles] and enter either the **Full Script** or **Link** to this script
+A pattern for a form that edits (and can delete) one specific entity row.
+
+1. Add the entity fields you want users to update to a form.
+2. Add a hidden text box with export key `entguid` to hold the entity GUID.
+3. In **Edit Form → Edit Scripts / Styles**, add either the full script or a link to it (below).
 
 
 
-## [Full Script ](entityForm.js)
-add [this script text](https://lloydlentz.github.io/slate-tips/ux/entityForm/entityForm.js)
+## Option A: full script
 
-## Link
-add this 
-```
+Paste the contents of [entityForm.js](entityForm.js).
+
+## Option B: link
+
+```javascript
  $.getScript("https://lloydlentz.github.io/slate-tips/ux/entityForm/entityForm.js")
 ```
 
 
-## To Delete
+## Deleting an entity
 
-### Add a query to your UX Portal
-#### Parameters
-```
+### 1. Add a query to your portal
+
+**Parameters:**
+
+```xml
 <param id="record" type="UNIQUEIDENTIFIER" />
 <param id="entguid" type="UNIQUEIDENTIFIER" />
 ```
-#### Custom SQL 
-```SQL
+**Custom SQL:**
+
+```sql
 DELETE [field] 
  where [record] = @entguid
    and [record] in (select [id] from [entity] where [record] = @record)
@@ -36,11 +41,13 @@ DELETE from [entity]
    and [record] = @record
 ```
 
-### Add a Method
- - **Name:** 	CRUD - delete Entity
- - **Type:**	POST
- - **Action:**	db_delete_entity
- - **Linked Query:** - *CRUD - delete Entity* (That you just made above )
+### 2. Add a method
+
+- **Name:** CRUD - delete Entity
+- **Type:** POST
+- **Action:** `db_delete_entity`
+- **Linked Query:** CRUD - delete Entity (the query above)
  
-### On Your Form
- - Add a hidden field with export Key of **person**.   This will pick up the person GUID from the querystring, and make it available to the JS that was just added.
+### 3. On your form
+
+Add a hidden field with export key **person**. It picks up the person GUID from the query string for the script to use.

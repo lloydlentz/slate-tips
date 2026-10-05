@@ -34,8 +34,7 @@ Tips, snippets, and patterns for [Technolutions Slate](https://technolutions.com
  * [Signed PDF download URL (SQL)](materials/material_download_url.sql)
 
 ## Helpers
- * [Get QueryString params](helpers/querystring.md)
- * [Built-in SQL functions](helpers/sqlfunctions.md)
+ * [Read query string parameters in JavaScript](helpers/querystring.md)
 
 ## [SQL](sql/readme.md)
  * [Basic SQL shorthands and Slate built-in functions](sql/slate_sql_functions.md)
@@ -45,11 +44,11 @@ Tips, snippets, and patterns for [Technolutions Slate](https://technolutions.com
  * [Add a new entity with values](sql/add_entity.md)
 
 ## UX (User Experience)
+ * [Make a Configurable Joins query a web service](ux/webservice_query.md)
  * [Minimize the Slate default banner](ux/banner.md)
  * [Hide default data from the person dashboard](ux/hide_default_data_from_person_dashboard.md)
  * [Remove populations sidebar on datasets](ux/remove_populations_sidebar_on_datasets.js)
  * [Click to copy Ref ID](ux/click_to_copy_refid.js)
- * [Web service queries](ux/webservice_query.md)
  * [Autocomplete](ux/autocomplete/readme.md)
  * [Calendar visualization](ux/calendarviz/readme.md)
  * [Entity-aware forms](ux/entityForm/readme.md)

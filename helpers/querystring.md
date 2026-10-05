@@ -1,23 +1,22 @@
-# Get Querystring Info
+# Read Query String Parameters in JavaScript
 
-The Querystring Params are those thing in the URL of your browser like ?param=val
+Query string parameters are the `?param=val` part of the URL.
 
-**NOTE** This method will not work in a popup window.  the JS in a popup window will evaluate the querystring that is in the host window.  If you are looking to capture passed parameters that way you have to do it via Liquid Markup and Configurable Joins query Parameters
+> **Note:** this doesn't work inside a popup. Script in a popup sees the *host* page's URL. To get parameters passed to a popup, use Liquid and Configurable Joins query parameters instead.
 
-```JAVASCRIPT
+## Slate's built-in parser
+
+```javascript
 var qs = FW.decodeFormValues(location.search.substring(1));
 delete qs.cmd;
 console.log(qs.param)
 ```
 
-Is what Slate uses for their built-in.   
+## A more predictable helper
 
-## HOWEVER
+`FW.decodeFormValues` doesn't always parse values as you'd expect. After some [discussion with my elders](https://stackoverflow.com/questions/7731778/get-query-string-parameters-url-values-with-jquery-javascript-querystring), I recommend adding a small jQuery helper:
 
-That does not always parse params as expected.   After some [discussion with my elders](https://stackoverflow.com/questions/7731778/get-query-string-parameters-url-values-with-jquery-javascript-querystring)
- I'd recommend adding a jQuery bootstrap
- 
-```JAVASCRIPT
+```javascript
 $.urlParam = function (name) {
     var results = new RegExp('[\?&]' + name + '=([^&#]*)')
                       .exec(window.location.search);
@@ -26,11 +25,13 @@ $.urlParam = function (name) {
 }
 ```
 
-and then 
+Then:
 
-```JAVASCRIPT
+```javascript
 console.log($.urlParam('startdt'));
 // OUTPUT:  06/01/2020
 ```
-will output 
-*note*  I added the decodeURIComponent so that date params and other things are usable out of the box
+
+`decodeURIComponent` means dates and other encoded values are usable as-is.
+
+In modern browsers you can also use the built-in `new URLSearchParams(location.search).get('startdt')`.

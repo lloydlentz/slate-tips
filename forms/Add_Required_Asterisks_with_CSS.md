@@ -1,21 +1,19 @@
-It would be handy to have the page know to add the "Required" asktrisks 
+# Add "Required" Asterisks with CSS
 
-Here is a tip from Jared Randall (Bowdoin College)
+Slate marks required questions with `data-required="1"`. This CSS adds a red asterisk to their labels automatically.
 
-``` css
- [data-required="1"] label:after {
-	 color: #c1001b;
-	 font-weight:bold;
-	 content: " *";
+```css
+[data-required="1"] label:after,
+[data-required="1"] legend:after {
+  color: #c1001b;
+  content: " *";
+  font-weight: bold;
 }
- [data-required="1"] legend:after {
-	 color: #c1001b;
-	 content: " *";
-	 font-weight:bold;
-}
- [data-required="1"] fieldset label:after {
-	 color: #eeeeee;
-	 content: " *";
-	 font-weight:bold;
+
+/* Don't mark every option inside a checkbox/radio group */
+[data-required="1"] fieldset label:after {
+  color: #eeeeee;
 }
 ```
+
+_Credit: Jared Randall, Bowdoin College._

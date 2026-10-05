@@ -1,25 +1,27 @@
-## Ticcket Configurable Joins Query
+# Ticket Query (Configurable Joins)
 
-_Query in PUBLIC portal_
+The query behind the [ticket view](ticket.html). It lives in a **public** portal.
 
-## Base
-Form Response (all)
+**Base:** Form Response (all)
 
-## Joins
- - Person
- - Form
+**Joins:** Person, Form
 
-## Parameters
-`<param id="reg" type="UNIQUEIDENTIFIER" />`
+**Parameters:**
 
-## Exports
- - **last** : Person Last
- - **first** : Person Firs
- - **guid** : Form Response Guid
- - **guests** : Form Response Guests
- - **start** : Form Start Date
- - **location** : Form Location
- - **title** : Form Title
+```xml
+<param id="reg" type="UNIQUEIDENTIFIER" />
+```
 
-## Filters
- - **GUID** : `@FormResponseGUID = @reg`
+**Exports:**
+
+| Export | Field |
+|--------|-------|
+| `last` | Person Last |
+| `first` | Person First |
+| `guid` | Form Response GUID |
+| `guests` | Form Response Guests |
+| `start` | Form Start Date |
+| `location` | Form Location |
+| `title` | Form Title |
+
+**Filters:** Form Response GUID = `@reg`

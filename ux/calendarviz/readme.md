@@ -1,8 +1,10 @@
-#  Calendar Viz using Google Charts
+# Calendar Visualization with Google Charts
 
-Example https://engage.macalester.edu/portal/public?cmd=dataviz-logins-by-day
+A calendar heat map (here, portal logins per day) built with Google Charts.
+
+Live example: https://engage.macalester.edu/portal/public?cmd=dataviz-logins-by-day
 
 <img src="https://raw.githubusercontent.com/lloydlentz/slate-tips/main/img/CalendarVisualization.jpg">
 
- * [HTML](index.html)
- * [SQL](query.sql)
+- [View HTML](index.html)
+- [Query SQL](query.sql)

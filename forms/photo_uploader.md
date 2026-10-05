@@ -1,14 +1,16 @@
-## Storing a photo as Base64 Data is not too hard.
+# Photo Uploader (Base64)
 
-### Step 1 - Form
+Store an uploaded photo directly in a text field as a Base64 data URL.
 
-Add a Text Box.  With [Export Key] = **photo_data_url**
- 
-### Step 2 - Form Script
+## Step 1: Form
 
-In the "Edit Form Script" add the following 
+Add a Text Box with Export Key **photo_data_url**.
 
-```Javascript
+## Step 2: Form script
+
+In **Edit Scripts / Styles**, add:
+
+```javascript
 //########## Define elements ########
 var photoField = form.getElement("photo_data_url");
 var fileInput = $("<input type='file' />");
@@ -26,7 +28,6 @@ var encodeImageFileAsURL = function(element) {
    var file = element.files[0];
    var reader = new FileReader();
     reader.onloadend = function() {
-     console.log('RESULT', reader.result);
      photoField.val(reader.result);
       $("#photodata").attr("src",reader.result);
    }
@@ -35,18 +36,24 @@ var encodeImageFileAsURL = function(element) {
 
 
 fileInput.bind("change", function(){
-	encodeImageFileAsURL(encodeImageFileAsURL(this));
+	encodeImageFileAsURL(this);
 });
 ```
 
-Give it a whirl.  this will store the result in your form.
-![](https://github.com/lloydlentz/slate-tips/blob/main/img/imgload.gif)
+Give it a whirl. The photo is stored in the field when the form is saved.
+
+![Photo upload demo](../img/imgload.gif)
 
 
-### Optional
+## Optional: thumbnail
 
-If you would like to separately store a Thubmail version, you could add a field 
- * [Export Key] = **photo_data_url_thm**
- * [Label] = **Thumbnail Size**
- * Briefcase:  09fe8c90-e925-d5ce-c99a-6bfb156d9fd2@mad
- * [Use this JS instead](photo_uploader_thumbnail.js)
+To also store a thumbnail version, add a field:
+
+ * Export Key: **photo_data_url_thm**
+ * Label: **Thumbnail Size**
+ * Briefcase: `09fe8c90-e925-d5ce-c99a-6bfb156d9fd2@mad`
+ * [Use this script instead](photo_uploader_thumbnail.js)
+
+To shrink large photos before saving, see [photo_uploader_resize.js](photo_uploader_resize.js).
+
+> Base64 photos are large. Many of them can push a portal past Slate's render limit; see [Convert Base64 images](../scripts/convertBase64Images/readme.md).

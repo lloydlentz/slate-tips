@@ -1,82 +1,41 @@
 # Autocomplete
 
-What century is it?   We are used to having the web know about us, and help us fill out info.  
+What century is it? We're used to the web knowing about us and helping us fill out info. Two ways to get that in a Slate form.
 
----
-## Slate Form Default
+## Option 1: Slate's built-in autosuggest
 
 Per Stephen Nickle @ Technolutions
 > Autosuggest behavior in a form is like a waterfall starting at the top and flowing down until it hits a section break.
 
-Try putting a text box on your form with  autosuggest = `suggest,p/name`  and one after it with autosuggest `suggest,p/id`
+Try a text box with autosuggest `suggest,p/name`, followed by one with `suggest,p/id`. Map the fields to a person record, entity value, or whatever you need.
 
-You can set the filed mapping to store that on a person record / Entity value, whatever.   Go for it!
+To limit suggestions to a population, see [Restrict autosuggest to a population](../../forms/autocomplete_restrict_to_population.md).
 
----
-## Custom AutoComplete
+## Option 2: Custom autocomplete from your own query
 
-Autocomple has been around for decades.  **THANKS GOOGS**.  It is even part of the HTML5 [web standard](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+You need three parts:
 
-Fundamenatlly you need three parts
-1) **Input**; A form with an input box
-2) **Data**; remote data source that will filter on what is in the input box
-3) **Action**; Do something after the person chooses an autocomplete item
+1. **Input:** a form with a text box
+2. **Data:** a remote source that filters on what's typed (a Slate query web service is great at this)
+3. **Action:** something that happens when the person picks a suggestion
 
-Slate is super great at providing remote data source that will filter on a value.  There are a few ways you can do this within slate.  Here is an easy enough one.
+### Input
 
-#### Form
+1. Add a text box: Label `Search`, Export Key `search-input`.
+2. Add a text box: Label `Selected`, Export Key `search-selected`.
 
-1) Add an Input Box on a form.  Label = `Search`,  Export-Key = `search-input`
-2) Add an Input Box on a form.  Label = `Selected`, Export Key = `search-selected`
+### Data
 
-#### Data
+Follow [Make a Configurable Joins query a web service](../webservice_query.md), including the optional `q` parameter and the "Search by Name" filter.
 
-Let's get our data from a query, with config joins.  
-1) New Query - Config Join - Whatever base you are looking to get values from.   Usually Person, but why not something else?   Events? Funds? Contact Reports?
-2) [Edit Permissions] 
-    1)  Add Grantee
-        1)  Type = User Totke
-        2)  Name = `webservice`
-        3)  Allowed Networks *
-        4)  Permissions = ✅ Web Service
-        5)  [Save]
-    2) [Close] 
-3) [Edit Web Services]
-    1) Custom Parameters: add `<param id="q" />`
-    2) Service Type: JSON
-    3) Include NULLs: Include Nulls
-    4) [Save]
-4) Add Exports  (in my example I am an querying person)
-    1) guid
-    2) name
-    3) classyear
-    4) record_type
-5) Add Filters
-    1) Add any over arching filters you want.  (Recrods Status, Degree Type, Donor Categroy, etc)
-    2) Subquery Filter
-        1) Name: Search by Name
-        2) Aggregate: Formula
-        3) Formula: `@Person-Name like '%' + @q + '%'`
-        4) Export: [Person Name]
-        5) [Save]
-6) click on **Web Service** [JSON]
-    1) Service Accunt: User Token - webservice
-    2) Authorization Type: Query String
-    3) URL:  !!COPY THAT!!
+> **Security:** if you use this to prefill personal information, restrict the web service's Allowed Networks to campus.
 
 
-* **SECURITY** Always think about the level of security you want to provide to your users.   
-It would be a good idea to restrict the networks used to only on campus if you are using this teqnigue to pre-fill any personal information on a form.
+### Action
 
+Pro tip: never rebuild what already exists. Slate already loads jQuery, and jQuery UI has an [autocomplete widget](https://jqueryui.com/autocomplete/). It has a bit of a learning curve; for now, *hand-wavey web dev stuff*.
 
-## Action
-
-PRO-TIP, never re-create work that has already been done for you.   Slate relies upon the JQuery framework.   JQuery has this great addon for [AUTOCOMPLETE](https://jqueryui.com/autocomplete/)
-Let's use that.
-
-JQuery AutoComplete has a bit of a learning curve with it.  For this note's sake I will incant //hand-wavey-webdev-stuff//.
-
-If you go back to your form on Step 1 and add this to your [Edit Scripts/Styles] 
+Add this to the form's **Edit Scripts / Styles**:
 ```javascript
 const input = form.getElement("search-input");
 const selected = form.getElement("search-selected");
@@ -86,7 +45,7 @@ $.getScript( "https://code.jquery.com/ui/1.13.2/jquery-ui.js", function( data, t
 	input.autocomplete({
       source: function( request, response ) {
         $.ajax( {
-          url: "[[!!YOUR WEBSERVICE URL THAT YOU COPPIED FROM STEP 2 ABOVE... MINUS THE q=]]",
+          url: "<YOUR WEB SERVICE URL, without the q= part>",
          data: {
             q: request.term
           },
@@ -128,4 +87,4 @@ loadCSS("https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css")
 ```
 
 
-Give that a whirl.   Let me know what you thik on slack.  :)
+Give that a whirl. Let me know what you think on Slack. :)

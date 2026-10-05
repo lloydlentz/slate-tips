@@ -1,20 +1,20 @@
-# Hide Full events 
+# Hide Full Events on a Registration Form
 
-If you are using a primary form to register event attendees, and are not using the Related Events widget, but instead using a series of select boxes, and an automated export import to populate related events.  Here is a way to hide events that are already full.
+Use this if you register attendees on one main form with checkboxes (not the Related Events widget), and an automated export/import fills in the related events. It hides options for events that are already full.
 
----
-## General Idea
-1) Create your form with options to register
-2) Create your related events, as events, in a way that is queryiable (say all in a folder, or starte with a field, or have a related record of a Performance Goal Dataset, ...)
-3) Create a spreadsheet that keeps track of your {Event Name, Event GUID, Form response values}
-4) Create a query, with a webservice that will return which events are full
-5) Add some Javascript to the form that checks the query with JQuery and hides any options that are now full.
+## Overview
+1. Create the form with registration options.
+2. Create the related events so they are easy to query (all in one folder, a shared field, etc.).
+3. Keep a spreadsheet mapping each event name and GUID to its form option value.
+4. Create a query web service that returns the events that are full.
+5. Add form script that calls the web service and hides those options.
 
 
 ## Details
 
 ### 1) Form
-In my example form [1] , I have a simple registration block, with a checkbox (**Export Key**: `friday_options`) with prompt values 
+My example form [1] has a checkbox question (Export Key `friday_options`) with these prompt values:
+
 ```
 Friday Dinner^fri_dinner
 Sing along^fri_sing
@@ -22,58 +22,39 @@ Movie Night^fri_movie
 ```
 
 ### 2) Events
-I am using events in the folder `Reunion / Sub-Events`.   
+The events are in the folder `Reunion / Sub-Events`.
 
-### 3) Spreadsheet.
-Check out [this Spreadsheet](https://airtable.com/shrmWUY2QAcLGptMQ).   You can imagine a much longer one, with all the options.
+### 3) Spreadsheet
+
+See [this example spreadsheet](https://airtable.com/shrmWUY2QAcLGptMQ). Yours will likely have many more rows.
 
 ### 4) Query
-I made a query[1] that checks for events with registered >= Limit.  Then made it available as a web service .
+The query [1] returns events where Registered >= Limit, exposed as a web service.
 
-1) New Query - Config Join - Whatever base you are looking to get values from.  I am doing Forms
-2) [Edit Permissions] 
-    1)  Add Grantee
-        1)  Type = User Totke
-        2)  Name = `webservice`
-        3)  Allowed Networks *
-        4)  Permissions = ✅ Web Service
-        5)  [Save]
-    2) [Close] 
-3) [Edit Web Services]
-    1) Custom Parameters: *none*
-    2) Service Type: JSON
-    3) Include NULLs: Include Nulls
-    4) [Save]
-4) Add Exports  (in my example I am an querying person)
-    1) guid
-    2) name
-    3) classyear
-    4) record_type
-5) Add Filters
-    1) Folder
-    2) Formula: Registered >= Limit
-6) click on **Web Service** [JSON]
-    1) Service Accunt: User Token - webservice
-    2) Authorization Type: Query String
-    3) URL:  !!COPY THAT!!
+Follow [Make a Configurable Joins query a web service](../ux/webservice_query.md), with these differences:
 
+- Base: **Form** (one row per related event)
+- No custom parameters
+- Exports: `guid` (the event's GUID)
+- Filters: your events folder, and a formula filter for Registered >= Limit
 
 ### 5) Script
 
-In your form, open the Script and you can add two parts
+Add two parts to the form's script.
 
-#### Part 1 : Map Event GUIDs to Form options
-```Javascript 
+#### Part 1: Map event GUIDs to form option values
+
+```javascript
 var eventOptions = {
-    -- [[PASTE ALL THE VALUES FROM YOUR SPREADSHEET COLUMN **[Array FOR JS]**]]
-}
+  // paste the values from the spreadsheet's "Array for JS" column
+};
 ```
 
-#### Part 2 : Call your query, and hide all the parts.   
-This is an easy bit. 
-```Javascript 
+#### Part 2: Call the web service and hide full options
+
+```javascript
 $.ajax({
-    url: "[[!!YOUR WEBSERVICE URL THAT YOU COPPIED FROM STEP 4.6.3 ABOVE]]",
+    url: "<YOUR WEB SERVICE URL>",
     success: function( data ) {
         data.row.forEach(item => {
             console.log(item.guid)
@@ -83,8 +64,9 @@ $.ajax({
 });
 ```
 
-##### example
-```Javascript 
+#### Full example
+
+```javascript
 var eventOptions = {
     'bbcf0ee1-a5c9-433a-a762-cc55a916e11f': 'fri_dinner',
     '86ec5a34-22b1-4686-b641-4c8926adf79f': 'fri_sing',
@@ -92,7 +74,7 @@ var eventOptions = {
 }
 
 $.ajax({
-    url: "https://engage.macalester.edu/manage/query/run?id=e6c9632c-5980-4032-8e76-bef80e4d4947&cmd=service&output=json&h=578fea8f-2c64-47a5-820c-42ba3b5809f6",
+    url: "<YOUR WEB SERVICE URL>",
     success: function( data ) {
         data.row.forEach(item => {
             console.log(item.guid)
@@ -105,13 +87,8 @@ $.ajax({
 
 ## In summary
 
-Never forget that slat is a [series of tubes](https://en.wikipedia.org/wiki/Series_of_tubes), tinker toy away at your instance to make it do your will. 
+Never forget that Slate is a [series of tubes](https://en.wikipedia.org/wiki/Series_of_tubes), Tinker away at your instance to make it do your will.
 
 ---
 
-
-
-
-
-
-[1] - Suitcase: **c1bd5c93-1c6e-476a-ac07-419b96425285:mad**
+[1] Briefcase: `c1bd5c93-1c6e-476a-ac07-419b96425285@mad`

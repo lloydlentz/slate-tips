@@ -1,8 +1,13 @@
-## Hide the "Not _____. Click here"
+# Hide the "Not ___? Click here" Banner
 
-`	$('#form_response_banner').hide();`
+When a form is opened with a person's link, Slate shows a "Not So-and-so? Click here" banner. Add this to the form's script to hide it:
 
-Also, if you want to hide the "Logout" link
+```javascript
+$('#form_response_banner').hide();
+```
 
-`$('.c_contained div#global').hide();`
+To also hide the "Logout" link:
 
+```javascript
+$('.c_contained div#global').hide();
+```

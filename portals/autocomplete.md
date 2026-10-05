@@ -1,9 +1,10 @@
-# Autocomplete in a portal
+# Autocomplete in a Portal
 
-### Built in search endpoint
+Slate has a built-in lookup endpoint that returns a JSON array of people whose names match `q`:
 
-`/manage/serivce/lookup?type=p&q=name`
+```
+/manage/service/lookup?type=p&q=name
+```
 
-will return a JSON array of all names that match *name*
-
-[Sample](autocomplete-sample.html)
+- [Sample portal page](autocomplete-sample.html)
+- For a form-based version with your own query, see [Autocomplete (UX)](../ux/autocomplete/readme.md).

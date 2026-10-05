@@ -1,17 +1,19 @@
-## PopUPs
+# Portal Popups
 
+Open a portal method in Slate's popup dialog.
 
-### Call a Popup 
-to call a popup use the following 
+## Open a popup
+
+Link to the popup's method with `data-href` and call `FW.Lazy.Popup`:
 
 ```html
 <a data-href="?cmd=detail&amp;id={{person.id}}" href="#" onclick="return (FW.Lazy.Popup(this, {width: '500px'}));">{{person.name}}</a>
 ```
 
 
-### Poup Layout
+## Popup layout
 
-Basic form layout
+Slate styles a popup's `.header` and `.content` blocks. `FW.Dialog.Unload()` closes the popup.
 
 ```html
 <div class="header">
@@ -35,9 +37,9 @@ Basic form layout
 ```
 
 
-### Popup With Form
+## Popup with an embedded form
 
-```HTML
+```html
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title></title>
@@ -55,7 +57,7 @@ Basic form layout
     <script>
        var formguid = 'ae92507a-ba22-47f2-9c51-f0c5005112fb';
        $.ajax({
-           url: 'https://engage.macalester.edu/register/',
+           url: '/register/',
            dataType: "script",
            data: {
                id: formguid,
@@ -71,3 +73,5 @@ Basic form layout
   </body>
 </html>
 ```
+
+See also: [Popup template](pop-up-template.html), [Change the submit button and add Cancel](popup_formbuttons.md), [jQuery form embed](jquery-form-embed.md).

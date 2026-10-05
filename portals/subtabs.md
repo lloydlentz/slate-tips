@@ -1,12 +1,15 @@
-#Tabbed Portal with SubTabs.
+# Tabbed Portal with Subtabs
 
+A classic portal with tabs, where a tab can contain its own subtabs. Both are kept in the URL (`?tab=second&subtab=three`), so links and the back button work.
 
-This is working OK here. 
+- Each tab is a link with `data-tab`, loading method `?cmd=<tab>` into `#content_body`.
+- A tab's view can include subtab links with `data-tab` **and** `data-subtab`, plus a `#subcontent_body` div. A subtab loads method `?cmd=<tab>_<subtab>`.
 
-https://engage.macalester.edu/portal/subtabs?tab=second&subtab=three
+Live example: https://engage.macalester.edu/portal/subtabs?tab=second&subtab=three
 
-## Default
-```HTML
+## Default view
+
+```html
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title></title>

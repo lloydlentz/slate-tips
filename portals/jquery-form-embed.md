@@ -1,15 +1,17 @@
-The default way to embed a form, is snazzy.  
+# Embed a Form with Readable jQuery
 
-```
+Slate's default form embed code works, but passing many prefill values makes it one very long URL:
+
+```html
   <div id="form_b6455cc8-58da-49d7-92c2-41f1f229b50d">
     Loading...
   </div>
- <script async="async" src="https://engage.macalester.edu/register/?id=b6455cc8-58da-49d7-92c2-41f1f229b50d&amp;output=embed&amp;div=form_b6455cc8-58da-49d7-92c2-41f1f229b50d&amp;sys:job:id={{job_guid}}&amp;sys:job:employer={{org}}&amp;sys:job:title={{title}}&amp;sys:job:from={{startdt}}&amp;sys:job:field:field_of_work={{fow}}&amp;sys:job:field:field_of_spec={{fos}}&amp;sys:field:dir_show_employment={{viz}}&amp;sys:job:field:show_job_function={{show_job_function}}&amp;person={{guid}}" type="text/javascript"></script>
+ <script async="async" src="/register/?id=b6455cc8-58da-49d7-92c2-41f1f229b50d&amp;output=embed&amp;div=form_b6455cc8-58da-49d7-92c2-41f1f229b50d&amp;sys:job:id={{job_guid}}&amp;sys:job:employer={{org}}&amp;sys:job:title={{title}}&amp;sys:job:from={{startdt}}&amp;sys:job:field:field_of_work={{fow}}&amp;sys:job:field:field_of_spec={{fos}}&amp;sys:field:dir_show_employment={{viz}}&amp;sys:job:field:show_job_function={{show_job_function}}&amp;person={{guid}}" type="text/javascript"></script>
  ```
  
- But seriously, if you have a number of elements you are trying to map... it gets cumbersome.   As usualy jQuery to the rescue.
- 
- ```
+With more than a couple of values that gets cumbersome. jQuery to the rescue: pass the values as an object instead.
+
+```html
      <script>
         var formguid = 'b6455cc8-58da-49d7-92c2-41f1f229b50d';
         $.ajax({
@@ -35,7 +37,9 @@ The default way to embed a form, is snazzy.
     </script>
 ```
 
-## If you want to be able to pass in the QS Params as well 
+## Also pass through the page's query string parameters
+
+This forwards the parameters in the page URL to the form, then adds your own.
 
  ```html
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -90,10 +94,11 @@ The default way to embed a form, is snazzy.
 ```
 
 
-## Level Up
-If you want to level that up Dont add the default GUID DIV.
+## Level up: generate the div
 
- ```
+Instead of hard-coding the target div, create it with a random ID. This avoids ID collisions when the same form is embedded twice on a page.
+
+```html
      <script>
         function uuidv4() {  //Generate a GUID
           return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -102,17 +107,18 @@ If you want to level that up Dont add the default GUID DIV.
         }
         
         
-        var formguid = uuidv4();
-        
-        $('div.content').prepend('<div id="form_'+formguid+'">loading...</div>');
+        var formguid = 'b6455cc8-58da-49d7-92c2-41f1f229b50d';
+        var divId = 'form_' + uuidv4();
+
+        $('div.content').prepend('<div id="' + divId + '">loading...</div>');
 
         $.ajax({
-            url: 'https://engage.macalester.edu/register/',
+            url: '/register/',
             dataType: "script",
             data: {
                 id: formguid,
                 output: 'embed',
-                div:'form_' + formguid, 
+                div: divId,
                 'sys:job:id':'{{jobs[0].job_guid}}', 
                 'sys:job:employer': '{{org}}', 
                 'sys:job:title': '{{title}}', 

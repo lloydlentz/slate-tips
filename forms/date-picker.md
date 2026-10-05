@@ -1,25 +1,24 @@
-To allow a date picker
+# Date Picker on a Text Field
 
-```
+Add a date picker to a text box (replace `ExportKeyValue` with the field's export key):
+
+```javascript
 form.getElement('ExportKeyValue').datepicker();
 ```
 
-To restict the date
+Restrict the selectable dates:
 
-```
-Form.getQuestion('date').find('.hasDatepicker').datepicker("option", {
-    "minDate": "08/01/2024",
-    "maxDate": "08/23/2024"
+```javascript
+form.getQuestion('date').find('.hasDatepicker').datepicker("option", {
+  minDate: "08/01/2024",
+  maxDate: "08/23/2024"
 });
 ```
 
+## Why a text field?
 
-I always like to talk about the two parts of the system. **Getting Data In**, and getting Data Out. My phillosophy is that it should be super easy to get the data in. Of course we want it to be correct. This means no missing pieces. But if someone entries 1/1/24 or Jan 1, 2024, or 2024-01-01, great. We all know what they mean. Expecting that every date format, entered by hand, loaded from a file, transfered from an ELT load, will always be the same format is a losing battle.
+I think about two parts of any system: **getting data in** and **getting data out**.
 
-My "Style Guide" for any form expecting a date, is to make it a from text field, and in the scripts of the form add
+**Getting data in** should be easy. We want it correct, with no missing pieces, but if someone enters `1/1/24`, `Jan 1, 2024`, or `2024-01-01`, great, we all know what they mean. Expecting every date (typed by hand, loaded from a file, or brought in by an ETL) to arrive in one format is a losing battle. So my style guide for any date question is: make it a text field and add the date picker script above.
 
-```form.getElement('ExportKeyValue').datepicker(); ```
-
-**Getting data out**. This is the "presentation" side of that data. Remember, by default all custom fields are stored in the inside of Slate as just text. So if you export a field, to a query, or an EntityWidget Properties export, Slate will, by default, show the text that was stored. Slate does a great job of converting data into a consistent format. In your export, if you change the format to "Date", then, like magic, all of the dates will have a consistant look and feel.
-
-The nice thing is when you go to do date comparisons, or math (days since, etc), slate will also take care of all of that for you, no matter if you have 1/1/24 or Jan 1, 2024, or 2024-01-01 stored as the actual data element.
+**Getting data out** is presentation. Slate stores custom fields as text. When you export one in a query or an entity widget, set the export's format to **Date** and every value comes out in a consistent format. Date comparisons and date math (days since, etc.) work too, whatever format was stored.
